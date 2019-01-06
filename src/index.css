@@ -17414,8 +17414,8 @@ footer .pull-center {
     min-height: 400px;
   }
   .navbar-collapse {
-    position: fixed;
-    display: block;
+    /*position: fixed;*/
+    /*display: block;*/
     top: 0px;
     height: 100vh;
     width: 230px;
