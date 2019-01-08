@@ -1,6 +1,20 @@
 import React, { Component } from 'react';
 
 class Header extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {isToggleOn: false};
+
+        // This binding is necessary to make `this` work in the callback
+        this.handleClick = this.handleClick.bind(this);
+    }
+    handleClick() {
+        this.setState(state => ({
+            isToggleOn: !state.isToggleOn
+        }));
+    }
+
   render() {
     const logged = this.props.email ? <span>{this.props.email} </span> : <span> Inicia sesión</span> ;
     const buttons = this.props.buttons.map((button, key) => {
@@ -20,14 +34,14 @@ class Header extends Component {
               <img src={process.env.PUBLIC_URL + 'assets/img/logo.png'} />
                 {this.props.title}
                 </a>
-              <button className='navbar-toggler' type='button' aria-expanded='false' aria-label='Toggle navigation'>
+              <button onClick={this.handleClick} className='navbar-toggler' type='button' aria-expanded='false' aria-label='Toggle navigation'>
                 <span className='sr-only'>Toggle navigation</span>
                 <span className='navbar-toggler-icon'></span>
                 <span className='navbar-toggler-icon'></span>
                 <span className='navbar-toggler-icon'></span>
               </button>
             </div>
-            <div className='collapse navbar-collapse'>
+            <div className={this.state.isToggleOn ? 'navbar-collapse' : 'collapse navbar-collapse'}>
               <ul className='navbar-nav ml-auto'>
                 {buttons}
                 <li className='nav-item'>
