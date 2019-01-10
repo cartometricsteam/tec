@@ -4203,6 +4203,7 @@ tbody.collapse.show {
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
+  background-color: #ff8326;
 }
 
 .navbar-nav .nav-link {
@@ -8897,6 +8898,8 @@ button:focus {
   background-color: #002E5D ;
   border-color: #002E5D ;
   box-shadow: 0 2px 2px 0 rgba(156, 39, 176, 0.14), 0 3px 1px -2px rgba(156, 39, 176, 0.2), 0 1px 5px 0 rgba(156, 39, 176, 0.12);
+  width: 100%;
+  border-radius: 0px;
 }
 
 .btn.btn-primary:hover {
@@ -17414,10 +17417,10 @@ footer .pull-center {
     min-height: 400px;
   }
   .navbar-collapse {
-    /*position: fixed;*/
+    position: relative;
     /*display: block;*/
     top: 0px;
-    height: 100vh;
+    height: auto;
     width: 230px;
     right: 0;
     margin-right: 0 !important;
@@ -17430,15 +17433,15 @@ footer .pull-center {
     padding-right: 0;
     padding-left: 0;
     max-height: none !important;
-    -webkit-transform: translate3d(230px, 0, 0);
-    -moz-transform: translate3d(230px, 0, 0);
-    -o-transform: translate3d(230px, 0, 0);
-    -ms-transform: translate3d(230px, 0, 0);
-    transform: translate3d(230px, 0, 0);
-    -webkit-transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
-    -moz-transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
-    -o-transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
-    -ms-transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
+    /*-webkit-transform: translate3d(230px, 0, 0);*/
+    /*-moz-transform: translate3d(230px, 0, 0);*/
+    /*-o-transform: translate3d(230px, 0, 0);*/
+    /*-ms-transform: translate3d(230px, 0, 0);*/
+    /*transform: translate3d(230px, 0, 0);*/
+    /*-webkit-transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);*/
+    /*-moz-transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);*/
+    /*-o-transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);*/
+    /*-ms-transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);*/
     transition: all 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
   }
   .navbar-collapse::after {
@@ -17464,13 +17467,15 @@ footer .pull-center {
   .navbar-collapse .navbar-nav .nav-item .nav-link {
     color: #3C4858;
     margin: 5px 15px;
+    text-align: center;
+    box-shadow: 2px 2px 3px 3px #002e5d29;
   }
   .navbar-collapse .navbar-nav .nav-item.button-container .nav-link {
     margin: 15px;
   }
   .navbar-collapse .navbar-nav .nav-item:after {
     width: calc(100% - 30px);
-    content: "";
+    /*content: "";*/
     display: block;
     height: 1px;
     margin-left: 15px;

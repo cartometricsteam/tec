@@ -28,7 +28,7 @@ class Header extends Component {
     return (
       <header>
         <nav className='navbar navbar-color-on-scroll fixed-top navbar-expand-lg' style={{ backgroundColor: '#Ff8326' }}>
-          <div className='container' style={{ backgroundColor: '#Ff8326' }}>
+          {/*<div className='container' style={{ backgroundColor: '#Ff8326' }}>*/}
             <div className='navbar-translate'>
               <a className='navbar-brand' href='/'>
               <img src={process.env.PUBLIC_URL + 'assets/img/logo.png'} />
@@ -45,8 +45,7 @@ class Header extends Component {
               <ul className='navbar-nav ml-auto'>
                 {buttons}
                 <li className='nav-item'>
-
-                  <form className="form-inline ml-auto nav-item">
+                  <form className="form-inline ml-auto nav-item" style={{justifyContent:'center'}}>
                     <div className="form-group has-black">
                       <input type="text" className="form-control" placeholder="Buscar" />
                     </div>
@@ -62,7 +61,7 @@ class Header extends Component {
                 </li>
                 <li className='nav-item'><a className='nav-link' onClick={() => this.props.handler({ type: 'login', title: 'Accede o crea tu cuenta' })}><i className='material-icons'>person</i>{logged}</a></li>
               </ul>
-            </div>
+            {/*</div>*/}
           </div>
         </nav>
       </header>
