@@ -3,6 +3,11 @@ import mapboxgl from 'mapbox-gl';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import * as firebase from 'firebase';
+
+import Header from './Header';
+import Sidebar from './Sidebar';
+import Modal from './Modal';
+import district from './districts.json';
 require('dotenv').config();
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA';
@@ -19,8 +24,7 @@ firebase.firestore().settings({ timestampsInSnapshots: true });
 const data = {
   "type": "FeatureCollection",
   "features": [
-    { "type": "Feature", "properties": { "id": 1, related: [2,3,4,5,6,7,8,9,10,11,12,16,17,18,19,20,21,22,23,24 ]
-, "name": "BOSQUE URBANO MALAGA", "caracter": "NO REGLADO", "date": "2016/01/23", "mail": "sergioreyes@uma.es", 'url': "http://bosqueurbanomalaga.org/", "address": "CL BODEGUEROS, 9", "facebook": "https://www.facebook.com/BosqueUrbanoMalaga/", "twitter": "https://twitter.com/BosqueUrbanoMA", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.444496325793976, 36.705108612290161] } },
+    { "type": "Feature", "properties": { "id": 1, related: [2,3,4,5,6,7,8,9,10,11,12,16,17,18,19,20,21,22,23,24 ], 'nexus': 'true', "name": "BOSQUE URBANO MALAGA", "caracter": "NO REGLADO", "date": "2016/01/23", "mail": "sergioreyes@uma.es", 'url': "http://bosqueurbanomalaga.org/", "address": "CL BODEGUEROS, 9", "facebook": "https://www.facebook.com/BosqueUrbanoMalaga/", "twitter": "https://twitter.com/BosqueUrbanoMA", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.444496325793976, 36.705108612290161] } },
     { "type": "Feature", "properties": { "id": 2, related:[1] , "name": "A.V. LA COOPERACION", "caracter": "REGLADO", "date": "1986/06/06", "mail": "vegarcia@telefonica.net", 'url': "http://www.cruzdehumilladero.org/", "address": "nCL ARA, 1", "phone": "952329332", "facebook": "https://www.facebook.com/lacooperacion/", "twitter": "https://twitter.com/lacooperacion", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.443624993818503, 36.709371880868453] } },
     { "type": "Feature", "properties": { "id": 3, related:[1] , "name": "MAS LIBROS VERDES", "caracter": "REGLADO", "date": "2013/02/01", "mail": "comunicacion@maslibroslibres.com; info@maslibroslibres.com", 'url': "http://maslibroslibres.com/", "address": "nCL ARA, 1", "phone": "635033746", "facebook": "https://www.facebook.com/maslibroslibres/", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.443570622540628, 36.709285175546668] } },
     { "type": "Feature", "properties": { "id": 4, related:[1] , "name": "A.V. EL DUENDE", "caracter": "REGLADO", "date": "2002/05/22", "address": "nCL  RODOLFO HALFFTER, 1", "phone": "952335746; 645252718", "facebook": "https://www.facebook.com/Lagunillas-El-futuro-est%C3%A1-muy-Grease-270520043111026/", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.455660443220408, 36.702655698390629] } },
@@ -45,7 +49,7 @@ const data = {
     { "type": "Feature", "properties": { "id": 22, related: [1], "name": "ECONOMIA DEL BIEN COMUN MALAGA", "caracter": "NO REGLADO", "mail": "ebcmalaga@gmail.com; malaga@economia-del-bien-comun.es", 'url': "https://ebcmalaga.wordpress.com/", "address": "AV ARROYO DE LOS ANGELES, 50", "facebook": "https://www.facebook.com/EBC-M%C3%A1laga-1604767003159608/", "twitter": "https://twitter.com/MalagaEBC", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.431876108385918, 36.730528328244375] } },
     { "type": "Feature", "properties": { "id": 23, related: [1], "name": "ASOC. DE CIENCIAS AMBIENTALES MALAKA AMBIENTAL", "caracter": "REGLADO", "mail": "malakaambiental@gmail.com", 'url': "http://malakaambiental.blogspot.com/", "address": "BL LOUIS PASTEUR, 31", "phone": "952131864", "facebook": "https://www.facebook.com/Malaka-Ambiental-Ciencias-Ambientales-157140480993268/", "twitter": "https://twitter.com/MalakaAmbiental", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.472552455325802, 36.715482140858477] } },
     { "type": "Feature", "properties": { "id": 24, related: [1], "name": "A.V. LA UNIDAD NUEVA MALAGA", "caracter": "REGLADO", "date": "1985/01/31", "mail": "av_unidad@hotmail.com", "address": "CMNO CASTILLEJOS, 6", "phone": "952306126", "facebook": "https://www.facebook.com/unidadnuevamalaga/", "twitter": "https://twitter.com/avv_unidad", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.445332683299543, 36.725561976717756] } },
-    { "type": "Feature", "properties": { "id": 25, related: [26,27,28,29,30,31,32,33,34], "name": "J-AULAS ABIERTAS", "caracter": "REGLADO", "mail": "jaulasabiertasavolar@gmail.com", 'url': "http://www.j-aulasabiertas.com/", "address": "CL LEON TOLSTOI, 0", "phone": "666458021", "facebook": "https://www.facebook.com/jaulasabiertasumaentransicion/", "twitter": "https://twitter.com/J_AulasAbiertas", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.468137883503629, 36.715247318512411] } },
+    { "type": "Feature", "properties": { "id": 25, related: [26,27,28,29,30,31,32,33,34], 'nexus': 'true', "name": "J-AULAS ABIERTAS", "caracter": "REGLADO", "mail": "jaulasabiertasavolar@gmail.com", 'url': "http://www.j-aulasabiertas.com/", "address": "CL LEON TOLSTOI, 0", "phone": "666458021", "facebook": "https://www.facebook.com/jaulasabiertasumaentransicion/", "twitter": "https://twitter.com/J_AulasAbiertas", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.468137883503629, 36.715247318512411] } },
     { "type": "Feature", "properties": { "id": 26, related: [25], "name": "ASOC. PROVINCIAL SINDROME DE DOWN DE MALAGA", "caracter": "REGLADO", "date": "1992/02/22", "mail": "downmalaga@downmalaga.com", 'url': "http://www.downmalaga.com/", "address": "CL PIERROT, 27", "phone": "952274040; 665678204; 952274050", "facebook": "https://www.facebook.com/DownMalaga/", "twitter": "https://twitter.com/DownMalaga", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.465632817194586, 36.711950252748572] } },
     { "type": "Feature", "properties": { "id": 27, related: [25], "name": "ASOC. MUJERES EN zone DE CONFLICTO. MZC", "caracter": "REGLADO", "date": "2001/01/22", "mail": "malaga@mzc.es", 'url': "http://www.mzc.es/", "address": "AV JANE BOWLES, 0 2B", "phone": "957082000; 635661111", "facebook": "https://www.facebook.com/EducacionparaelDesarrollo/", "twitter": "https://twitter.com/ongdmzc", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.426358401367077, 36.743472471169724] } },
     { "type": "Feature", "properties": { "id": 28, related: [25], "name": "ASOC. EL CAMINITO", "caracter": "REGLADO", "date": "2012/03/08", "mail": "info@elcaminito.org", 'url': "http://www.elcaminito.org/", "address": "CL ZURBARAN, 3", "phone": "699010572", "facebook": "https://www.facebook.com/huertourbanoElCaminito/", "zone": "ESTE" }, "geometry": { "type": "Point", "coordinates": [-4.417441817537039, 36.733033079030967] } },
@@ -55,7 +59,7 @@ const data = {
     { "type": "Feature", "properties": { "id": 32, related: [25], "name": "ASOC. CULTURAL 'EL FUTURO ESTA MUY GREASE'", "caracter": 'NO REGLADO', "address": "CL AGUSTIN MORETO, 1", "facebook": "https://www.facebook.com/Lagunillas-El-futuro-est%C3%A1-muy-Grease-270520043111026/", "zone": "CENTRO" }, "geometry": { "type": "Point", "coordinates": [-4.415091757952935, 36.726012342773124] } },
     { "type": "Feature", "properties": { "id": 33, related: [25], "name": "PLATAFORMA DE COMUNICACION COMUNITARIA ONDA COLOR", "caracter": "NO REGLADO", "date": "2010/07/29", "mail": "participacion@ondacolor.org", 'url': "http://www.ondacolor.org/", "address": "CL DR. GALVEZ MOLL, 5", "phone": "952611567; 676590199", "facebook": "https://www.facebook.com/ondacolormlg/", "twitter": "https://twitter.com/ondacolor", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.427242052041144, 36.73903996550856] } },
     { "type": "Feature", "properties": { "id": 34, related: [25], "name": "COMUNIDAD YES WE TECH", "caracter": "NO REGLADO", "mail": "organiza@yeswetech.org;", 'url': "https://yeswetech.org/", "address": "BL LOUIS PASTEUR, 47", "facebook": "https://www.facebook.com/groups/yeswetech/", "twitter": "https://twitter.com/yeswetech_", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.497080463325609, 36.718700345639178] } },
-    { "type": "Feature", "properties": { "id": 35, related: [36,37,38,39,40,41,42,43], "name": "ASOC. FANTASIA EN LAGUNILLAS", "caracter": "REGLADO", "mail": "fantasiaenlagunillas@gmail.com", "address": "CL ALTOZANO, 0", "phone": "653456963; 605180819", "facebook": "https://www.facebook.com/fantasiaenlagunillas/", "zone": "CENTRO" }, "geometry": { "type": "Point", "coordinates": [-4.415198817682583, 36.726825153373291] } },
+    { "type": "Feature", "properties": { "id": 35, related: [36,37,38,39,40,41,42,43], 'nexus': 'true', "name": "ASOC. FANTASIA EN LAGUNILLAS", "caracter": "REGLADO", "mail": "fantasiaenlagunillas@gmail.com", "address": "CL ALTOZANO, 0", "phone": "653456963; 605180819", "facebook": "https://www.facebook.com/fantasiaenlagunillas/", "zone": "CENTRO" }, "geometry": { "type": "Point", "coordinates": [-4.415198817682583, 36.726825153373291] } },
     { "type": "Feature", "properties": { "id": 36, related: [35], "name": "ASOC. ACCEM", "caracter": "REGLADO", "mail": "malaga@accem.es", 'url': "https://www.accem.es/tag/malaga/", "address": "CJON PERICON, 1", "phone": "952224076; 687499067", "facebook": "https://www.facebook.com/accem/", "twitter": "https://twitter.com/Accem_ong", "zone": "CENTRO" }, "geometry": { "type": "Point", "coordinates": [-4.423525010480852, 36.722586625327494] } },
     { "type": "Feature", "properties": { "id": 37, related: [35], "name": "ASOC. GRUPO SCOUTS 124 MARISTAS - ABEL RELLOSO", "caracter": "REGLADO", "mail": "coordinador@gruposcout124.net; malaga@scoutsdeandalucia.org", 'url': "http://malaga.scoutsdeandalucia.org/", "address": "CL VICTORIA, 108", "phone": "659408447; 630454699", "facebook": "https://www.facebook.com/Delegaci%C3%B3n-Scout-de-M%C3%A1laga-ASDE-Scouts-de-Andaluc%C3%ADa-347392798800244/", "twitter": "https://twitter.com/GS124Maristas?lang=es", "zone": "CENTRO" }, "geometry": { "type": "Point", "coordinates": [-4.4139573000175, 36.726560740179266] } },
     { "type": "Feature", "properties": { "id": 38, related: [35], "name": "CLUB DE LEONES MALAGA ILUSION", "caracter": "REGLADO", "mail": "malagailusion.clubleones@gmail.com", 'url': "http://malagailusion-clubleones.blogspot.com.es", "address": "CL LA ERA, 18 A2 4 E", "phone": "633456856", "facebook": "https://www.facebook.com/malagailusion.clubleones/", "twitter": "https://twitter.com/IlusionMalaga", "zone": "CENTRO" }, "geometry": { "type": "Point", "coordinates": [-4.402009403379797, 36.733567555232987] } },
@@ -66,592 +70,6 @@ const data = {
     { "type": "Feature", "properties": { "id": 43, related: [35], "name": "CENTRO DE SALUD VICTORIA", "caracter": "NO REGLADO", 'url': "http://centrodesaludvictoria-malaga.blogspot.com/", "zone": "CENTRO" }, "geometry": { "type": "Point", "coordinates": [-4.415327619418009, 36.727062926461208] } }
   ]
 };
-
-class Header extends Component {
-  render() {
-    const logged = this.props.email ? <span>{this.props.email} </span> : <span> Inicia sesión</span> ;
-    const buttons = this.props.buttons.map((button, key) => {
-      return (
-        <li className='nav-item'>
-          <button type='button' className='btn btn-primary' style={{ backgroundColor: '#Ff8326' }} key={key} onClick={() => this.props.handler({ type: 'filter', description: button.description, title: button.name, id: button.id, options: button.filters })}>{button.name}</button>
-        </li>
-      );
-
-    });
-    return (
-      <header>
-        <nav className='navbar navbar-color-on-scroll fixed-top navbar-expand-lg' style={{ backgroundColor: '#Ff8326' }}>
-          <div className='container' style={{ backgroundColor: '#Ff8326' }}>
-            <div className='navbar-translate'>
-              <a class='logo'><img src='/assets/img/logo.png'></img></a>
-              <a className='navbar-brand'> {this.props.title} </a>
-              <button className='navbar-toggler' type='button' aria-expanded='false' aria-label='Toggle navigation'>
-                <span className='sr-only'>Toggle navigation</span>
-                <span className='navbar-toggler-icon'></span>
-                <span className='navbar-toggler-icon'></span>
-                <span className='navbar-toggler-icon'></span>
-              </button>
-            </div>
-            <div className='collapse navbar-collapse'>
-              <ul className='navbar-nav ml-auto'>
-                {buttons}
-                {/* <li className='nav-item'>
-
-                  <form className="form-inline ml-auto nav-item">
-                    <div className="form-group has-black">
-                      <input type="text" className="form-control" placeholder="Search" />
-                    </div>
-                    <span className="btn btn-black btn-raised btn-fab btn-round">
-                      <i className="material-icons">search</i>
-                    </span>
-                  </form>
-                </li> */}
-                <li className='nav-item'>
-                  <a className='nav-link' onClick={() => this.props.handler({ type: 'help', title: 'Plataforma de Iniciativas Ciudadanas', subtitle: '¿QUÉ INICIATIVAS CIUDADANAS HAY EN TU BARRIO?, ¿PARTICIPAS EN ALGUNA?, ¿QUIERES DARLA A CONOCER?', description: 'El objetivo de este proyecto es mostrar la ciudad de Málaga desde una perspectiva social de movimientos emergentes,iniciativas vecinales, nuevas tendencias urbanas dentro de sus barrios, dar a conocer esa realidad social -con poca visibilidad en la ciudad- además de crear una red de colectivos y asociaciones,y establecer posibles sinergias.' })}>
-                    <i className='material-icons'>help</i>
-                  </a>
-                </li>
-                <li className='nav-item'><a className='nav-link' onClick={() => this.props.handler({ type: 'login', title: 'Accede o crea tu cuenta' })}><i className='material-icons'>person</i>{logged}</a></li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-      </header>
-    )
-  }
-}
-
-class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({ [event.target.id]: event.target.value });
-  }
-
-  handleLogin(event) {
-    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => {
-        firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-          .then(response => {
-            this.props.userLog({ email: response.user.email, uid: response.user.uid });
-            this.props.handler(false);
-            NotificationManager.success('¡Cuenta creada!')
-          })
-          .catch(error => {
-            NotificationManager.error('Ha habido un error al acceder. Comprueba tu conexión e intenta acceder de nuevo')
-          })
-      })
-      .catch(error => {
-        if (error.code === 'auth/email-already-in-use') {
-          firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-            .then(response => {
-              this.props.userLog({ email: response.user.email, uid: response.user.uid });
-              this.props.handler(false);
-              NotificationManager.success('¡Autenticación correcta!')
-            })
-            .catch (error => {
-              NotificationManager.error('La contraseña no es correcta')
-            })
-        }
-        else {
-          NotificationManager.error('No se ha podido crear la cuenta');
-        }
-      });
-    event.preventDefault();
-  }
-
-  handleLogout(event) {
-    firebase.auth().signOut().then(() => {
-      this.props.userLog({ email: null, uid: null });
-      this.props.handler(false);
-    }).catch((error) => {
-      NotificationManager.error('Algo salió mal...')
-    });
-    NotificationManager.success('Desconectado. ¡Vuelve pronto!');
-    event.preventDefault();
-  }
-
-  render() {
-    const modalHeader = <div className='modal-header'> <h5 className='modal-title'>{this.props.title}</h5><button type='button' className='close' aria-label='Close' onClick={() => this.props.handler(false)}><span aria-hidden='true'>&times;</span></button></div>;
-
-    if (this.props.email) {
-      return (
-        <form onSubmit={this.handleLogout}>
-          <div className='modal fade show' style={{ display: 'block', overflow: 'auto' }} tabIndex='-1'>
-            <div className='modal-dialog modal-login' role='document'>
-              <div className='modal-content'>
-                <div className='card card-signup card-plain'>
-                  {modalHeader}
-                  <div className='modal-body' style={{ textAlign: 'center' }}>
-                    <h4 style={{ fontWeight: 'bold' }}>¡Hola!</h4>
-                    <h6>Estas registrado cómo {this.props.email}</h6>
-                    <input className='btn btn-primary justify-content-center' type='submit' value='Desconectar' style={{ backgroundColor: '#Ff8326' }} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-      )
-    }
-    else {
-      return (
-        <form onSubmit={this.handleLogin}>
-          <div className='modal fade show' style={{ display: 'block', overflow: 'auto' }} tabIndex='-1'>
-            <div className='modal-dialog modal-login' role='document'>
-              <div className='modal-content'>
-                <div className='card card-signup card-plain'>
-                  {modalHeader}
-                  <div className='modal-body'>
-                    <h6>Introduce tu correo y tu contraseña para acceder. Si no tienes una cuenta, se creará automáticamente.</h6>
-                    <div className='form-row'>
-                      <div className='form-group col-md-6'>
-                        <label htmlFor='email'>Email</label>
-                        <input type='text' className='form-control' id='email' placeholder='hola@example.com' value={this.state.email} onChange={this.handleChange} />
-                      </div>
-                      <div className='form-group col-md-6'>
-                        <label htmlFor='password'>Password</label>
-                        <input type='password' className='form-control' id='password' placeholder='Introduce tu contraseña' value={this.state.password} onChange={this.handleChange} />
-                      </div>
-                    </div>
-                    {/* <div className='form-row'>
-            <div className='form-group col-md-12'>
-              <label for='email4'>Nombre</label>
-              <input type='text' className='form-control' id='email4' placeholder='Arbolitos Unidos' />
-            </div>
-        </div> */}
-                    {/* <div className='form-row'>
-            <div className='form-group col-md-8'>
-            <label for='address'>Dirección</label>
-            <input type='text' className='form-control' id='address' placeholder='Calle de la Piruleta 1, Bloque 2, Puerta 4' />
-          </div>
-          <div className='form-group col-md-4'>
-              <label for='password4'>CP</label>
-              <input type='text' className='form-control' id='password4' placeholder='https://test.com' />
-            </div>
-        </div> */}
-                    {/* <div className='form-row'>
-          <div className='form-group col-md-3'>
-              <label for='password4'>CIF</label>
-              <input type='text' className='form-control' id='password4' placeholder='https://test.com' />
-            </div>
-            <div className='form-group col-md-3'>
-              <label for='inputState'>Télefono</label>
-              <input type='text' className='form-control' id='password4' placeholder='https://test.com' />
-            </div>
-            <div className='form-group col-md-3'>
-              <label for='inputState'>Web</label>
-              <input type='text' className='form-control' id='password4' placeholder='https://test.com' />
-            </div>
-            <div className='form-group col-md-3'>
-              <label for='inputState'>Ámbito</label>
-              <select id='inputState' className='form-control'>
-                <option selected>Elige una</option>
-                <option>...</option>
-              </select>
-            </div>
-          </div> */}
-                    {/* <div className='form-group'>
-            <label for='exampleFormControlTextarea1'>Hoja de ruta</label>
-            <textarea className='form-control' id='exampleFormControlTextarea1' rows='3'></textarea>
-          </div> */}
-                    <div className='modal-footer justify-content-center'>
-                      <input className='btn btn-primary justify-content-center' type='submit' value='Acceder' style={{ backgroundColor: '#Ff8326' }} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-      )
-    }
-  }
-}
-
-class Help extends Component {
-  render() {
-    const modalHeader = <div className='modal-header'> <h5 className='modal-title'>{this.props.title}</h5><button type='button' className='close' aria-label='Close' onClick={() => this.props.handler(false)}><span aria-hidden='true'>&times;</span></button></div>;
-    return (
-      <div className='modal fade show' style={{ display: 'block', overflow: 'auto' }} tabIndex='-1' role='dialog' aria-labelledby='ModalLabel' aria-hidden='true'>
-        <div className='modal-dialog' role='document'>
-          <div className='modal-content'>
-            {modalHeader}
-
-            <div className='modal-body'>
-              <h6>{this.props.subtitle}</h6>
-              <p className='text-justify'>{this.props.description}</p>
-              <a class='portada'><img class='portada' src='/assets/img/city.png'></img></a>
-              <div className='container'>
-
-
-
-                <div className='row'>
-                  <div className='col-md-4 col-lg-4 col-sm-12 text-center'>
-
-                    <a href='https://www.uma.es/rce/'><img className='sponsor' src='/assets/img/rce.png' /></a>
-
-                  </div>
-
-                  <div className='col-md-4 col-lg-4 col-sm-12 text-center'>
-
-                      <a href='https://www.uma.es/rce/'><img className='sponsorTec' src='/assets/img/tec.png'/></a>
-
-                  </div>
-
-                  <div className='col-md-4 col-lg-4 col-sm-12 text-center'>
-
-                    <a href='http://geotecnologias.uma.es/'><img className='sponsor' src='/assets/img/rges.png' /></a>
-
-                  </div>
-
-                <div className='row'>
-                    <div className='col-md-3 col-lg-3 col-sm-12 text-center'>
-                      <a href='https://www.polodigital.eu/'><img className='img-responsive' src='/assets/img/polo.png' /></a>
-                    </div>
-
-                    <div className='col-md-3 col-lg-3 col-sm-12 text-center'>
-                      <a href='http://www.andaluciatech.org/'><img className='img-responsive' src='/assets/img/andtech.png' /></a>
-                    </div>
-
-                    <div className='col-md-3 col-lg-3 col-sm-12 text-center'>
-                      <a href='https://www.promalaga.es/'><img className='img-responsive' src='/assets/img/promalaga.png' /></a>
-                    </div>
-
-                    <div className='col-md-3 col-lg-3 col-sm-12 text-center'>
-                      <a href='http://www.malaga.eu/'><img className='img-responsive' src='/assets/img/ayunt.png' /></a>
-                    </div>
-                </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
-}
-
-class FilterPanel extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmission = this.handleSubmission.bind(this);
-    this.restoreFilters = this.restoreFilters.bind(this);
-
-
-  }
-
-  restoreFilters() {
-    this.props.handler(false);
-    this.props.removeFilters();
-  }
-
-  handleChange(event) {
-    this.setState({ [event.target.id]: (this.state[event.target.id] === null || this.state[event.target.id] === undefined) ? true : !this.state[event.target.id] });
-  }
-
-  handleSubmission(event) {
-    this.props.handleFilters({[this.props.id]: Object.keys(this.state)})
-    this.props.handler(false);
-    event.preventDefault();
-  }
-
-  render() {
-
-    const header = <div className='modal-header'> <h5 className='modal-title'>{this.props.title}</h5><button type='button' className='close' aria-label='Close' onClick={() => this.props.handler(false)}><span aria-hidden='true'>&times;</span></button></div>;
-
-
-    const options = this.props.options.map(option => {
-      return (
-        <div className='form-check'>
-          <label className='form-check-label'>
-            <input className='form-check-input' type='checkbox' id={option} value={option} onChange={this.handleChange}/> {option}
-            <span className='form-check-sign'>
-              <span className='check'></span>
-            </span>
-          </label>
-        </div>
-      )
-    });
-
-    return (
-      <form onSubmit={this.handleSubmission}>
-        <div className='modal fade show' style={{ display: 'block', overflow: 'auto' }} tabIndex='-1' role='dialog' aria-labelledby='ModalLabel' aria-hidden='true'>
-          <div className='modal-dialog' role='document'>
-            <div className='modal-content'>
-              {header}
-              <p align='middle'><img src='/assets/img/logo.png'></img></p>
-
-              <div className='modal-body'>
-                <h6>{this.props.description}</h6>
-                {options}
-              </div>
-              <div className='modal-footer justify-content-center'>
-                <input className='btn btn-primary justify-content-center' type='submit' value='Filtrar' style={{ backgroundColor: '#Ff8326' }} />
-                <button type='button' className='btn btn-primary' style={{ backgroundColor: '#Ff8326' }} onClick={() => this.restoreFilters()}>Eliminar TODOS los filtros</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </form>
-    )
-  }
-}
-
-class Modal extends Component {
-  render() {
-
-    const modalHeader = <div className='modal-header'> <h5 className='modal-title'>{this.props.title}</h5><button type='button' className='close' aria-label='Close' onClick={() => this.props.handler(false, 'Tu iniciativa NO ha sido registrada. Créala de nuevo si quieres añadirla a nuestra base de datos', this.props.data.id)}><span aria-hidden='true'>&times;</span></button></div>;
-
-    if (this.props.type === 'help') {
-      return (
-
-        <Help title={this.props.title} subtitle={this.props.subtitle} description={this.props.description} handler={this.props.handler} />
-
-      )
-    }
-    else if (this.props.type === 'login') {
-      return (
-        <Dashboard title={this.props.title} handler={this.props.handler} userLog={this.props.userLog} email={this.props.email} />
-      )
-    }
-
-    else if (this.props.type === 'filter') {
-
-      return (
-        <FilterPanel title={this.props.title} removeFilters={this.props.removeFilters} id={this.props.id} handleFilters={this.props.handleFilters} handler={this.props.handler} options={this.props.options} />
-      )
-    }
-
-    else if (this.props.type === 'edit') {
-      if (this.props.email) {
-        return (
-          <div className='modal fade show' style={{ display: 'block', overflow: 'auto' }} tabIndex='-1' role='dialog' aria-labelledby='ModalLabel' aria-hidden='true'>
-            <div className='modal-dialog' role='document'>
-              <div className='modal-content'>
-                {modalHeader}
-                <div className='modal-body'>
-                  <h6>Rellena todos los campos para añadir tu iniciativa.</h6>
-                  <Form collection={this.props.collection} handler={this.props.handler} data={this.props.data} />
-                </div>
-              </div>
-            </div>
-          </div>
-        )
-      }
-      else {
-        return (
-          <div className='modal fade show' style={{ display: 'block', overflow: 'auto' }} tabIndex='-1' role='dialog' aria-labelledby='ModalLabel' aria-hidden='true'>
-            <div className='modal-dialog' role='document'>
-              <div className='modal-content'>
-                {modalHeader}
-                <div className='modal-body'>
-                  <h6>Tienes que estar registrado para añadir iniciativas</h6>
-                </div>
-              </div>
-            </div>
-          </div>
-        )
-      }
-    }
-
-    else {
-      return null;
-    }
-  }
-}
-
-class Form extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-      name: '',
-      web: '',
-      address: '',
-      purpose: '',
-      action: '',
-      area: '',
-      enabler: '',
-      description: '',
-      image: ''
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmission = this.handleSubmission.bind(this);
-  }
-
-
-  handleChange(event) {
-    this.setState({ [event.target.id]: event.target.value });
-  }
-
-  handleSubmission(event) {
-    let data = this.props.data;
-    data.properties = {
-      name: this.state.name,
-      url: this.state.web,
-      address: this.state.address,
-      initiative: this.state.purpose,
-      action: this.state.action,
-      area: this.state.area,
-      enabler: this.state.enabler,
-      description: this.state.description,
-      image: this.state.image
-    }
-    firebase.firestore().collection(this.props.collection).add(data)
-      .then(() => {
-        this.props.handler(false);
-        NotificationManager.success('Iniciativa añadida con éxito. ¡Gracias por colaborar!');
-      })
-      .catch((error) => {
-        NotificationManager.error('Ha ocurrido un error al crear la iniciativa.');
-      });
-    event.preventDefault();
-  }
-
-  render() {
-    return (
-      <form className='form' onSubmit={this.handleSubmission}>
-        <div className='form-row'>
-          <div className='form-group col-md-6'>
-            <label htmlFor='name'>Nombre</label>
-            <input type='text' className='form-control' id='name' placeholder='Nombre de la Iniciativa' value={this.state.name} onChange={this.handleChange} />
-          </div>
-          <div className='form-group col-md-6'>
-            <label htmlFor='web'>Web</label>
-            <input type='text' className='form-control' id='web' placeholder='https://example.com' value={this.state.web} onChange={this.handleChange} />
-          </div>
-        </div>
-        <div className='form-group'>
-          <label htmlFor='address'>Dirección</label>
-          <input type='text' className='form-control' id='address' placeholder='Calle de la Piruleta 1, Bloque 2, Puerta 4' value={this.state.address} onChange={this.handleChange} />
-        </div>
-        <div className='form-row'>
-          <div className='form-group col-md-3'>
-            <label htmlFor='initiative'>Iniciativa</label>
-            <select id='purpose' className='form-control' value={this.state.purpose} onChange={this.handleChange}>
-              <option value='' disabled hidden>Elige una</option>
-              <option value='accesibilidad'>Accesibilidad</option>
-              <option value='arte urbano'>Arte urbano</option>
-              <option value='autogestión'>Autogestión</option>
-              <option value='cuidado'>Cuidado</option>
-              <option value='culto'>Culto</option>
-              <option value='cultura'>Cultura</option>
-              <option value='deporte'>Deporte</option>
-              <option value='derechos sociales'>Derechos sociales</option>
-              <option value='diversidad'>Diversidad</option>
-              <option value='educación'>Educación</option>
-              <option value='integracion'>Integración</option>
-              <option value='igualdad'>Igualdad</option>
-              <option value='mediacion'>Mediación</option>
-              <option value='medio ambiente'>Medio ambiente</option>
-              <option value='migracion'>Migración</option>
-              <option value='movilidad sostenible'>Movilidad sostenible</option>
-              <option value='patrimonio sociocultural'>Patrimonio sociocultural</option>
-              <option value='politica social'>Política social</option>
-              <option value='regeneración urbana'>Regeneración urbana</option>
-              <option value='salud'>Salud</option>
-            </select>
-          </div>
-          <div className='form-group col-md-3'>
-            <label htmlFor='action'>Acción</label>
-            <select id='action' className='form-control' value={this.state.action} onChange={this.handleChange}>
-              <option value='' disabled hidden>Elige una</option>
-              <option value='taller'>Taller: curso, workshop , seminario, jornadas...</option>
-              <option value='digital'>Digital: espacios virtuales, redes sociales... </option>
-              <option value='reunion'>Reunión: punto de encuentro, foro, asamblea... </option>
-              <option value='accion'>Acción: performance, acción, intervención...</option>
-              <option value='exposicion'>Exposición: muestra, evento, presentación...</option>
-              <option value='difusion'>Difusión: promoción, publicación, divulgación...</option>
-            </select>
-          </div>
-          <div className='form-group col-md-3'>
-            <label htmlFor='area'>Área</label>
-            <select id='area' className='form-control' value={this.state.area} onChange={this.handleChange}>
-              <option value='' disabled hidden>Elige una</option>
-              <option value='casa de la cultura'>Casa de la cultura</option>
-              <option value='espacios virtuales'>Espacios virtuales</option>
-              <option value='huerto urbano'>Huerto urbano</option>
-              <option value='solares vacios'>Solares vacíos</option>
-              <option value='itinerarios urbanos'>Itinerarios urbanos</option>
-              <option value='banco de recursos'>Banco de recursos</option>
-              <option value='escuela ciudadana'>Escuela ciudadana</option>
-              <option value='lugares de encuentro'>Lugares de encuentro</option>
-              <option value='coworking'>Coworking</option>
-            </select>
-          </div>
-          <div className='form-group col-md-3'>
-            <label htmlFor='enabler'>Impulsor</label>
-            <select id='enabler' className='form-control' value={this.state.enabler} onChange={this.handleChange}>
-              <option value='' disabled hidden>Elige uno</option>
-              <option value='administración pública'>Administración pública</option>
-              <option value='asociación de vecinos/as'>Asociación de vecinos/as</option>
-              <option value='asamblea local'>Asamblea local</option>
-              <option value='movimiento ciudadano'>Movimiento ciudadano</option>
-              <option value='colectivo tradicional'>Colectivo tradicional</option>
-              <option value='obra social'>Obra social</option>
-            </select>
-          </div>
-        </div>
-        <div className='form-group'>
-          <label htmlFor='description'>Descripción</label>
-          <textarea className='form-control' placeholder='Describe aqui la iniciativa' id='description' rows='3' value={this.state.description} onChange={this.handleChange} />
-        </div>
-        <div className='form-group'>
-          <label htmlFor='image'>¿Alguna imagen?</label>
-          <input type='text' className='form-control' id='image' placeholder='Pon el enlace a la imagen de tu iniciativa.' value={this.state.image} onChange={this.handleChange} />
-        </div>
-        <div className='modal-footer justify-content-center'>
-          <input className='btn btn-primary justify-content-center' type='submit' value='Enviar' style={{ backgroundColor: '#Ff8326' }} />
-        </div>
-      </form>
-    );
-  }
-}
-
-class Sidebar extends Component {
-  render() {
-    if (this.props.show) {
-      const url = this.props.url == null ? null : <a href={this.props.url} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>link</i>Website</a>,
-        twitter = this.props.twitter == null ? null : <a href={this.props.twitter} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>link</i>Twitter</a>,
-        phone = this.props.phone == null ? null : <a href={'tel:' + this.props.phone} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>phone</i> {this.props.phone}</a>;
-
-      return (
-        <div className='card card-sidebar' style={{ overflow: 'auto' }}>
-        <div className='modal-header'> <h5 className='modal-title'>{this.props.title}</h5><button type='button' className='close' aria-label='Close' onClick={this.props.closeSidebar}><span aria-hidden='true'>&times;</span></button></div>;
-          <img className='card-img-top' src={this.props.img} />
-          <div className='card-body'>
-            <h4 className='card-title'>{this.props.title}</h4>
-            <h6 className='card-subtitle mb-2 text-muted'>{this.props.address}</h6>
-            <p className='card-text'>{this.props.description}</p>
-            <div>{url}</div>
-            <div>{phone}</div>
-            <div>{twitter}</div>
-          </div>
-        </div>
-      )
-    }
-    else {
-      return null;
-    }
-  }
-}
 
 class App extends Component {
 
@@ -666,8 +84,8 @@ class App extends Component {
     this.state = {
       modal: {
         title: 'Plataforma de Iniciativas Ciudadanas',
-        subtitle: '¿QUÉ INICIATIVAS CIUDADANAS HAY EN TU BARRIO? ¿PARTICIPAS EN ALGUNA?, ¿QUIERES DARLA A CONOCER?',
-        description: '“PIC Málaga: Plataforma de Iniciativas Ciudadanas” es una plataforma digital interactiva que permite crear una red de colectivos, asociaciones e iniciativas locales para propiciar sinergias y fomentar la cultura de la participación. Regístrate y añade las agrupaciones ciudadanas que conozcas.',
+        subtitle: '¿QUÉ INICIATIVAS CIUDADANAS HAY EN TU BARRIO?, ¿PARTICIPAS EN ALGUNA?, ¿QUIERES DARLA A CONOCER?',
+        description: '“PIC Málaga: Plataforma de Iniciativas Ciudadanas” es una plataforma digital interactiva que permite crear una red de colectivos, asociaciones e iniciativas locales para propiciar sinergias y fomentar la cultura de la participación. Si deseas conocer la realidad social de movimientos emergentes en la ciudad de Málaga, saber qué entidades se mueven en tu barrio y/o quieres implicarte de forma activa en alguna de ellas, este es el espacio donde poder estar en presencia. Regístrate y empieza por incluir puntos/agrupaciones ciudadanas vivas que conozcas.',
         type: 'help',
         id: '',
         options: ''
@@ -675,7 +93,7 @@ class App extends Component {
       site: {
         title: 'Iniciativas Ciudadanas',
         collection: 'initiatives',
-        buttons: [{ name: 'Iniciativa', id: 'purpose', description:'Este filtro hace que blablablablabla', filters: ['Accesibilidad', 'Arte urbano', 'Autogestión', 'Cuidado', 'Culto', 'Cultura', 'Deporte', 'Derechos sociales', 'Diversidad', 'Educación', 'Integración', 'Igualdad', 'Mediación', 'Medio ambiente', 'Migración', 'Movilidad sostenible', 'Patrimonio sociocultural', 'Política social', 'Regeneración urbana', 'Salud'] }, { name: 'Acción', id: 'action', description:'Este filtro hace que blablablablabla',filters: ["Taller", "Digital", "Reunión", "Acción", "Exposición", "Difusión"] }, { name: 'Área de actuación', id: 'area', description:'Este filtro hace que blablablablabla', filters: ["Casa de la cultura", "Espacios virtuales", "Huerto urbano", "Solares vacíos", "Itinerarios urbanos", "Banco de recursos", "Escuela ciudadana", "Lugares de encuentro", "Coworking"] }, { name: 'Impulsor', id: 'enabler', description:'Este filtro hace que blablablablabla', filters: ["Administración pública", "Asociación de vecinos/as", "Asamblea local", "Movimiento ciudadano", "Colectivo tradicional", "Obra social"]}, { name: 'Distrito', id: 'district',  filters: []}]
+        buttons: [{ name: 'Iniciativas', id: 'purpose', filters: ['Accesibilidad', 'Arte urbano', 'Autogestión', 'Cuidado', 'Culto', 'Cultura', 'Deporte', 'Derechos sociales', 'Diversidad', 'Educación', 'Integración', 'Igualdad', 'Mediación', 'Medio ambiente', 'Migración', 'Movilidad sostenible', 'Patrimonio sociocultural', 'Política social', 'Regeneración urbana', 'Salud'] }, { name: 'Acción', id: 'action', filters: ["Taller", "Digital", "Reunión", "Acción", "Exposición", "Difusión"] }, { name: 'Área de actuación', id: 'area', filters: ["Casa de la cultura", "Espacios virtuales", "Huerto urbano", "Solares vacíos", "Itinerarios urbanos", "Banco de recursos", "Escuela ciudadana", "Lugares de encuentro", "Coworking"] }, { name: 'Facilitador', id: 'enabler', filters: ["Administración pública", "Asociación de vecinos/as", "Asamblea local", "Movimiento ciudadano", "Colectivo tradicional", "Obra social"]}, { name: 'Barrio', id: 'district', filters: district.features.map((feature) => feature.properties.name)}]
       },
       user: {
       },
@@ -700,7 +118,7 @@ class App extends Component {
       this.draw.delete(id)
     }
   }
-
+  
   handleFilters(conditions) {
     const filters = this.state.map.filter;
     filters[Object.keys(conditions)[0]] = Object.values(conditions)[0];
@@ -716,7 +134,7 @@ class App extends Component {
   }
 
   composeFilters(filterObject) {
-    const matches =
+    const matches = 
       Object.entries(filterObject).map((filterComponent) => {
         if (filterComponent[1].length < 1) {
           return
@@ -748,10 +166,10 @@ class App extends Component {
     //     this.map.setFilter('route', this.state.filter);
     //   });
     this.map.setFilter('pointActivities', this.composeFilters(this.state.map.filter));
-    // if(this.map.getSource('userSelected') !== undefined) {
-    //   this.map.setFilter('userSelected', this.composeFilters(this.state.map.filter));
-    //   this.map.setFilter('selectedFeatures', this.composeFilters(this.state.map.filter));
-    // }
+    if(this.map.getSource('userSelected') !== undefined) {
+      this.map.setFilter('userSelected', this.composeFilters(this.state.map.filter));
+      this.map.setFilter('selectedFeature', this.composeFilters(this.state.map.filter));
+    }
   }
 
   componentDidMount() {
@@ -759,23 +177,22 @@ class App extends Component {
       container: this.mapContainer,
       style: 'mapbox://styles/mapbox/light-v9',
       center: [-4.4214, 36.7213],
-      zoom: 12
+      zoom: 12,
+      hash: true
     });
 
     this.map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
      this.draw = new MapboxDraw({
-
-       title: 'hola',
       controls: {
         combine_features: false,
         uncombine_features: false,
         trash: false,
         line_string: false,
-        polygon: false,
+        polygon: false
       }
     })
-
+    
     this.map.addControl(this.draw, 'bottom-right');
 
     this.map.on('load', () => {
@@ -836,10 +253,21 @@ class App extends Component {
         source: 'activities',
         type: 'circle',
         paint: {
-          'circle-radius': {
-            'base': 1.75,
-            'stops': [[12, 2], [22, 180]]
-          },
+          'circle-radius': [
+            "interpolate", ["linear"], ["zoom"],
+            // zoom is 5 (or less) -> circle radius will be 1px
+            4, ['match',
+            ['get', 'nexus'],
+            'true', 1.5,
+            1
+          ],
+            // zoom is 10 (or greater) -> circle radius will be 5px
+            12, ['match',
+            ['get', 'nexus'],
+            'true', 7.5,
+            5
+          ]
+        ],
 
           'circle-color': [
             'match',
@@ -870,10 +298,21 @@ class App extends Component {
           },
           type: 'circle',
           paint: {
-            'circle-radius': {
-              'base': 1.75,
-              'stops': [[12, 2], [22, 180]]
-            },
+            'circle-radius': [
+              "interpolate", ["linear"], ["zoom"],
+              // zoom is 5 (or less) -> circle radius will be 1px
+              5, ['match',
+              ['get', 'nexus'],
+              'true', 2,
+              1
+            ],
+              // zoom is 10 (or greater) -> circle radius will be 5px
+              12, ['match',
+              ['get', 'nexus'],
+              'true', 10,
+              5
+            ]
+          ],
 
             'circle-color': [
               'match',
@@ -900,7 +339,7 @@ class App extends Component {
 
         this.map.on('click', activityType, e => {
           let featureProperties = e.features[0].properties;
-          this.setState({ featureData: { title: featureProperties.name, show: true, img: featureProperties.img, description: featureProperties.description, url: featureProperties.url, twitter: featureProperties.twitter, phone: featureProperties.phone, address: featureProperties.address } })
+          this.setState({ featureData: { title: featureProperties.name, show: true, img: featureProperties.img, description: featureProperties.description, url: featureProperties.url, twitter: featureProperties.twitter, facebook: featureProperties.facebook, phone: featureProperties.phone, address: featureProperties.address } })
         });
       })
 
@@ -942,8 +381,8 @@ class App extends Component {
             'line-cap': 'round'
           },
           'paint': {
-            'line-color': '#Ff8326',
-            'line-width': 2
+            'line-color': '#AAA',
+            'line-width': 1
           }
         });
 
@@ -955,23 +394,25 @@ class App extends Component {
           },
           type: 'circle',
           paint: {
-            'circle-radius': {
-              'base': 6,
-              'stops': [[12, 6], [22, 320]]
-            },
-
-            'circle-color': [
-              'match',
-              ['get', 'name'],
-              'bike', '#fbb03b',
-              'parkour', '#223b53',
-              'running', '#e55e5e',
-              'yoga', '#3bb2d0',
-              '#Ff8326'
-            ]
+            'circle-radius': [
+              "interpolate", ["linear"], ["zoom"],
+              // zoom is 5 (or less) -> circle radius will be 1px
+              5, 1,
+              // zoom is 10 (or greater) -> circle radius will be 5px
+              12, 4
+          ],
+            'circle-stroke-width': [
+              "interpolate", ["linear"], ["zoom"],
+              // zoom is 5 (or less) -> circle radius will be 1px
+              5, 1,
+              // zoom is 10 (or greater) -> circle radius will be 5px
+              12, 6
+          ],
+            'circle-stroke-color': '#AAA',
+            'circle-color': '#Ff8326'
           }
         });
-
+        
       })
 
       this.map.on('draw.create', e => {
@@ -998,14 +439,14 @@ class App extends Component {
       <div style={style} ref={el => this.mapContainer = el} >
         <Header title={this.state.site.title} buttons={this.state.site.buttons} handler={this.toggleModal} email={this.state.user.email} />
         <Modal type={this.state.modal.type} removeFilters={this.removeFilters} title={this.state.modal.title} id={this.state.modal.id} subtitle={this.state.modal.subtitle} description={this.state.modal.description} email={this.state.user.email} handler={this.toggleModal} handleFilters={this.handleFilters} userLog={this.userLog} options={this.state.modal.options} data={this.state.modal.data} collection={this.state.site.collection} />
-        <Sidebar title={this.state.featureData.title} img={this.state.featureData.img} description={this.state.featureData.description} address={this.state.featureData.address} email={this.state.featureData.email} url={this.state.featureData.url} twitter={this.state.featureData.twitter} phone={this.state.featureData.phone} show={this.state.featureData.show} closeSidebar={this.closeSidebar} />
+        <Sidebar title={this.state.featureData.title} img={this.state.featureData.img} description={this.state.featureData.description} address={this.state.featureData.address} email={this.state.featureData.email} url={this.state.featureData.url} twitter={this.state.featureData.twitter} facebook={this.state.featureData.facebook} phone={this.state.featureData.phone} show={this.state.featureData.show} closeSidebar={this.closeSidebar} />
         <NotificationContainer/>
       </div>
     );
   }
 }
 // IMPORTANTE, SON LOS FILTROS DE LOS BOTONES
-// [{ name: 'Iniciativa', filters: ['Accesibilidad', 'Arte urbano', 'Autogestión', 'Cuidado', 'Culto', 'Cultura', 'Deporte', 'Derechos sociales', 'Diversidad', 'Educación', 'Integración', 'Igualdad', 'Mediación', 'Medio ambiente', 'Migración', 'Movilidad sostenible', 'Patrimonio sociocultural', 'Política social', 'Regeneración urbana', 'Salud'] }, { name: 'Acción', filters: ["Taller", "Digital", "Reunión", "Acción", "Exposición", "Difusión"] }, { name: 'Área de actuación', filters: ["Casa de la cultura", "Espacios virtuales", "Huerto urbano", "Solares vacíos", "Itinerarios urbanos", "Banco de recursos", "Escuela ciudadana", "Lugares de encuentro", "Coworking"] }, { name: 'Impulsor', filters: ["Administración pública", "Asociación de vecinos/as", "Asamblea local", "Movimiento ciudadano", "Colectivo tradicional", "Obra social"] }, { name: 'Distritos', filters: ['foo', 'bar'] }]
+// [{ name: 'Iniciativas', filters: ['Accesibilidad', 'Arte urbano', 'Autogestión', 'Cuidado', 'Culto', 'Cultura', 'Deporte', 'Derechos sociales', 'Diversidad', 'Educación', 'Integración', 'Igualdad', 'Mediación', 'Medio ambiente', 'Migración', 'Movilidad sostenible', 'Patrimonio sociocultural', 'Política social', 'Regeneración urbana', 'Salud'] }, { name: 'Acción', filters: ["Taller", "Digital", "Reunión", "Acción", "Exposición", "Difusión"] }, { name: 'Área de actuación', filters: ["Casa de la cultura", "Espacios virtuales", "Huerto urbano", "Solares vacíos", "Itinerarios urbanos", "Banco de recursos", "Escuela ciudadana", "Lugares de encuentro", "Coworking"] }, { name: 'Facilitador', filters: ["Administración pública", "Asociación de vecinos/as", "Asamblea local", "Movimiento ciudadano", "Colectivo tradicional", "Obra social"] }, { name: 'Distritos', filters: ['foo', 'bar'] }]
 
 // const data_sport = {
 //   "type": "FeatureCollection",
