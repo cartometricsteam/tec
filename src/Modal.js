@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import {NotificationManager} from 'react-notifications';
-import * as firebase from 'firebase';
 import Dashboard from './Dashboard';
 import Help from './Help';
 import FilterPanel from './FilterPanel';
@@ -38,7 +36,7 @@ class Modal extends Component {
                 {modalHeader}
                 <div className='modal-body'>
                   <h6>Rellena todos los campos para añadir tu iniciativa.</h6>
-                  <Form collection={this.props.collection} handler={this.props.handler} data={this.props.data} />
+                  <Form collection={this.props.collection} handler={this.props.handler} data={this.props.data} email={this.props.email} />
                 </div>
               </div>
             </div>
