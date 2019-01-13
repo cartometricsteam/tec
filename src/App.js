@@ -85,7 +85,7 @@ class App extends Component {
       modal: {
         title: 'Plataforma de Iniciativas Ciudadanas',
         subtitle: '¿QUÉ INICIATIVAS CIUDADANAS HAY EN TU BARRIO?, ¿PARTICIPAS EN ALGUNA?, ¿QUIERES DARLA A CONOCER?',
-        description: '“PIC Málaga: Plataforma de Iniciativas Ciudadanas” es una plataforma digital interactiva que permite crear una red de colectivos, asociaciones e iniciativas locales para propiciar sinergias y fomentar la cultura de la participación. Si deseas conocer la realidad social de movimientos emergentes en la ciudad de Málaga, saber qué entidades se mueven en tu barrio y/o quieres implicarte de forma activa en alguna de ellas, este es el espacio donde poder estar en presencia. Regístrate y empieza por incluir puntos/agrupaciones ciudadanas vivas que conozcas.',
+        description: 'El objetivo de este proyecto es mostrar la ciudad de Málaga desde una perspectiva social de movimientos emergentes, iniciativas vecinales, nuevas tendencias urbanas dentro de sus barrios, dar a conocer esa realidad social -con poca visibilidad en la ciudad- además de crear una red de colectivos y asociaciones, y establecer posibles sinergias.',
         type: 'help',
         id: '',
         options: ''
@@ -118,7 +118,7 @@ class App extends Component {
       this.draw.delete(id)
     }
   }
-  
+
   handleFilters(conditions) {
     const filters = this.state.map.filter;
     filters[Object.keys(conditions)[0]] = Object.values(conditions)[0];
@@ -134,7 +134,7 @@ class App extends Component {
   }
 
   composeFilters(filterObject) {
-    const matches = 
+    const matches =
       Object.entries(filterObject).map((filterComponent) => {
         if (filterComponent[1].length < 1) {
           return
@@ -192,7 +192,7 @@ class App extends Component {
         polygon: false
       }
     })
-    
+
     this.map.addControl(this.draw, 'bottom-right');
 
     this.map.on('load', () => {
@@ -412,7 +412,7 @@ class App extends Component {
             'circle-color': '#Ff8326'
           }
         });
-        
+
       })
 
       this.map.on('draw.create', e => {
