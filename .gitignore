@@ -9,7 +9,7 @@
 /coverage
 
 # production
-/build
+#/build UNIGNORED FILE SO PM COULD SEE THE DAMN CHANGES REALTIME.
 
 # misc
 .DS_Store
