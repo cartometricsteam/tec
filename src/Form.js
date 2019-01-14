@@ -16,7 +16,8 @@ class Form extends Component {
       area: '',
       enabler: '',
       description: '',
-      image: ''
+      image: '',
+      creator: this.props.email
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -39,7 +40,8 @@ class Form extends Component {
       area: this.state.area,
       enabler: this.state.enabler,
       description: this.state.description,
-      image: this.state.image
+      image: this.state.image,
+      creator: this.state.creator
     }
     firebase.firestore().collection(this.props.collection).add(data)
       .then(() => {

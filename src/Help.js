@@ -8,33 +8,51 @@ class Help extends Component {
         <div className='modal-dialog' role='document'>
           <div className='modal-content'>
             {modalHeader}
+
             <div className='modal-body'>
               <h6>{this.props.subtitle}</h6>
               <p className='text-justify'>{this.props.description}</p>
+              <a class='portada'><img class='portada' src='/assets/img/city.png'></img></a>
               <div className='container'>
-                <div className='row'>
-                  <div className='col-lg-12 col-md-6 col-sm-3'>
-                    <div align='center'>
-                      <a href='https://www.uma.es/rce/info/107549/catedra-de-tecnologias-emergentes-para-la-ciudadania/' target="_blank"><img className='img-responsive' src='/assets/img/tec.png' /></a>
-                    </div>
-                  </div>
-                </div>
-                <div className='row'>
-                  <div className='col-md-6 col-lg-6 col-sm-6 text-center'>
-                    <a href='https://www.polodigital.eu/' target="_blank"><img className='img-responsive' src='/assets/img/polo.png' /></a>
-                  </div>
-                  <div className='col-md-6 col-lg-6 col-sm-6 text-center'>
-                    <a href='http://www.andaluciatech.org/' target="_blank"><img className='img-responsive' src='/assets/img/andtech.png' /></a>
-                  </div>
-                </div>
+
+
 
                 <div className='row'>
-                  <div className='col-md-6 col-lg-6 col-sm-6 text-center'>
-                    <a href='https://www.uma.es/rce/' target="_blank"><img className='img-responsive' src='/assets/img/rce.png' /></a>
+                  <div className='col-md-4 col-lg-4 col-sm-12 text-center'>
+
+                    <a href='https://www.uma.es/rce/'><img className='sponsor' src='/assets/img/rce.png' /></a>
+
                   </div>
-                  <div className='col-md-6 col-lg-6 col-sm-6 text-center'>
-                    <a href='https://www.promalaga.es/' target="_blank"><img className='img-responsive' src='/assets/img/promalaga.png' /></a>
+
+                  <div className='col-md-4 col-lg-4 col-sm-12 text-center'>
+
+                      <a href='https://www.uma.es/rce/'><img className='sponsorTec' src='/assets/img/tec.png'/></a>
+
                   </div>
+
+                  <div className='col-md-4 col-lg-4 col-sm-12 text-center'>
+
+                    <a href='http://geotecnologias.uma.es/'><img className='sponsor' src='/assets/img/rges.png' /></a>
+
+                  </div>
+
+                <div className='row'>
+                    <div className='col-md-3 col-lg-3 col-sm-12 text-center'>
+                      <a href='https://www.polodigital.eu/'><img className='img-responsive' src='/assets/img/polo.png' /></a>
+                    </div>
+
+                    <div className='col-md-3 col-lg-3 col-sm-12 text-center'>
+                      <a href='http://www.andaluciatech.org/'><img className='img-responsive' src='/assets/img/andtech.png' /></a>
+                    </div>
+
+                    <div className='col-md-3 col-lg-3 col-sm-12 text-center'>
+                      <a href='https://www.promalaga.es/'><img className='img-responsive' src='/assets/img/promalaga.png' /></a>
+                    </div>
+
+                    <div className='col-md-3 col-lg-3 col-sm-12 text-center'>
+                      <a href='http://www.malaga.eu/'><img className='img-responsive' src='/assets/img/ayunt.png' /></a>
+                    </div>
+                </div>
                 </div>
               </div>
             </div>

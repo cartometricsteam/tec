@@ -85,7 +85,7 @@ class App extends Component {
       modal: {
         title: 'Plataforma de Iniciativas Ciudadanas',
         subtitle: '¿QUÉ INICIATIVAS CIUDADANAS HAY EN TU BARRIO?, ¿PARTICIPAS EN ALGUNA?, ¿QUIERES DARLA A CONOCER?',
-        description: '“PIC Málaga: Plataforma de Iniciativas Ciudadanas” es una plataforma digital interactiva que permite crear una red de colectivos, asociaciones e iniciativas locales para propiciar sinergias y fomentar la cultura de la participación. Si deseas conocer la realidad social de movimientos emergentes en la ciudad de Málaga, saber qué entidades se mueven en tu barrio y/o quieres implicarte de forma activa en alguna de ellas, este es el espacio donde poder estar en presencia. Regístrate y empieza por incluir puntos/agrupaciones ciudadanas vivas que conozcas.',
+        description: 'El objetivo de este proyecto es mostrar la ciudad de Málaga desde una perspectiva social de movimientos emergentes, iniciativas vecinales, nuevas tendencias urbanas dentro de sus barrios, dar a conocer esa realidad social -con poca visibilidad en la ciudad- además de crear una red de colectivos y asociaciones, y establecer posibles sinergias.',
         type: 'help',
         id: '',
         options: ''
@@ -118,7 +118,7 @@ class App extends Component {
       this.draw.delete(id)
     }
   }
-  
+
   handleFilters(conditions) {
     const filters = this.state.map.filter;
     filters[Object.keys(conditions)[0]] = Object.values(conditions)[0];
@@ -134,7 +134,7 @@ class App extends Component {
   }
 
   composeFilters(filterObject) {
-    const matches = 
+    const matches =
       Object.entries(filterObject).map((filterComponent) => {
         if (filterComponent[1].length < 1) {
           return
@@ -192,7 +192,7 @@ class App extends Component {
         polygon: false
       }
     })
-    
+
     this.map.addControl(this.draw, 'bottom-right');
 
     this.map.on('load', () => {
@@ -339,7 +339,7 @@ class App extends Component {
 
         this.map.on('click', activityType, e => {
           let featureProperties = e.features[0].properties;
-          this.setState({ featureData: { title: featureProperties.name, show: true, img: featureProperties.img, description: featureProperties.description, url: featureProperties.url, twitter: featureProperties.twitter, facebook: featureProperties.facebook, phone: featureProperties.phone, address: featureProperties.address } })
+          this.setState({ featureData: { title: featureProperties.name, show: true, img: featureProperties.image, description: featureProperties.description, url: featureProperties.url, twitter: featureProperties.twitter, facebook: featureProperties.facebook, phone: featureProperties.phone, address: featureProperties.address, creator: featureProperties.creator } })
         });
       })
 
@@ -412,7 +412,7 @@ class App extends Component {
             'circle-color': '#Ff8326'
           }
         });
-        
+
       })
 
       this.map.on('draw.create', e => {
@@ -439,7 +439,7 @@ class App extends Component {
       <div style={style} ref={el => this.mapContainer = el} >
         <Header title={this.state.site.title} buttons={this.state.site.buttons} handler={this.toggleModal} email={this.state.user.email} />
         <Modal type={this.state.modal.type} removeFilters={this.removeFilters} title={this.state.modal.title} id={this.state.modal.id} subtitle={this.state.modal.subtitle} description={this.state.modal.description} email={this.state.user.email} handler={this.toggleModal} handleFilters={this.handleFilters} userLog={this.userLog} options={this.state.modal.options} data={this.state.modal.data} collection={this.state.site.collection} />
-        <Sidebar title={this.state.featureData.title} img={this.state.featureData.img} description={this.state.featureData.description} address={this.state.featureData.address} email={this.state.featureData.email} url={this.state.featureData.url} twitter={this.state.featureData.twitter} facebook={this.state.featureData.facebook} phone={this.state.featureData.phone} show={this.state.featureData.show} closeSidebar={this.closeSidebar} />
+        <Sidebar title={this.state.featureData.title} img={this.state.featureData.img} userEmail={this.state.user.email} creator={this.state.featureData.creator} description={this.state.featureData.description} address={this.state.featureData.address} email={this.state.featureData.email} url={this.state.featureData.url} twitter={this.state.featureData.twitter} facebook={this.state.featureData.facebook} phone={this.state.featureData.phone} show={this.state.featureData.show} closeSidebar={this.closeSidebar} />
         <NotificationContainer/>
       </div>
     );

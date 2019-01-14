@@ -17916,3 +17916,43 @@ footer .pull-center {
   top:10%;
   max-height: 90%;
 }
+
+
+
+.img-responsive {
+  padding: 10px;
+}
+
+.logo{
+  padding:5px;
+}
+
+.mapboxgl-ctrl-group .mapbox-gl-draw_ctrl-draw-btn{
+
+  background-image:url('/assets/img/pen.png');
+
+ }
+
+
+.portada{
+  max-width:100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 15px;
+  padding-bottom:20px;
+  height: auto;
+  display:block;
+
+}
+
+.sponsor{
+  max-width:90%;
+  height:auto;
+  padding-top:20px;
+}
+
+.sponsorTec{
+  max-width:100%;
+  height:auto;
+  padding-top:20px;
+}
