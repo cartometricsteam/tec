@@ -27,13 +27,14 @@ class Sidebar extends Component {
         phone = this.props.phone == null ? null : <div><a href={'tel:' + this.props.phone} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>phone</i> {this.props.phone}</a></div>,
         facebook = this.props.facebook == null ? null : <div><a href={this.props.facebook} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>link</i>Facebook</a></div>,
         pointLocation = <input className='btn btn-primary justify-content-center' value='Compartir' style={{ backgroundColor: '#Ff8326' }} />,
-        deletePoint = this.props.creator === this.props.userEmail ? <input className='btn btn-primary justify-content-center' type='submit' value='Eliminar' style={{ backgroundColor: '#Ff8326' }} /> : null,
-        editPoint = this.props.creator === this.props.userEmail ? <input className='btn btn-primary justify-content-center' type='submit' value='Editar' style={{ backgroundColor: '#Ff8326' }} /> : null; 
+        deletePoint = (this.props.creator === this.props.userEmail | this.props.creator == null ) ? <input className='btn btn-primary justify-content-center' value='Eliminar' style={{ backgroundColor: '#Ff8326' }} /> : null,
+        editPoint = (this.props.creator === this.props.userEmail | this.props.creator == null) ? <input className='btn btn-primary justify-content-center' value='Editar' style={{ backgroundColor: '#Ff8326' }} /> : null,
+        img = this.props.img == null ? null : <img className='card-img-top' src={this.props.img} />;
     
       return (
         <div className='card card-sidebar' style={{ overflow: 'auto' }}>
         <div className='modal-header'> <h5 className='modal-title'>{this.props.title}</h5><button type='button' className='close' aria-label='Close' onClick={this.props.closeSidebar}><span aria-hidden='true'>&times;</span></button></div>
-          <img className='card-img-top' src={this.props.img} />
+          {img}
           <div className='card-body'>
             <h4 className='card-title'>{this.props.title}</h4>
             <h6 className='card-subtitle mb-2 text-muted'>{this.props.address}</h6>
