@@ -1,4 +1,23 @@
 import React, { Component } from 'react';
+import {
+  FacebookShareButton,
+  GooglePlusShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  TelegramShareButton,
+  WhatsappShareButton,
+  PinterestShareButton,
+  VKShareButton,
+  OKShareButton,
+  RedditShareButton,
+  TumblrShareButton,
+  LivejournalShareButton,
+  MailruShareButton,
+  ViberShareButton,
+  WorkplaceShareButton,
+  LineShareButton,
+  EmailShareButton,
+} from 'react-share';
 
 class Sidebar extends Component {
   render() {
@@ -7,7 +26,7 @@ class Sidebar extends Component {
         twitter = this.props.twitter == null ? null : <div><a href={this.props.twitter} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>link</i>Twitter</a></div>,
         phone = this.props.phone == null ? null : <div><a href={'tel:' + this.props.phone} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>phone</i> {this.props.phone}</a></div>,
         facebook = this.props.facebook == null ? null : <div><a href={this.props.facebook} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>link</i>Facebook</a></div>,
-        pointLocation = <input className='btn btn-primary justify-content-center' type='submit' value='Compartir' style={{ backgroundColor: '#Ff8326' }} />,
+        pointLocation = <input className='btn btn-primary justify-content-center' value='Compartir' style={{ backgroundColor: '#Ff8326' }} />,
         deletePoint = this.props.creator === this.props.userEmail ? <input className='btn btn-primary justify-content-center' type='submit' value='Eliminar' style={{ backgroundColor: '#Ff8326' }} /> : null,
         editPoint = this.props.creator === this.props.userEmail ? <input className='btn btn-primary justify-content-center' type='submit' value='Editar' style={{ backgroundColor: '#Ff8326' }} /> : null; 
     
