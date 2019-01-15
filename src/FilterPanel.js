@@ -50,7 +50,7 @@ class FilterPanel extends Component {
             <div className='modal-content'>
               {header}
               <div className='modal-body'>
-                <h6>Selecciona que quieres visualizar</h6>
+              <h6>{this.props.description}</h6>
                 {options}
               </div>
               <div className='modal-footer justify-content-center'>

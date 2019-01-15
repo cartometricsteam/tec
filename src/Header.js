@@ -28,7 +28,7 @@ class Header extends Component {
     const buttons = this.props.buttons.map((button, key) => {
       return (
         <li className='nav-item'>
-          <button type='button' className='btn btn-primary' style={{ backgroundColor: '#Ff8326' }} key={key} onClick={() => this.props.handler({ type: 'filter', title: button.name, id: button.id, options: button.filters })}>{button.name}</button>
+          <button type='button' className='btn btn-primary' style={{ backgroundColor: '#Ff8326' }} key={key} onClick={() => this.props.handler({ type: 'filter', title: button.name, description: button.description, id: button.id, options: button.filters })}>{button.name}</button>
         </li>
       );
 
