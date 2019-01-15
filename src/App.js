@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import mapboxgl from 'mapbox-gl';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
+import * as turf from '@turf/turf';
 import * as firebase from 'firebase';
 
 import Header from './Header';
