@@ -54,8 +54,8 @@ class FilterPanel extends Component {
                 {options}
               </div>
               <div className='modal-footer justify-content-center'>
-                <input className='btn btn-primary justify-content-center' type='submit' value='Filtrar' style={{ backgroundColor: '#Ff8326' }} />
-                <button type='button' className='btn btn-primary' style={{ backgroundColor: '#Ff8326' }} onClick={() => this.restoreFilters()}>Eliminar TODOS los filtros</button>
+                <input className='btn btn-primary-filters btn-sm' type='submit' value='Filtrar' style={{ backgroundColor: '#00aec7' }} />
+                <button type='button' className='btn btn-primary-filters btn-sm' style={{ backgroundColor: '#00aec7' }} onClick={() => this.restoreFilters()}>Eliminar TODOS los filtros</button>
               </div>
             </div>
           </div>
