@@ -16,7 +16,15 @@ class Header extends Component {
     }
 
   render() {
-    const logged = this.props.email ? <span>{this.props.email} </span> : <span> Inicia sesión</span> ;
+      var logged;
+        if(this.props.email !='null' && this.props.email != undefined)
+        {
+            logged = <span>{this.props.email} </span> ;
+        }
+        else {
+            logged = <span> Inicia sesión</span> ;
+        }
+
     const buttons = this.props.buttons.map((button, key) => {
       return (
         <li className='nav-item'>

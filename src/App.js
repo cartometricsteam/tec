@@ -81,6 +81,7 @@ class App extends Component {
     this.composeFilters = this.composeFilters.bind(this)
     this.removeFilters = this.removeFilters.bind(this)
     this.closeSidebar = this.closeSidebar.bind(this)
+
     this.state = {
       modal: {
         title: 'Plataforma de Iniciativas Ciudadanas',
@@ -96,6 +97,8 @@ class App extends Component {
         buttons: [{ name: 'Iniciativas', id: 'purpose', filters: ['Accesibilidad', 'Arte urbano', 'Autogestión', 'Cuidado', 'Culto', 'Cultura', 'Deporte', 'Derechos sociales', 'Diversidad', 'Educación', 'Integración', 'Igualdad', 'Mediación', 'Medio ambiente', 'Migración', 'Movilidad sostenible', 'Patrimonio sociocultural', 'Política social', 'Regeneración urbana', 'Salud'] }, { name: 'Acción', id: 'action', filters: ["Taller", "Digital", "Reunión", "Acción", "Exposición", "Difusión"] }, { name: 'Área de actuación', id: 'area', filters: ["Casa de la cultura", "Espacios virtuales", "Huerto urbano", "Solares vacíos", "Itinerarios urbanos", "Banco de recursos", "Escuela ciudadana", "Lugares de encuentro", "Coworking"] }, { name: 'Facilitador', id: 'enabler', filters: ["Administración pública", "Asociación de vecinos/as", "Asamblea local", "Movimiento ciudadano", "Colectivo tradicional", "Obra social"]}, { name: 'Barrio', id: 'district', filters: district.features.map((feature) => feature.properties.name)}]
       },
       user: {
+        email:localStorage.getItem('email'),
+          uid:localStorage.getItem('uid')
       },
       satelliteImage: false,
       featureData: {
@@ -166,13 +169,14 @@ class App extends Component {
     //     this.map.setFilter('route', this.state.filter);
     //   });
     this.map.setFilter('pointActivities', this.composeFilters(this.state.map.filter));
-    if(this.map.getSource('userSelected') !== undefined) {
+    if(this.map.getSource('userSelected') !== undefined ) {
       this.map.setFilter('userSelected', this.composeFilters(this.state.map.filter));
       this.map.setFilter('selectedFeature', this.composeFilters(this.state.map.filter));
     }
   }
 
   componentDidMount() {
+
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
       style: 'mapbox://styles/mapbox/light-v9',
