@@ -94,9 +94,7 @@ class App extends Component {
         options: '',
       },
 
-      data: {
-        nameList: data.features.map((feature) => feature.properties.name)
-      },
+      data: data,
       
       site: {
         title: 'Iniciativas Ciudadanas',
@@ -152,9 +150,9 @@ class App extends Component {
 
   composeFilters(filterObject) {
     const matches =
-      Object.entries(filterObject).map((filterComponent) => {
+      Object.entries(filterObject).filter((entry) => entry[0] !== 'district' ).map((filterComponent) => {
         if (filterComponent[1].length < 1) {
-          return
+          return null
         }
         else {
           const filterField = filterComponent[0],
@@ -164,7 +162,6 @@ class App extends Component {
           return(['match',['get',filterField],...filterTargets,false])
         }
       }).filter( element => element !== undefined);
-      console.log(['all',...matches]);
     return(['all',...matches])
   }
 
@@ -185,7 +182,6 @@ class App extends Component {
     //   });
     this.map.setFilter('pointActivities', this.composeFilters(this.state.map.filter));
     if(this.map.getSource('userSelected') !== undefined ) {
-      console.log()
       this.map.setFilter('userSelected', this.composeFilters(this.state.map.filter));
       this.map.setFilter('selectedFeature', this.composeFilters(this.state.map.filter));
     }
@@ -251,7 +247,7 @@ class App extends Component {
 
       this.map.addSource('activities', {
         type: 'geojson',
-        data: data
+        data: this.state.data
       });
 
       this.map.addLayer({
@@ -358,8 +354,9 @@ class App extends Component {
         });
 
         this.map.on('click', activityType, e => {
-          let featureProperties = e.features[0].properties;
-          this.setState({ featureData: { title: featureProperties.name, show: true, img: featureProperties.image, description: featureProperties.description, url: featureProperties.url, twitter: featureProperties.twitter, facebook: featureProperties.facebook, phone: featureProperties.phone, address: featureProperties.address, creator: featureProperties.creator } })
+          let featureProperties = e.features[0].properties,
+          featureLocation = e.features[0].geometry.coordinates
+          this.setState({ featureData: { title: featureProperties.name, location: featureLocation, show: true, img: featureProperties.image, description: featureProperties.description, url: featureProperties.url, twitter: featureProperties.twitter, facebook: featureProperties.facebook, phone: featureProperties.phone, address: featureProperties.address, creator: featureProperties.creator } })
         });
       })
 
@@ -457,9 +454,9 @@ class App extends Component {
 
     return (
       <div style={style} ref={el => this.mapContainer = el} >
-        <Header title={this.state.site.title} nameList={this.state.data.nameList} buttons={this.state.site.buttons} handler={this.toggleModal} email={this.state.user.email} />
+        <Header title={this.state.site.title} nameList={this.state.data.features.map((feature) => feature.properties.name)} buttons={this.state.site.buttons} handler={this.toggleModal} email={this.state.user.email} />
         <Modal type={this.state.modal.type} removeFilters={this.removeFilters} title={this.state.modal.title} id={this.state.modal.id} subtitle={this.state.modal.subtitle} description={this.state.modal.description} email={this.state.user.email} handler={this.toggleModal} handleFilters={this.handleFilters} userLog={this.userLog} options={this.state.modal.options} data={this.state.modal.data} collection={this.state.site.collection} />
-        <Sidebar title={this.state.featureData.title} img={this.state.featureData.img} userEmail={this.state.user.email} creator={this.state.featureData.creator} description={this.state.featureData.description} address={this.state.featureData.address} email={this.state.featureData.email} url={this.state.featureData.url} twitter={this.state.featureData.twitter} facebook={this.state.featureData.facebook} phone={this.state.featureData.phone} show={this.state.featureData.show} closeSidebar={this.closeSidebar} />
+        <Sidebar title={this.state.featureData.title} location={this.state.featureData.location} img={this.state.featureData.img} userEmail={this.state.user.email} creator={this.state.featureData.creator} description={this.state.featureData.description} address={this.state.featureData.address} email={this.state.featureData.email} url={this.state.featureData.url} twitter={this.state.featureData.twitter} facebook={this.state.featureData.facebook} phone={this.state.featureData.phone} show={this.state.featureData.show} closeSidebar={this.closeSidebar} />
         <NotificationContainer/>
       </div>
     );

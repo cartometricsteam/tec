@@ -21,6 +21,7 @@ import {
 
 class Sidebar extends Component {
   render() {
+    console.log(this.props.location)
     if (this.props.show) {
       const url = this.props.url == null ? null :<div><a href={this.props.url} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>link</i>Website</a></div>,
         twitter = this.props.twitter == null ? null : <div><a href={this.props.twitter} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>link</i>Twitter</a></div>,
@@ -48,8 +49,8 @@ class Sidebar extends Component {
             {phone}
 
             <h6 class="text-muted" >Compartir iniciativa en:</h6>
-            <a  target='' rel="" className='card-link'><i class='fa fa-twitter'> </i> </a>
-            <a target='' rel="" className='card-link'><i class='fa fa-facebook-square'> </i></a>
+            <a  target='_blank' href={"https://twitter.com/intent/tweet?url=localhost:3000" } className='card-link'><i class='fa fa-twitter'></i> </a>
+            <a target='_blank' href="https://facebook.com" className='card-link'><i class='fa fa-facebook-square'> </i></a>
 
 
 
