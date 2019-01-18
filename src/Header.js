@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 class Header extends Component {
 
     constructor(props) {
@@ -49,6 +50,7 @@ class Header extends Component {
                 <span className='navbar-toggler-icon2'></span>
 
               </button>
+
             </div>
             <div className={this.state.isToggleOn ? 'navbar-collapse' : 'collapse navbar-collapse'}>
               <ul className='navbar-nav ml-auto'>
@@ -58,13 +60,18 @@ class Header extends Component {
                     <div className="form-group has-black">
                       <input type="text" className="form-control" placeholder="Buscar por asociación" />
                     </div>
-
                   </form>
+
+
+
                 </li>
                 <li className='nav-item'>
                   <a className='nav-link-help' title='Ayuda' onClick={() => this.props.handler({ type: 'help', title: 'Plataforma de Iniciativas Ciudadanas', subtitle: '¿QUÉ INICIATIVAS CIUDADANAS HAY EN TU BARRIO?, ¿PARTICIPAS EN ALGUNA?, ¿QUIERES DARLA A CONOCER?', description: 'El objetivo de este proyecto es mostrar la ciudad de Málaga desde una perspectiva social de movimientos emergentes,iniciativas vecinales, nuevas tendencias urbanas dentro de sus barrios, dar a conocer esa realidad social -con poca visibilidad en la ciudad- además de crear una red de colectivos y asociaciones,y establecer posibles sinergias.' })}>
                     <i className='material-icons'>help</i>
                   </a>
+                </li>
+                <li className='nav-item'>
+                  <a className='nav-link' title='Descargar en .csv'><i className='material-icons'>save</i></a>
                 </li>
                 <li className='nav-item'><a className='nav-link' onClick={() => this.props.handler({ type: 'login', title: 'Accede o crea tu cuenta' })}><i className='material-icons'>person</i>{logged}</a></li>
               </ul>

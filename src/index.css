@@ -63,7 +63,7 @@ section {
 body {
   margin: 0;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-size: 1rem;
+  font-size: 0.5rem;
   font-weight: 400;
   line-height: 1.5;
   color: #212529;
@@ -889,10 +889,16 @@ mark,
   text-transform: uppercase;
 }
 
+
 .blockquote {
-  margin-bottom: 1rem;
-  font-size: 1.25rem;
-}
+    padding: 0.2px 5px;
+    margin: 0 0 20px;
+    border-left: 2px solid #eee;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 300;
+    line-height: 1.5em;
+  }
+
 
 .blockquote-footer {
   display: block;
@@ -2596,6 +2602,7 @@ select.form-control-lg:not([size]):not([multiple]),
     align-items: center;
     margin-bottom: 0;
     margin-left: 30px;
+    padding-right:2.0rem;
   }
   .form-inline .form-control {
     display: inline-block;
@@ -4627,6 +4634,8 @@ tbody.collapse.show {
 
 .card-text:last-child {
   margin-bottom: 0;
+  text-align:justify;
+  font-size: 10px;
 }
 
 .card-link:hover {
@@ -10795,9 +10804,9 @@ fieldset[disabled][disabled] .btn-group-raised .btn,
 .btn.btn-fab,
 .btn.btn-just-icon {
   font-size: 24px;
-  height: 30px;
-  min-width: 30px;
-  width: 30px;
+  height: 23px;
+  min-width: 23px;
+  width: 23px;
   padding: 0;
   overflow: hidden;
   position: relative;
@@ -10817,9 +10826,9 @@ fieldset[disabled][disabled] .btn-group-raised .btn,
 .btn.btn-just-icon.btn-sm,
 .btn-group-sm>.btn.btn-just-icon,
 .btn.btn-just-icon.btn-fab-mini {
-  height: 30px;
-  min-width: 30px;
-  width: 30px;
+  height: 20px;
+  min-width: 20px;
+  width: 20px;
 }
 
 .btn-group-sm .btn.btn-fab .material-icons,
@@ -10838,7 +10847,7 @@ fieldset[disabled][disabled] .btn-group-raised .btn,
 .btn-group-sm>.btn.btn-just-icon .fa,
 .btn.btn-just-icon.btn-fab-mini .material-icons,
 .btn.btn-just-icon.btn-fab-mini .fa {
-  font-size: 17px;
+  font-size: 7px;
   line-height: 29px;
   margin-right:10px;
 
@@ -10868,8 +10877,8 @@ fieldset[disabled][disabled] .btn-group-raised .btn,
 .btn-group-lg>.btn.btn-just-icon .material-icons,
 .btn.btn-just-icon.btn-lg .fa,
 .btn-group-lg>.btn.btn-just-icon .fa {
-  font-size: 32px;
-  line-height: 56px;
+  font-size: 15px;
+  line-height: 51px;
 }
 
 .btn.btn-fab .material-icons,
@@ -10877,13 +10886,14 @@ fieldset[disabled][disabled] .btn-group-raised .btn,
 .btn.btn-just-icon .material-icons,
 .btn.btn-just-icon .fa {
   position: absolute;
-   width: 100%;
-   transform: none;
-   left: 0;
-   top: 0;
-   height: 100%;
-   line-height: 71px;
-   font-size: 20px;
+  width: 20%;
+  webkit-transform: none;
+  transform: none;
+  left: 4px;
+  top: 0;
+  height: 100%;
+  line-height: 53px;
+  font-size: 15px;
  }
 
 .btn-just-icon.btn-lg,
@@ -14790,7 +14800,7 @@ h6,
 }
 
 p {
-  font-size: 14px;
+  font-size: 13px;
   margin: 0 0 10px;
 }
 
@@ -14892,14 +14902,16 @@ h2.title {
 }
 
 .blockquote {
-  padding: 10px 20px;
+  padding: 0.2px 5px;
   margin: 0 0 20px;
-  border-left: 5px solid #eee;
+  border-left: 2px solid #eee;
+  font-weight: 100;
+  line-height: 1.5em;
 }
 
 .blockquote p {
-  font-size: 1.063rem;
-  font-style: italic;
+  font-size: 0.900rem;
+  font-style: normal;
 }
 
 .blockquote small {
@@ -18039,7 +18051,7 @@ footer .pull-center {
   overflow: auto;
   z-index: 1030;
   top:10%;
-  max-height: 90%;
+  max-height: 80%;
   left: 5px;
 }
 
