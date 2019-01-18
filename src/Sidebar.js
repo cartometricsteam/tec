@@ -47,11 +47,6 @@ class Sidebar extends Component {
             {facebook}
             {phone}
 
-
-
-
-
-
             <h6 class="text-muted" >Compartir iniciativa en:</h6>
             <a  target='' rel="" className='card-link'><i class='fa fa-twitter'> </i> </a>
             <a target='' rel="" className='card-link'><i class='fa fa-facebook-square'> </i></a>

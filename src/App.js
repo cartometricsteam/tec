@@ -93,11 +93,15 @@ class App extends Component {
         id: '',
         options: '',
       },
+
+      data: {
+        nameList: data.features.map((feature) => feature.properties.name)
+      },
       
       site: {
         title: 'Iniciativas Ciudadanas',
         collection: 'initiatives',
-        buttons: [{ name: 'Iniciativas', description: 'Visualiza en el mapa el tipo de iniciativa que ha sido llevada a cabo por los ciudadanos.', id: 'purpose', filters: ['Accesibilidad', 'Arte urbano', 'Autogestión', 'Cuidado', 'Culto', 'Cultura', 'Deporte', 'Derechos sociales', 'Diversidad', 'Educación', 'Integración', 'Igualdad', 'Mediación', 'Medio ambiente', 'Migración', 'Movilidad sostenible', 'Patrimonio sociocultural', 'Política social', 'Regeneración urbana', 'Salud'] }, { name: 'Acción', description: 'Filtra por acción para ver el formato en el que ha sido desarrollada la iniciativa.', id: 'action', filters: ["Taller", "Digital", "Reunión", "Acción", "Exposición", "Difusión"] }, { name: 'Área de actuación', description:'Este filtro te ayudará a poder diferenciar en el mapa las iniciativas dependiendo del espacio o entorno en las que han sido desarrolladas. ', id: 'area', filters: ["Casa de la cultura", "Espacios virtuales", "Huerto urbano", "Solares vacíos", "Itinerarios urbanos", "Banco de recursos", "Escuela ciudadana", "Lugares de encuentro", "Coworking"] }, { name: 'Facilitador', description: 'Utiliza este filtro para visualizar en el mapa las distintas organizaciones públicas y privadas que se encuentran detrás de cada iniciativa.', id: 'enabler', filters: ["Administración pública", "Asociación de vecinos/as", "Asamblea local", "Movimiento ciudadano", "Colectivo tradicional", "Obra social"]}, { name: 'Barrio', description: 'Si quieres enterarte de las iniciativas que han surgido en tu distrito o en cualquier otro, haz uso de este filtro y las verás en el mapa.', id: 'district', filters: district.features.map((feature) => feature.properties.name)}]
+        buttons: [{ name: 'Iniciativas', description: 'Visualiza en el mapa el tipo de iniciativa que ha sido llevada a cabo por los ciudadanos.', id: 'purpose', filters: ['Accesibilidad', 'Arte urbano', 'Autogestión', 'Cuidado', 'Culto', 'Cultura', 'Deporte', 'Derechos sociales', 'Diversidad', 'Educación', 'Integración', 'Igualdad', 'Mediación', 'Medio ambiente', 'Migración', 'Movilidad sostenible', 'Patrimonio sociocultural', 'Política social', 'Regeneración urbana', 'Salud'] }, { name: 'Área de actuación', description:'Este filtro te ayudará a poder diferenciar en el mapa las iniciativas dependiendo del espacio o entorno en las que han sido desarrolladas. ', id: 'area', filters: ["Casa de la cultura", "Espacios virtuales", "Huerto urbano", "Solares vacíos", "Itinerarios urbanos", "Banco de recursos", "Escuela ciudadana", "Lugares de encuentro", "Coworking"] }, { name: 'Barrio', description: 'Si quieres enterarte de las iniciativas que han surgido en tu distrito o en cualquier otro, haz uso de este filtro y las verás en el mapa.', id: 'district', filters: district.features.map((feature) => feature.properties.name)}]
       },
       user: {
         email:localStorage.getItem('email'),
@@ -159,7 +163,8 @@ class App extends Component {
           }).reduce((a, b) => a.concat(b), []);
           return(['match',['get',filterField],...filterTargets,false])
         }
-      }).filter( element => element !== undefined)
+      }).filter( element => element !== undefined);
+      console.log(['all',...matches]);
     return(['all',...matches])
   }
 
@@ -180,6 +185,7 @@ class App extends Component {
     //   });
     this.map.setFilter('pointActivities', this.composeFilters(this.state.map.filter));
     if(this.map.getSource('userSelected') !== undefined ) {
+      console.log()
       this.map.setFilter('userSelected', this.composeFilters(this.state.map.filter));
       this.map.setFilter('selectedFeature', this.composeFilters(this.state.map.filter));
     }
@@ -451,7 +457,7 @@ class App extends Component {
 
     return (
       <div style={style} ref={el => this.mapContainer = el} >
-        <Header title={this.state.site.title} buttons={this.state.site.buttons} handler={this.toggleModal} email={this.state.user.email} />
+        <Header title={this.state.site.title} nameList={this.state.data.nameList} buttons={this.state.site.buttons} handler={this.toggleModal} email={this.state.user.email} />
         <Modal type={this.state.modal.type} removeFilters={this.removeFilters} title={this.state.modal.title} id={this.state.modal.id} subtitle={this.state.modal.subtitle} description={this.state.modal.description} email={this.state.user.email} handler={this.toggleModal} handleFilters={this.handleFilters} userLog={this.userLog} options={this.state.modal.options} data={this.state.modal.data} collection={this.state.site.collection} />
         <Sidebar title={this.state.featureData.title} img={this.state.featureData.img} userEmail={this.state.user.email} creator={this.state.featureData.creator} description={this.state.featureData.description} address={this.state.featureData.address} email={this.state.featureData.email} url={this.state.featureData.url} twitter={this.state.featureData.twitter} facebook={this.state.featureData.facebook} phone={this.state.featureData.phone} show={this.state.featureData.show} closeSidebar={this.closeSidebar} />
         <NotificationContainer/>
