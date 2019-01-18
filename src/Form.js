@@ -43,6 +43,8 @@ class Form extends Component {
       image: this.state.image,
       creator: this.state.creator
     }
+    console.log('data properties');
+    console.log(data.properties);
     firebase.firestore().collection(this.props.collection).add(data)
       .then(() => {
         this.props.handler(false);

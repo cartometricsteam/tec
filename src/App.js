@@ -79,7 +79,8 @@ class App extends Component {
     this.userLog = this.userLog.bind(this)
     this.handleFilters = this.handleFilters.bind(this)
     this.composeFilters = this.composeFilters.bind(this)
-    this.removeFilters = this.removeFilters.bind(this)
+    this.removeFilters = this.removeFilters.bind(this);
+    localStorage.removeItem('checks');
     this.closeSidebar = this.closeSidebar.bind(this)
 
     this.state = {
@@ -89,7 +90,7 @@ class App extends Component {
         description: 'El objetivo de este proyecto es mostrar la ciudad de Málaga desde una perspectiva social de movimientos emergentes, iniciativas vecinales, nuevas tendencias urbanas dentro de sus barrios, dar a conocer esa realidad social -con poca visibilidad en la ciudad- además de crear una red de colectivos y asociaciones, y establecer posibles sinergias.',
         type: 'help',
         id: '',
-        options: ''
+        options: '',
       },
       site: {
         title: 'Iniciativas Ciudadanas',
@@ -115,6 +116,13 @@ class App extends Component {
   }
 
   toggleModal(options, notification, id) {
+    // console.log('-------------Options-------------')
+    // console.log(options);
+    //   console.log('-------------Notification-------------')
+    //   console.log(notification);
+    //   console.log('-------------MODEL-------------')
+      // console.log(this.state.modal.selected);
+
     this.setState({ modal: options, featureData: { show: false } })
     if (notification) {
       NotificationManager.info(notification)

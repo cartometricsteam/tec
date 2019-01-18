@@ -6,9 +6,7 @@ import Form from './Form';
 
 class Modal extends Component {
   render() {
-
     const modalHeader = <div className='modal-header'> <h5 className='modal-title'>{this.props.title}</h5><button type='button' className='close' aria-label='Close' onClick={() => this.props.handler(false, 'Tu iniciativa NO ha sido registrada. Creala de nuevo si quieres añadirla a nuestra base de datos', this.props.data.id)}><span aria-hidden='true'>&times;</span></button></div>;
-
     if (this.props.type === 'help') {
       return (
         <Help title={this.props.title} subtitle={this.props.subtitle} description={this.props.description} handler={this.props.handler} />
@@ -16,10 +14,9 @@ class Modal extends Component {
     }
     else if (this.props.type === 'login') {
       return (
-        <Dashboard title={this.props.title} handler={this.props.handler} userLog={this.props.userLog} email={this.props.email} />
+        <Dashboard title={this.props.title} handler={this.props.handler} userLog={this.props.userLog} email={this.props.email} selected={this.props.selected} />
       )
     }
-
     else if (this.props.type === 'filter') {
 
       return (

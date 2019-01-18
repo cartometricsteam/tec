@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="25accd19-7ab5-48a0-9509-f29984567d72" name="Default" comment="" />
+    <list default="true" id="25accd19-7ab5-48a0-9509-f29984567d72" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/App.js" afterPath="$PROJECT_DIR$/src/App.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/FilterPanel.js" afterPath="$PROJECT_DIR$/src/FilterPanel.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Form.js" afterPath="$PROJECT_DIR$/src/Form.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Modal.js" afterPath="$PROJECT_DIR$/src/Modal.js" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,11 +18,33 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="App.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="113" column="47" lean-forward="true" selection-start-line="113" selection-start-column="47" selection-end-line="113" selection-end-column="47" />
+            <state relative-caret-position="355">
+              <caret line="159" column="4" lean-forward="true" selection-start-line="159" selection-start-column="4" selection-end-line="159" selection-end-column="4" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Header.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Header.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="30" column="196" lean-forward="true" selection-start-line="30" selection-start-column="196" selection-end-line="30" selection-end-column="196" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Modal.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Modal.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="16" column="20" lean-forward="true" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -28,7 +56,7 @@
         <entry file="file://$PROJECT_DIR$/src/FilterPanel.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="204">
-              <caret line="24" column="27" lean-forward="true" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
+              <caret line="12" column="3" lean-forward="false" selection-start-line="12" selection-start-column="3" selection-end-line="12" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -46,31 +74,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Header.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Header.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="30" column="58" lean-forward="true" selection-start-line="30" selection-start-column="58" selection-end-line="30" selection-end-column="58" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Form.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Form.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="96" column="28" lean-forward="false" selection-start-line="96" selection-start-column="28" selection-end-line="96" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Modal.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Modal.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="433">
-              <caret line="38" column="21" lean-forward="false" selection-start-line="38" selection-start-column="21" selection-end-line="38" selection-end-column="21" />
+            <state relative-caret-position="111">
+              <caret line="80" column="42" lean-forward="false" selection-start-line="80" selection-start-column="29" selection-end-line="80" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -80,20 +88,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>navbar-collapse</find>
-      <find>userLog(</find>
-      <find>user</find>
-      <find>logged</find>
-      <find>&lt;Header</find>
-      <find>INTRODUCE TU CORREO Y TU CONTRASEÑA PARA ACCEDER. SI NO TIENES UNA CUENTA, SE CREARA AUTOMÁTICAMENTE.</find>
-      <find>SELECCIONA QUE QUIERES VISUALIZAR</find>
-      <find>Arte urbano</find>
       <find>&lt;</find>
       <find>&lt;F</find>
       <find>&lt;Fo</find>
       <find>&lt;For</find>
       <find>&lt;Form</find>
       <find>undefined</find>
+      <find>s</find>
+      <find>sit</find>
+      <find>site</find>
+      <find>site.</find>
+      <find>site.b</find>
+      <find>site.bu</find>
+      <find>site.but</find>
+      <find>site.butt</find>
+      <find>site.butto</find>
+      <find>site.button</find>
+      <find>Accesibilidad</find>
+      <find>&lt;mod</find>
+      <find>print</find>
+      <find>buttons</find>
+      <find>site.buttons</find>
+      <find>l</find>
+      <find>localst</find>
+      <find>localstora</find>
+      <find>localstorage</find>
+      <find>localstorage.</find>
+      <find>localstorage.se</find>
+      <find>localstorage.set</find>
+      <find>console</find>
+      <find>localStorage.setItem</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -104,8 +128,11 @@
       <list>
         <option value="$PROJECT_DIR$/src/index.css" />
         <option value="$PROJECT_DIR$/src/Header.js" />
-        <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/Dashboard.js" />
+        <option value="$PROJECT_DIR$/src/Form.js" />
+        <option value="$PROJECT_DIR$/src/Modal.js" />
+        <option value="$PROJECT_DIR$/src/FilterPanel.js" />
+        <option value="$PROJECT_DIR$/src/App.js" />
       </list>
     </option>
   </component>
@@ -280,12 +307,12 @@
       <option name="presentableId" value="Default" />
       <updated>1546716661557</updated>
       <workItem from="1546716665931" duration="2045000" />
-      <workItem from="1547473009599" duration="14409000" />
+      <workItem from="1547473009599" duration="38575000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19206000" />
+    <option name="totallyTimeSpent" value="43372000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -391,36 +418,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/FilterPanel.js">
+    <entry file="file://$PROJECT_DIR$/docs/static/js/main.acb274f2.chunk.js.map">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="24" column="27" lean-forward="true" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
+        <state relative-caret-position="120">
+          <caret line="0" column="106671" lean-forward="false" selection-start-line="0" selection-start-column="106671" selection-end-line="0" selection-end-column="106671" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Form.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="96" column="28" lean-forward="false" selection-start-line="96" selection-start-column="28" selection-end-line="96" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Modal.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="38" column="21" lean-forward="false" selection-start-line="38" selection-start-column="21" selection-end-line="38" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Header.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="30" column="58" lean-forward="true" selection-start-line="30" selection-start-column="58" selection-end-line="30" selection-end-column="58" />
-          <folding />
-        </state>
+      <provider editor-type-id="sourcemapFileViewerProvider">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Dashboard.js">
@@ -433,10 +439,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Form.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="111">
+          <caret line="80" column="42" lean-forward="false" selection-start-line="80" selection-start-column="29" selection-end-line="80" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Header.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="30" column="196" lean-forward="true" selection-start-line="30" selection-start-column="196" selection-end-line="30" selection-end-column="196" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="113" column="47" lean-forward="true" selection-start-line="113" selection-start-column="47" selection-end-line="113" selection-end-column="47" />
+        <state relative-caret-position="355">
+          <caret line="159" column="4" lean-forward="true" selection-start-line="159" selection-start-column="4" selection-end-line="159" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FilterPanel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="3" lean-forward="false" selection-start-line="12" selection-start-column="3" selection-end-line="12" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Modal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="16" column="20" lean-forward="true" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
