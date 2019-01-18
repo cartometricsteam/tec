@@ -80,7 +80,7 @@ class Dashboard extends Component {
         localStorage.setItem('email',null);
       this.props.handler(false);
     }).catch((error) => {
-      NotificationManager.error('Algo salio mal...')
+      NotificationManager.error('Algo salió mal...')
     });
     NotificationManager.success('Desconectado. ¡Vuelve pronto!');
     event.preventDefault();

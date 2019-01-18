@@ -36,18 +36,32 @@ class Sidebar extends Component {
         <div className='modal-header'> <h5 className='modal-title'>{this.props.title}</h5><button type='button' className='close' aria-label='Close' onClick={this.props.closeSidebar}><span aria-hidden='true'>&times;</span></button></div>
           {img}
           <div className='card-body'>
-            <h4 className='card-title'>{this.props.title}</h4>
-            <h6 className='card-subtitle mb-2 text-muted'>{this.props.address}</h6>
-            <p className='card-text'>{this.props.description}</p>
+
+            <h5 class="text-muted">{this.props.address}</h5>
+
+          <div class="blockquote undefined">  <p className=' text-justify'>{this.props.description}</p></div>
+            <h6 class="text-muted">Contacto:</h6>
+
             {url}
             {twitter}
             {facebook}
             {phone}
-            <div className='modal-body' style={{ textAlign: 'center' }}>
-            {deletePoint}
-            {editPoint}
-            {pointLocation}
-            </div>
+
+
+
+
+
+
+            <h6 class="text-muted" >Compartir iniciativa en:</h6>
+            <a  target='' rel="" className='card-link'><i class='fa fa-twitter'> </i> </a>
+            <a target='' rel="" className='card-link'><i class='fa fa-facebook-square'> </i></a>
+
+
+
+              <div className='modal-body' style={{ textAlign: 'center' }}>
+                {deletePoint}
+                {editPoint}
+              </div>
           </div>
         </div>
       )
