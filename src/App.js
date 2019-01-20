@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import mapboxgl from 'mapbox-gl';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
+import * as turf from '@turf/turf';
 import * as firebase from 'firebase';
 
 import Header from './Header';
@@ -79,8 +80,10 @@ class App extends Component {
     this.userLog = this.userLog.bind(this)
     this.handleFilters = this.handleFilters.bind(this)
     this.composeFilters = this.composeFilters.bind(this)
-    this.removeFilters = this.removeFilters.bind(this)
+    this.removeFilters = this.removeFilters.bind(this);
+    localStorage.removeItem('checks');
     this.closeSidebar = this.closeSidebar.bind(this)
+
     this.state = {
       modal: {
         title: 'Plataforma de Iniciativas Ciudadanas',
@@ -88,14 +91,19 @@ class App extends Component {
         description: 'El objetivo de este proyecto es mostrar la ciudad de Málaga desde una perspectiva social de movimientos emergentes, iniciativas vecinales, nuevas tendencias urbanas dentro de sus barrios, dar a conocer esa realidad social -con poca visibilidad en la ciudad- además de crear una red de colectivos y asociaciones, y establecer posibles sinergias.',
         type: 'help',
         id: '',
-        options: ''
+        options: '',
       },
+
+      data: data,
+
       site: {
         title: 'Iniciativas Ciudadanas',
         collection: 'initiatives',
-        buttons: [{ name: 'Iniciativas', id: 'purpose', filters: ['Accesibilidad', 'Arte urbano', 'Autogestión', 'Cuidado', 'Culto', 'Cultura', 'Deporte', 'Derechos sociales', 'Diversidad', 'Educación', 'Integración', 'Igualdad', 'Mediación', 'Medio ambiente', 'Migración', 'Movilidad sostenible', 'Patrimonio sociocultural', 'Política social', 'Regeneración urbana', 'Salud'] }, { name: 'Área de actuación', id: 'area', filters: ["Casa de la cultura", "Espacios virtuales", "Huerto urbano", "Solares vacíos", "Itinerarios urbanos", "Banco de recursos", "Escuela ciudadana", "Lugares de encuentro", "Coworking"] },  { name: 'Distrito', id: 'district', filters: district.features.map((feature) => feature.properties.NOMBRE)}]
+        buttons: [{ name: 'Iniciativas', description: 'Visualiza en el mapa el tipo de iniciativa que ha sido llevada a cabo por los ciudadanos.', id: 'purpose', filters: ['Accesibilidad', 'Arte urbano', 'Autogestión', 'Cuidado', 'Culto', 'Cultura', 'Deporte', 'Derechos sociales', 'Diversidad', 'Educación', 'Integración', 'Igualdad', 'Mediación', 'Medio ambiente', 'Migración', 'Movilidad sostenible', 'Patrimonio sociocultural', 'Política social', 'Regeneración urbana', 'Salud'] }, { name: 'Área de actuación', description:'Este filtro te ayudará a poder diferenciar en el mapa las iniciativas dependiendo del espacio o entorno en las que han sido desarrolladas. ', id: 'area', filters: ["Casa de la cultura", "Espacios virtuales", "Huerto urbano", "Solares vacíos", "Itinerarios urbanos", "Banco de recursos", "Escuela ciudadana", "Lugares de encuentro", "Coworking"] }, { name: 'Barrio', description: 'Si quieres enterarte de las iniciativas que han surgido en tu distrito o en cualquier otro, haz uso de este filtro y las verás en el mapa.', id: 'district', filters: district.features.map((feature) => feature.properties.name)}]
       },
       user: {
+        email:localStorage.getItem('email'),
+          uid:localStorage.getItem('uid')
       },
       satelliteImage: false,
       featureData: {
@@ -112,6 +120,13 @@ class App extends Component {
   }
 
   toggleModal(options, notification, id) {
+    // console.log('-------------Options-------------')
+    // console.log(options);
+    //   console.log('-------------Notification-------------')
+    //   console.log(notification);
+    //   console.log('-------------MODEL-------------')
+      // console.log(this.state.modal.selected);
+
     this.setState({ modal: options, featureData: { show: false } })
     if (notification) {
       NotificationManager.info(notification)
@@ -135,9 +150,9 @@ class App extends Component {
 
   composeFilters(filterObject) {
     const matches =
-      Object.entries(filterObject).map((filterComponent) => {
+      Object.entries(filterObject).filter((entry) => entry[0] !== 'district' ).map((filterComponent) => {
         if (filterComponent[1].length < 1) {
-          return
+          return null
         }
         else {
           const filterField = filterComponent[0],
@@ -146,7 +161,7 @@ class App extends Component {
           }).reduce((a, b) => a.concat(b), []);
           return(['match',['get',filterField],...filterTargets,false])
         }
-      }).filter( element => element !== undefined)
+      }).filter( element => element !== undefined);
     return(['all',...matches])
   }
 
@@ -166,13 +181,14 @@ class App extends Component {
     //     this.map.setFilter('route', this.state.filter);
     //   });
     this.map.setFilter('pointActivities', this.composeFilters(this.state.map.filter));
-    if(this.map.getSource('userSelected') !== undefined) {
+    if(this.map.getSource('userSelected') !== undefined ) {
       this.map.setFilter('userSelected', this.composeFilters(this.state.map.filter));
       this.map.setFilter('selectedFeature', this.composeFilters(this.state.map.filter));
     }
   }
 
   componentDidMount() {
+
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
       style: 'mapbox://styles/mapbox/light-v9',
@@ -231,7 +247,7 @@ class App extends Component {
 
       this.map.addSource('activities', {
         type: 'geojson',
-        data: data
+        data: this.state.data
       });
 
       this.map.addLayer({
@@ -338,8 +354,9 @@ class App extends Component {
         });
 
         this.map.on('click', activityType, e => {
-          let featureProperties = e.features[0].properties;
-          this.setState({ featureData: { title: featureProperties.name, show: true, img: featureProperties.image, description: featureProperties.description, url: featureProperties.url, twitter: featureProperties.twitter, facebook: featureProperties.facebook, phone: featureProperties.phone, address: featureProperties.address, creator: featureProperties.creator } })
+          let featureProperties = e.features[0].properties,
+          featureLocation = e.features[0].geometry.coordinates
+          this.setState({ featureData: { title: featureProperties.name, location: featureLocation, show: true, img: featureProperties.image, description: featureProperties.description, url: featureProperties.url, twitter: featureProperties.twitter, facebook: featureProperties.facebook, phone: featureProperties.phone, address: featureProperties.address, creator: featureProperties.creator } })
         });
       })
 
@@ -437,9 +454,9 @@ class App extends Component {
 
     return (
       <div style={style} ref={el => this.mapContainer = el} >
-        <Header title={this.state.site.title} buttons={this.state.site.buttons} handler={this.toggleModal} email={this.state.user.email} />
+        <Header title={this.state.site.title} nameList={this.state.data.features.map((feature) => feature.properties.name)} buttons={this.state.site.buttons} handler={this.toggleModal} email={this.state.user.email} />
         <Modal type={this.state.modal.type} removeFilters={this.removeFilters} title={this.state.modal.title} id={this.state.modal.id} subtitle={this.state.modal.subtitle} description={this.state.modal.description} email={this.state.user.email} handler={this.toggleModal} handleFilters={this.handleFilters} userLog={this.userLog} options={this.state.modal.options} data={this.state.modal.data} collection={this.state.site.collection} />
-        <Sidebar title={this.state.featureData.title} img={this.state.featureData.img} userEmail={this.state.user.email} creator={this.state.featureData.creator} description={this.state.featureData.description} address={this.state.featureData.address} email={this.state.featureData.email} url={this.state.featureData.url} twitter={this.state.featureData.twitter} facebook={this.state.featureData.facebook} phone={this.state.featureData.phone} show={this.state.featureData.show} closeSidebar={this.closeSidebar} />
+        <Sidebar title={this.state.featureData.title} location={this.state.featureData.location} img={this.state.featureData.img} userEmail={this.state.user.email} creator={this.state.featureData.creator} description={this.state.featureData.description} address={this.state.featureData.address} email={this.state.featureData.email} url={this.state.featureData.url} twitter={this.state.featureData.twitter} facebook={this.state.featureData.facebook} phone={this.state.featureData.phone} show={this.state.featureData.show} closeSidebar={this.closeSidebar} />
         <NotificationContainer/>
       </div>
     );

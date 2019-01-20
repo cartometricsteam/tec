@@ -9,12 +9,19 @@ class Dashboard extends Component {
       email: '',
       password: '',
     };
-
     this.handleChange = this.handleChange.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    // this.checkifuserexist = this.checkifuserexist.bind(this);
+    // this.checkifuserexist();
   }
-
+    // checkifuserexist(){
+    //     console.log('check in locastorage');
+    //     // this.userLog({ email: localStorage.getItem('email'), uid: localStorage.getItem('uid') });
+    //     console.log('uid from local storage'+localStorage.getItem('uid'));
+    //     console.log('email from local storage'+localStorage.getItem('email'));
+    //     this.props.userLog({ email: localStorage.getItem('email'), uid: localStorage.getItem('uid') });
+    // }
   handleChange(event) {
     this.setState({ [event.target.id]: event.target.value });
   }
@@ -24,6 +31,14 @@ class Dashboard extends Component {
       .then(() => {
         firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
           .then(response => {
+              console.log('created and logged in');
+              console.log('Email: '+response.user.email);
+              console.log('Password:'+response.user.uid);
+              localStorage.setItem('uid', response.user.uid);
+              localStorage.setItem('email', response.user.email);
+              console.log('uid from local storage'+localStorage.getItem('uid'));
+              console.log('email from local storage'+localStorage.getItem('email'));
+
             this.props.userLog({ email: response.user.email, uid: response.user.uid });
             this.props.handler(false);
             NotificationManager.success('¡Cuenta creada!')
@@ -34,9 +49,16 @@ class Dashboard extends Component {
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
+          // console.log('if already exist');
+          // console.log('Email: '+this.state.email);
+          // console.log('Password:'+this.state.password);
           firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
             .then(response => {
               this.props.userLog({ email: response.user.email, uid: response.user.uid });
+                localStorage.setItem('uid', response.user.uid);
+                localStorage.setItem('email', response.user.email);
+                // console.log('uid from local storage'+localStorage.getItem('uid'));
+                // console.log('email from local storage'+localStorage.getItem('email'));
               this.props.handler(false);
               NotificationManager.success('¡Autenticación correcta!')
             })
@@ -54,6 +76,8 @@ class Dashboard extends Component {
   handleLogout(event) {
     firebase.auth().signOut().then(() => {
       this.props.userLog({ email: null, uid: null });
+        localStorage.setItem('uid', null);
+        localStorage.setItem('email',null);
       this.props.handler(false);
     }).catch((error) => {
       NotificationManager.error('Algo salió mal...')
@@ -65,7 +89,7 @@ class Dashboard extends Component {
   render() {
     const modalHeader = <div className='modal-header'> <h5 className='modal-title'>{this.props.title}</h5><button type='button' className='close' aria-label='Close' onClick={() => this.props.handler(false)}><span aria-hidden='true'>&times;</span></button></div>;
 
-    if (this.props.email) {
+    if (this.props.email!='null' && this.props.email!= undefined) {
       return (
         <form onSubmit={this.handleLogout}>
           <div className='modal fade show' style={{ display: 'block', overflow: 'auto' }} tabIndex='-1'>

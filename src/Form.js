@@ -33,7 +33,7 @@ class Form extends Component {
     let data = this.props.data;
     data.properties = {
       name: this.state.name,
-      url: this.state.web,
+      url: (this.state.web.toLocaleLowerCase().startsWith('http') ? this.state.web : 'https://' + this.state.web),
       address: this.state.address,
       initiative: this.state.purpose,
       action: this.state.action,
