@@ -100,7 +100,7 @@ class Dashboard extends Component {
                   <div className='modal-body' style={{ textAlign: 'center' }}>
                     <h4 style={{ fontWeight: 'bold' }}>¡Hola!</h4>
                     <h6>Estas registrado cómo {this.props.email}</h6>
-                    <input className='btn btn-primary justify-content-center' type='submit' value='Desconectar' style={{ backgroundColor: '#Ff8326' }} />
+                    <input className='btn btn-primary-filters btn-sm' type='submit' value='Desconectar'  />
                   </div>
                 </div>
               </div>
@@ -171,7 +171,7 @@ class Dashboard extends Component {
             <textarea className='form-control' id='exampleFormControlTextarea1' rows='3'></textarea>
           </div> */}
                     <div className='modal-footer justify-content-center'>
-                      <input className='btn btn-primary justify-content-center' type='submit' value='Acceder' style={{ backgroundColor: '#Ff8326' }} />
+                      <input className='btn btn-primary-filters btn-sm' type='submit' value='Acceder'  />
                     </div>
                   </div>
                 </div>

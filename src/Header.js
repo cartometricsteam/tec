@@ -37,7 +37,7 @@ class Header extends Component {
     const buttons = this.props.buttons.map((button, key) => {
       return (
         <li className='nav-item'>
-          <button type='button' className='btn btn-primary' style={{ backgroundColor: '#Ff8326' }} key={key} onClick={() => this.props.handler({ type: 'filter', title: button.name, description: button.description, id: button.id, options: button.filters })}>{button.name}</button>
+          <button type='button' className='btn btn-primary' style={{ backgroundColor: '#Ff8326' }}  key={key} onClick={() => this.props.handler({ type: 'filter', title: button.name, description: button.description, id: button.id, options: button.filters })}>{button.name}</button>
         </li>
       );
     });
@@ -91,7 +91,7 @@ class Header extends Component {
               <CSVLink data={csvData} className='nav-link' onClick={this.makecsv}><i className='material-icons'>save</i></CSVLink>
 
               </li>
-              <li className='nav-item'><a className='nav-link' onClick={() => this.props.handler({ type: 'login', title: 'Accede o crea tu cuenta' })}><i className='material-icons'>person</i>{logged}</a></li>
+              <li className='nav-item'><a className='nav-link' onClick={() => this.props.handler({ type: 'login', title: 'Panel de usuario' })}><i className='material-icons'>person</i>{logged}</a></li>
             </ul>
             {/*</div>*/}
           </div>

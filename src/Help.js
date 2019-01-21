@@ -10,16 +10,18 @@ class Help extends Component {
             {modalHeader}
 
             <div className='modal-body'>
-              <h6>{this.props.subtitle}</h6>
+              <div className='backtittle'><h6>{this.props.subtitle}</h6></div>
               <p className='text-justify'>{this.props.description}</p>
               <a class='portada'><img class='portada' src='/assets/img/city.png'></img></a>
+
+
               <div className='container'>
 
 
 
                 <div className='row'>
                   <div className='col-md-4 col-lg-4 col-sm-12 text-center'>
-
+              
                     <a href='https://www.uma.es/rce/'><img className='sponsor' src='/assets/img/rce.png' /></a>
 
                   </div>
