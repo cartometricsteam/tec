@@ -18061,6 +18061,11 @@ footer .pull-center {
 
 
 
+.img-responsivePolo {
+
+  padding-top:14px;
+}
+
 .img-responsive {
   padding: 10px;
 }
@@ -18090,13 +18095,19 @@ footer .pull-center {
 .sponsor{
   max-width:90%;
   height:auto;
-  padding-top:20px;
+  padding-top:14px;
+}
+
+.sponsorGeo{
+  max-width:90%;
+  height:auto;
+  padding-top:19px;
 }
 
 .sponsorTec{
   max-width:100%;
   height:auto;
-  padding-top:20px;
+  padding-top:27px;
 }
 
 
@@ -18119,6 +18130,22 @@ footer .pull-center {
 .backtittle{
   background-color: #f4f4f4;
   border-radius: 5px;
+}
+
+.backtittleTwo{
+  background-color: #f5f5f5;
+  border-radius: 5px;
+}
+
+.backtittleThree{
+  background-color: #dbdbdb;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.backtittleFour{
+  background-color: #dbdbdb;
+
 }
 
 .logoFilter{

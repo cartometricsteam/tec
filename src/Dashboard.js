@@ -118,7 +118,7 @@ class Dashboard extends Component {
                 <div className='card card-signup card-plain'>
                   {modalHeader}
                   <div className='modal-body'>
-                    <h6>Introduce tu correo y tu contraseña para acceder. Si no tienes una cuenta, se creara automáticamente.</h6>
+                      <div className='backtittle'><h6 style={{padding:'5px'}}>Introduce tu correo y tu contraseña para acceder. Si no tienes una cuenta, se creara automáticamente.</h6></div>
                     <div className='form-row'>
                       <div className='form-group col-md-6'>
                         <label htmlFor='email'>Email</label>

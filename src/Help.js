@@ -10,7 +10,7 @@ class Help extends Component {
             {modalHeader}
 
             <div className='modal-body'>
-              <div className='backtittle'><h6>{this.props.subtitle}</h6></div>
+              <div className='backtittle'><h6 style={{padding:'5px'}}>{this.props.subtitle}</h6></div>
               <p className='text-justify'>{this.props.description}</p>
               <a class='portada'><img class='portada' src='/assets/img/city.png'></img></a>
 
@@ -21,7 +21,7 @@ class Help extends Component {
 
                 <div className='row'>
                   <div className='col-md-4 col-lg-4 col-sm-12 text-center'>
-              
+
                     <a href='https://www.uma.es/rce/'><img className='sponsor' src='/assets/img/rce.png' /></a>
 
                   </div>
@@ -34,13 +34,13 @@ class Help extends Component {
 
                   <div className='col-md-4 col-lg-4 col-sm-12 text-center'>
 
-                    <a href='http://geotecnologias.uma.es/'><img className='sponsor' src='/assets/img/rges.png' /></a>
+                    <a href='http://geotecnologias.uma.es/'><img className='sponsorGeo' src='/assets/img/rges.png' /></a>
 
                   </div>
 
                 <div className='row'>
                     <div className='col-md-3 col-lg-3 col-sm-12 text-center'>
-                      <a href='https://www.polodigital.eu/'><img className='img-responsive' src='/assets/img/polo.png' /></a>
+                      <a href='https://www.polodigital.eu/'><img className='img-responsivePolo' src='/assets/img/polo.png' /></a>
                     </div>
 
                     <div className='col-md-3 col-lg-3 col-sm-12 text-center'>

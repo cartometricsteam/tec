@@ -41,15 +41,17 @@ class Sidebar extends Component {
             <h6 class="text-muted">{this.props.address}</h6>
 
           <div class="blockquote undefined">  <p className=' text-justify'>{this.props.description}</p></div>
-          <div className='backtittle'>
-            <h6 class="text-muted" style={{padding:'5px' }}>Contacto:</h6>
+          <div className='backtittleTwo'>
+            <div className='backtittleThree'>
+            <h6 class="text-muted" style={{padding:'5px' }}>Contacto:</h6></div>
 
             {url}
             {twitter}
             {facebook}
             {phone}
 
-            <h6 class="text-muted" style={{padding:'5px' }}>Compartir iniciativa en:</h6>
+            <div className='backtittleFour'>
+            <h6 class="text-muted" style={{padding:'5px' }}>Compartir iniciativa en:</h6> </div>
             <a  target='_blank'  href={"https://twitter.com/intent/tweet?url=localhost:3000" } className='card-link'><i class='fa fa-twitter' style={{marginBottom:'5px',marginLeft:'5px' }}></i> </a>
             <a target='_blank'  href="https://facebook.com" className='card-link'><i class='fa fa-facebook-square' style={{marginBottom:'5px' }}> </i></a>
 
