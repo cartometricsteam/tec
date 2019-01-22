@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {NotificationManager} from 'react-notifications';
 import * as firebase from 'firebase';
+import {storage} from './App'
 
 class Form extends Component {
   constructor(props) {
@@ -16,13 +17,44 @@ class Form extends Component {
       area: '',
       enabler: '',
       description: '',
-      image: '',
-      creator: this.props.email
+      image: null,
+      creator: this.props.email,
+        url: '',
+        progress: 0
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmission = this.handleSubmission.bind(this);
+      this.handleUpload = this.handleUpload.bind(this);
   }
+    handleUpload = e => {
+        if (e.target.files[0]) {
+            const image = e.target.files[0];
+            this.setState(() => ({image}));
+
+
+            const uploadTask = storage.ref(`images/${image.name}`).put(image);
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    // progrss function ....
+                    const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+                    this.setState({progress});
+                },
+                (error) => {
+                    // error function ....
+                    console.log(error);
+                },
+                () => {
+                    // complete function ....
+                    storage.ref('images').child(image.name).getDownloadURL().then(url => {
+                        console.log(url);
+                        this.setState({url});
+                    })
+                });
+        }
+    }
+
+
 
 
   handleChange(event) {
@@ -144,12 +176,16 @@ class Form extends Component {
         </div>
         <div className='form-group'>
           <label htmlFor='image'>¿Alguna imagen?</label>
-          <input type='text' className='form-control' id='image' placeholder='Pon el enlace a la imagen de tu iniciativa.' value={this.state.image} onChange={this.handleChange} />
+          <input type='text' className='form-control' id='image' placeholder='Pon el enlace a la imagen de tu iniciativa.' value={this.state.url} onChange={this.handleChange} />
+        </div>
+        <div>
+          <input type="file" accept=".png,.jpg" onChange={this.handleUpload}/>
         </div>
         <div className='modal-footer justify-content-center'>
           <input className='btn btn-primary justify-content-center' type='submit' value='Enviar' style={{ backgroundColor: '#Ff8326' }} />
         </div>
       </form>
+
     );
   }
 }

@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import mapboxgl from 'mapbox-gl';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
-import * as turf from '@turf/turf';
+// import * as turf from '@turf/turf';
 import * as firebase from 'firebase';
-
 import Header from './Header';
 import Sidebar from './Sidebar';
 import Modal from './Modal';
@@ -21,6 +20,7 @@ firebase.initializeApp({
   storageBucket: 'catedras-uma.appspot.com',
   messagingSenderId: '657639469404'
 });
+const storage = firebase.storage();
 firebase.firestore().settings({ timestampsInSnapshots: true });
 const data = {
   "type": "FeatureCollection",
@@ -485,4 +485,7 @@ class App extends Component {
 //   ]
 //   }
 
-export default App;
+// export default App;
+export {
+    App as default,storage
+}
