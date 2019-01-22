@@ -179,13 +179,13 @@ class Form extends Component {
           <input type='text' className='form-control' id='image' placeholder='Pon el enlace a la imagen de tu iniciativa.' value={this.state.url} onChange={this.handleChange} />
         </div>
         <div>
-          <input type="file" accept=".png,.jpg" onChange={this.handleUpload}/>
+          <label for="file" class="btn" style={{ backgroundColor: '#Ff8326' }}>Select Image</label>
+          <input type="file" id="file" style={{visibility:'hidden'}} accept=".png,.jpg" onChange={this.handleUpload}/>
         </div>
         <div className='modal-footer justify-content-center'>
           <input className='btn btn-primary justify-content-center' type='submit' value='Enviar' style={{ backgroundColor: '#Ff8326' }} />
         </div>
       </form>
-
     );
   }
 }
