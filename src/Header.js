@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
 
+// import { fromJS } from 'immutable';
+import { CSVLink, CSVDownload } from "react-csv";
+
+
+//name,description,website,lat(// this is geometry[0]),long(// this is geometry[1])
+const csvData = [
+    ["Name","Description", "Website", "Lat", "Long"],
+];
+
 
 class Header extends Component {
 
@@ -78,9 +87,10 @@ class Header extends Component {
                 </a>
               </li>
               <li className='nav-item'>
-                <a className='nav-link' title='Descargar en .csv'><i className='material-icons'>save</i></a>
+              <CSVLink data={csvData} className='nav-link' onClick={this.makecsv}><i className='material-icons'>save</i></CSVLink>
+
               </li>
-              <li className='nav-item'><a className='nav-link' onClick={() => this.props.handler({ type: 'login', title: 'Accede o crea tu cuenta' })}><i className='material-icons'>person</i>{logged}</a></li>
+              <li className='nav-item'><a className='nav-link' onClick={() => this.props.handler({ type: 'login', title: 'Panel de usuario' })}><i className='material-icons'>person</i>{logged}</a></li>
             </ul>
             {/*</div>*/}
           </div>

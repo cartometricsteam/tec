@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import mapboxgl from 'mapbox-gl';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
-// import * as turf from '@turf/turf';
+import * as turf from '@turf/turf';
 import * as firebase from 'firebase';
 import Header from './Header';
 import Sidebar from './Sidebar';
@@ -86,7 +86,7 @@ class App extends Component {
 
     this.state = {
       modal: {
-        title: 'Plataforma de Iniciativas Ciudadanas',
+        title: 'Plataforma de Iniciativas Ciudadanas 🙌',
         subtitle: '¿QUÉ INICIATIVAS CIUDADANAS HAY EN TU BARRIO?, ¿PARTICIPAS EN ALGUNA?, ¿QUIERES DARLA A CONOCER?',
         description: 'El objetivo de este proyecto es mostrar la ciudad de Málaga desde una perspectiva social de movimientos emergentes, iniciativas vecinales, nuevas tendencias urbanas dentro de sus barrios, dar a conocer esa realidad social -con poca visibilidad en la ciudad- además de crear una red de colectivos y asociaciones, y establecer posibles sinergias.',
         type: 'help',
@@ -95,7 +95,6 @@ class App extends Component {
       },
 
       data: data,
-      
       site: {
         title: 'Iniciativas Ciudadanas',
         collection: 'initiatives',
@@ -292,7 +291,7 @@ class App extends Component {
             'parkour', '#223b53',
             'running', '#e55e5e',
             'yoga', '#3bb2d0',
-            '#Ff8326'
+            '#d75d00'
           ]
         }
       });
@@ -337,7 +336,7 @@ class App extends Component {
               'parkour', '#223b53',
               'running', '#e55e5e',
               'yoga', '#3bb2d0',
-              '#Ff8326'
+              '#d75d00'
             ]
           }
         });
@@ -390,7 +389,8 @@ class App extends Component {
           id: 'userSelected',
           source: {
             'type': 'geojson',
-            'data': lines
+            'data': lines,
+            lineMetrics: true,
           },
           type: 'line',
           'layout': {
@@ -398,8 +398,19 @@ class App extends Component {
             'line-cap': 'round'
           },
           'paint': {
-            'line-color': '#AAA',
-            'line-width': 1
+
+            'line-width': 2,
+            'line-gradient': [
+                'interpolate',
+                ['linear'],
+                ['line-progress'],
+                0, "#d75d00",
+                0.1, "#ea6400",
+                0.3, "#ff8326",
+                0.5, "#ff9b51",
+                0.7, "#ffa867",
+                1, "#ffbb88"
+            ]
           }
         });
 
@@ -411,6 +422,7 @@ class App extends Component {
           },
           type: 'circle',
           paint: {
+
             'circle-radius': [
               "interpolate", ["linear"], ["zoom"],
               // zoom is 5 (or less) -> circle radius will be 1px
@@ -425,8 +437,10 @@ class App extends Component {
               // zoom is 10 (or greater) -> circle radius will be 5px
               12, 6
           ],
-            'circle-stroke-color': '#AAA',
-            'circle-color': '#Ff8326'
+
+            'circle-color': '#d75d00',
+            'circle-stroke-color': '#d75d00'
+
           }
         });
 

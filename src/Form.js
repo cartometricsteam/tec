@@ -183,7 +183,7 @@ class Form extends Component {
           <input type="file" id="file" style={{visibility:'hidden'}} accept=".png,.jpg" onChange={this.handleUpload}/>
         </div>
         <div className='modal-footer justify-content-center'>
-          <input className='btn btn-primary justify-content-center' type='submit' value='Enviar' style={{ backgroundColor: '#Ff8326' }} />
+          <input className='btn btn-primary-filters btn-sm' type='submit' value='Enviar' />
         </div>
       </form>
     );

@@ -38,10 +38,12 @@ class Sidebar extends Component {
           {img}
           <div className='card-body'>
 
-            <h5 class="text-muted">{this.props.address}</h5>
+            <h6 class="text-muted">{this.props.address}</h6>
 
           <div class="blockquote undefined">  <p className=' text-justify'>{this.props.description}</p></div>
-            <h6 class="text-muted">Contacto:</h6>
+          <div className='backtittleTwo'>
+            <div className='backtittleThree'>
+            <h6 class="text-muted" style={{padding:'5px' }}>Contacto:</h6></div>
 
             {url}
             {twitter}
@@ -58,7 +60,13 @@ class Sidebar extends Component {
                 {deletePoint}
                 {editPoint}
               </div>
+
+            <div className='modal-body' style={{ textAlign: 'center' }}>
+              {deletePoint}
+              {editPoint}
+            </div>
           </div>
+        </div>
         </div>
       )
     }
