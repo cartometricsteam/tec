@@ -147,7 +147,7 @@ class Form extends Component {
           <input type='text' className='form-control' id='image' placeholder='Pon el enlace a la imagen de tu iniciativa.' value={this.state.image} onChange={this.handleChange} />
         </div>
         <div className='modal-footer justify-content-center'>
-          <input className='btn btn-primary justify-content-center' type='submit' value='Enviar' style={{ backgroundColor: '#Ff8326' }} />
+          <input className='btn btn-primary-filters btn-sm' type='submit' value='Enviar' />
         </div>
       </form>
     );

@@ -66,7 +66,7 @@ body {
   font-size: 0.5rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #212529;
+  color: #4d5053;
   text-align: left;
   background-color: #fafafa;
 }
@@ -89,11 +89,13 @@ h5,
 h6 {
   margin-top: 0;
   margin-bottom: 0.5rem;
+  color: #4d5053;
 }
 
 p {
   margin-top: 0;
   margin-bottom: 1rem;
+  color: #4d5053;
 }
 
 abbr[title],
@@ -167,7 +169,7 @@ sup {
 }
 
 a {
-  color: #9c27b0;
+  color: #4d5053;
   text-decoration: none;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
@@ -493,11 +495,13 @@ h5,
 h6 {
   margin-top: 0;
   margin-bottom: 0.5rem;
+  color: #4d5053;
 }
 
 p {
   margin-top: 0;
   margin-bottom: 1rem;
+  color: #4d5053;
 }
 
 abbr[title],
@@ -785,7 +789,7 @@ h6,
   font-family: inherit;
   font-weight: 400;
   line-height: 1.2;
-  color: inherit;
+  color: #4d5053;
 }
 
 h1,
@@ -2337,7 +2341,7 @@ select.form-control-lg:not([size]):not([multiple]),
 }
 
 .form-check-input:disabled~.form-check-label {
-  color: #6c757d;
+  color: #4d5053;
 }
 
 .form-check-label {
@@ -2409,7 +2413,7 @@ select.form-control-lg:not([size]):not([multiple]),
 
 .was-validated .form-check-input:valid~.form-check-label,
 .form-check-input.is-valid~.form-check-label {
-  color: #4caf50;
+  color: #4d5053;
 }
 
 .was-validated .form-check-input:valid~.valid-feedback,
@@ -8939,8 +8943,8 @@ button:focus {
 
 .btn.btn-primary-filters {
   color: #fff;
-  background-color: #002E5D ;
-  border-color: #002E5D ;
+  background-color: #FF994F ;
+  border-color: #FF8226 ;
 
 
   border-radius: 0px;
@@ -8948,24 +8952,24 @@ button:focus {
 
 .btn.btn-primary:hover {
   color: #fff;
-  background-color: #00aec7;
-  border-color: #00aec7;
+  background-color: #FF8226;
+  border-color: #FF8226;
 }
 
 .btn.btn-primary:focus,
 .btn.btn-primary.focus,
 .btn.btn-primary:hover {
   color: #fff;
-  background-color: #00aec7;
-  border-color: #00aec7;
+  background-color: #FF8226;
+  border-color: #FF8226;
 }
 
 .btn.btn-primary-filters:focus,
 .btn.btn-primary-filters.focus,
 .btn.btn-primary-filters:hover {
   color: #fff;
-  background-color: #00aec7;
-  border-color: #00aec7;
+  background-color: #FF8226;
+  border-color: #FF8226;
 }
 
 .btn.btn-primary:active,
@@ -8973,8 +8977,8 @@ button:focus {
 .open>.btn.btn-primary.dropdown-toggle,
 .show>.btn.btn-primary.dropdown-toggle {
   color: #fff;
-  background-color: #00aec7;
-  border-color: #00aec7;
+  background-color: #FF8226;
+  border-color: #FF8226;
   box-shadow: 0 2px 2px 0 rgba(156, 39, 176, 0.14), 0 3px 1px -2px rgba(156, 39, 176, 0.2), 0 1px 5px 0 rgba(156, 39, 176, 0.12);
 }
 
@@ -11022,7 +11026,7 @@ a .material-icons {
 label {
   font-size: 14px;
   line-height: 1.42857;
-  color: #000;
+  color: #8b8b8b;
   font-weight: 400;
 }
 
@@ -11506,7 +11510,7 @@ label {
 }
 
 .form-group.is-focused .form-check .form-check-label {
-  color: rgba(0, 0, 0, 0.26);
+  color: #4d5053;;
 }
 
 .form-group.is-focused .form-check .form-check-label:hover,
@@ -11825,7 +11829,7 @@ fieldset[disabled] .form-group.is-focused .form-check .form-check-label {
 }
 
 .form-check .form-check-input:checked~.check {
-  background-color: #9c27b0;
+  color: #4d5053;
 }
 
 .form-check .form-check-input:checked~.circle {
@@ -11875,7 +11879,7 @@ fieldset[disabled] .form-group.is-focused .form-check .form-check-label {
   position: absolute;
   left: -1px;
   content: "";
-  background-color: rgba(0, 0, 0, 0.84);
+  background-color: #4d5053;
   height: 15px;
   width: 15px;
   border-radius: 100%;
@@ -12072,19 +12076,19 @@ form {
 }
 
 .form-control::-moz-placeholder {
-  color: #000;
+  color:  #fff;
   font-weight: 400;
   font-size: 14px;
 }
 
 .form-control:-ms-input-placeholder {
-  color: #000;
+  color:  #fff;
   font-weight: 400;
   font-size: 14px;
 }
 
 .form-control::-webkit-input-placeholder {
-  color: #000;
+  color:  #fff;
   font-weight: 400;
   font-size: 14px;
 }
@@ -12234,7 +12238,7 @@ fieldset[disabled] .is-focused .switch label:focus {
 
 .form-control,
 .is-focused .form-control {
-  background-image: linear-gradient(to top, #00aec7 2px, rgba(0, 174, 199, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
+  background-image: linear-gradient(to top, #d75d00 2px, rgba(0, 174, 199, 0) 2px), linear-gradient(to top, #ffbb88 2px, rgba(210, 210, 210, 0) 1px);
 }
 
 .form-control:invalid {
@@ -14839,7 +14843,7 @@ small,
 .footer-big h4 a,
 .media .media-heading,
 .media .media-heading a {
-  color: #3C4858;
+  color: #8b8b8b;
   text-decoration: none;
 }
 
@@ -17605,7 +17609,7 @@ footer .pull-center {
     color: #002E5D;
     margin: 5px 15px;
     text-align: center;
-    box-shadow: 2px 2px 3px 3px rgba(0,174,199,0.5);
+    box-shadow: 1px 1px 2px 2px rgba(0,174,199,0.5);
     margin-top:20px;
   }
   .navbar-collapse .navbar-nav .nav-item.button-container .nav-link {
@@ -18052,10 +18056,15 @@ footer .pull-center {
   z-index: 1030;
   top:10%;
   max-height: 80%;
-  left: 5px;
+  left: 1.6rem;
 }
 
 
+
+.img-responsivePolo {
+
+  padding-top:14px;
+}
 
 .img-responsive {
   padding: 10px;
@@ -18086,13 +18095,19 @@ footer .pull-center {
 .sponsor{
   max-width:90%;
   height:auto;
-  padding-top:20px;
+  padding-top:14px;
+}
+
+.sponsorGeo{
+  max-width:90%;
+  height:auto;
+  padding-top:19px;
 }
 
 .sponsorTec{
   max-width:100%;
   height:auto;
-  padding-top:20px;
+  padding-top:27px;
 }
 
 
@@ -18109,4 +18124,30 @@ footer .pull-center {
   margin-left: 47%;
   margin-bottom:10px;
   padding-bottom:20px;
+}
+
+
+.backtittle{
+  background-color: #f4f4f4;
+  border-radius: 5px;
+}
+
+.backtittleTwo{
+  background-color: #f5f5f5;
+  border-radius: 5px;
+}
+
+.backtittleThree{
+  background-color: #dbdbdb;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.backtittleFour{
+  background-color: #dbdbdb;
+
+}
+
+.logoFilter{
+  max-width: 20px;
 }
