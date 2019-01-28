@@ -26,6 +26,7 @@ class Header extends Component {
   }
 
   render() {
+    console.log(this.props.mapData)
     var logged;
     if (this.props.email != 'null' && this.props.email != undefined) {
       logged = <span>{this.props.email} </span>;
@@ -87,7 +88,7 @@ class Header extends Component {
                 </a>
               </li>
               <li className='nav-item'>
-              <CSVLink data={csvData} className='nav-link' onClick={this.makecsv}><i className='material-icons'>save</i></CSVLink>
+              <CSVLink data={csvData} className='nav-link'><i className='material-icons'>save</i></CSVLink>
 
               </li>
               <li className='nav-item'><a className='nav-link' onClick={() => this.props.handler({ type: 'login', title: 'Panel de usuario' })}><i className='material-icons'>person</i>{logged}</a></li>
