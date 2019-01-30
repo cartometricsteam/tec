@@ -184,6 +184,7 @@ class App extends Component {
     //     this.map.setFilter('route', this.state.filter);
     //   });
     this.map.setFilter('pointActivities', this.composeFilters(this.state.map.filter));
+    this.map.setFilter('userActivities', this.composeFilters(this.state.map.filter));
     if(this.map.getSource('userSelected') !== undefined ) {
       this.map.setFilter('userSelected', this.composeFilters(this.state.map.filter));
       this.map.setFilter('selectedFeature', this.composeFilters(this.state.map.filter));

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
+import {NotificationManager} from 'react-notifications';
 
 class Sidebar extends Component {
   
@@ -9,11 +10,13 @@ class Sidebar extends Component {
   }
   
   deleteFeature(name, coordinates) {
-    console.log(this.props.collection, name + '_' + coordinates[0].toFixed(2) + '_' + coordinates[1].toFixed(2))
-    firebase.firestore().collection(this.props.collection).doc(name + '_' + coordinates[0] + '_' + coordinates[1]).delete().then(function(response) {
+    firebase.firestore().collection(this.props.collection).doc(name + '_' + coordinates[0].toFixed(2) + '_' + coordinates[1].toFixed(2)).delete().then(function(response) {
       console.log(response);
-  }).catch(function(error) {
+      NotificationManager.success('Iniciativa eliminada con éxito. ¡Sentimos que te vayas! :(');
+  }).catch(error => {
       console.error("Error removing document: ", error);
+      NotificationManager.error('Ha ocurrido un error al eliminar la iniciativa.');
+
   });
   };
   
@@ -24,7 +27,6 @@ class Sidebar extends Component {
         twitter = this.props.twitter == null ? null : <div><a href={this.props.twitter} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>link</i>Twitter</a></div>,
         phone = this.props.phone == null ? null : <div><a href={'tel:' + this.props.phone} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>phone</i> {this.props.phone}</a></div>,
         facebook = this.props.facebook == null ? null : <div><a href={this.props.facebook} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>link</i>Facebook</a></div>,
-        pointLocation = <input className='btn btn-primary justify-content-center' value='Compartir' style={{ backgroundColor: '#Ff8326' }} />,
         deletePoint = (this.props.creator === this.props.userEmail) ? <button className='btn btn-primary justify-content-center' style={{ backgroundColor: '#Ff8326' }} onClick={() => this.deleteFeature(this.props.title, this.props.location)} >Eliminar </button> : null,
         img = this.props.img == null ? null : <img className='card-img-top' src={this.props.img} />;
     
