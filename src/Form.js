@@ -66,7 +66,7 @@ class Form extends Component {
       name: this.state.name,
       url: (this.state.web.toLocaleLowerCase().startsWith('http') ? this.state.web : 'https://' + this.state.web),
       address: this.state.address,
-      initiative: this.state.purpose,
+      purpose: this.state.purpose,
       action: this.state.action,
       area: this.state.area,
       enabler: this.state.enabler,
