@@ -17,10 +17,9 @@ class Form extends Component {
       area: '',
       enabler: '',
       description: '',
-      image: null,
+      image: '',
       creator: this.props.email,
-        url: '',
-        progress: 0
+      file: null
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -29,11 +28,11 @@ class Form extends Component {
   }
     handleUpload = e => {
         if (e.target.files[0]) {
-            const image = e.target.files[0];
-            this.setState(() => ({image}));
+            const file = e.target.files[0];
+            this.setState(() => ({file}));
 
 
-            const uploadTask = storage.ref(`images/${image.name}`).put(image);
+            const uploadTask = storage.ref(`images/${file.name}`).put(file);
             uploadTask.on('state_changed',
                 (snapshot) => {
                     // progrss function ....
@@ -46,9 +45,9 @@ class Form extends Component {
                 },
                 () => {
                     // complete function ....
-                    storage.ref('images').child(image.name).getDownloadURL().then(url => {
-                        console.log(url);
-                        this.setState({url});
+                    storage.ref('images').child(file.name).getDownloadURL().then(image => {
+                        this.setState({image});
+                        console.log(image, this.state)
                     })
                 });
         }
@@ -75,7 +74,7 @@ class Form extends Component {
       image: this.state.image,
       creator: this.state.creator
     }
-    firebase.firestore().collection(this.props.collection).add(data)
+    firebase.firestore().collection(this.props.collection).doc(data.properties.name + '_' + data.geometry.coordinates[0].toFixed(2) + '_' + data.geometry.coordinates[1].toFixed(2)).set(data)
       .then(() => {
         this.props.handler(false);
         NotificationManager.success('Iniciativa añadida con éxito. ¡Gracias por colaborar!');
@@ -174,12 +173,8 @@ class Form extends Component {
           <label htmlFor='description'>Descripción</label>
           <textarea className='form-control' placeholder='Describe aqui la iniciativa' id='description' rows='3' value={this.state.description} onChange={this.handleChange} />
         </div>
-        <div className='form-group'>
-          <label htmlFor='image'>¿Alguna imagen?</label>
-          <input type='text' className='form-control' id='image' placeholder='Pon el enlace a la imagen de tu iniciativa.' value={this.state.url} onChange={this.handleChange} />
-        </div>
         <div>
-          <label for="file" class="btn" style={{ backgroundColor: '#Ff8326' }}>Select Image</label>
+          <label htmlFor="file" class="btn" style={{ backgroundColor: '#Ff8326' }}>Select Image</label>
           <input type="file" id="file" style={{visibility:'hidden'}} accept=".png,.jpg" onChange={this.handleUpload}/>
         </div>
         <div className='modal-footer justify-content-center'>

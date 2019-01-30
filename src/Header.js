@@ -4,17 +4,15 @@ import React, { Component } from 'react';
 import { CSVLink, CSVDownload } from "react-csv";
 
 
-//name,description,website,lat(// this is geometry[0]),long(// this is geometry[1])
-const csvData = [
-    ["Name","Description", "Website", "Lat", "Long"],
-];
-
-
 class Header extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { isToggleOn: false };
+    this.printCSV = this.printCSV.bind(this);
+    this.state = {
+      isToggleOn: false,
+      data: []
+     };
 
     // This binding is necessary to make `this` work in the callback
     this.handleClick = this.handleClick.bind(this);
@@ -25,8 +23,14 @@ class Header extends Component {
     }));
   }
 
+  printCSV() {
+    this.setState({ data: [["Name","Description", "Website", "Lat", "Long"],...this.props.printData(['pointActivities']).map(point => {
+      return [point.properties.name, point.properties.description, point.properties.url, point.geometry.coordinates[0], point.geometry.coordinates[1]]
+    })]
+  }) 
+  }
+
   render() {
-    console.log(this.props.mapData)
     var logged;
     if (this.props.email != 'null' && this.props.email != undefined) {
       logged = <span>{this.props.email} </span>;
@@ -84,11 +88,12 @@ class Header extends Component {
               </li>
               <li className='nav-item'>
                 <a className='nav-link-help' title='Ayuda' onClick={() => this.props.handler({ type: 'help', title: 'Plataforma de Iniciativas Ciudadanas', subtitle: '¿QUÉ INICIATIVAS CIUDADANAS HAY EN TU BARRIO?, ¿PARTICIPAS EN ALGUNA?, ¿QUIERES DARLA A CONOCER?', description: 'El objetivo de este proyecto es mostrar la ciudad de Málaga desde una perspectiva social de movimientos emergentes,iniciativas vecinales, nuevas tendencias urbanas dentro de sus barrios, dar a conocer esa realidad social -con poca visibilidad en la ciudad- además de crear una red de colectivos y asociaciones,y establecer posibles sinergias.' })}>
+
                   <i className='material-icons'>help</i>
                 </a>
               </li>
               <li className='nav-item'>
-              <CSVLink data={csvData} className='nav-link'><i className='material-icons'>save</i></CSVLink>
+              <CSVLink data={this.state.data} onClick={this.printCSV} className='nav-link'><i className='material-icons'>save</i></CSVLink>
 
               </li>
               <li className='nav-item'><a className='nav-link' onClick={() => this.props.handler({ type: 'login', title: 'Panel de usuario' })}><i className='material-icons'>person</i>{logged}</a></li>

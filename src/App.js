@@ -21,7 +21,6 @@ firebase.initializeApp({
   messagingSenderId: '657639469404'
 });
 const storage = firebase.storage();
-firebase.firestore().settings({ timestampsInSnapshots: true });
 const data = {
   "type": "FeatureCollection",
   "features": [
@@ -82,7 +81,8 @@ class App extends Component {
     this.composeFilters = this.composeFilters.bind(this)
     this.removeFilters = this.removeFilters.bind(this);
     localStorage.removeItem('checks');
-    this.closeSidebar = this.closeSidebar.bind(this)
+    this.closeSidebar = this.closeSidebar.bind(this);
+    this.printData = this.printData.bind(this);
 
     this.state = {
       modal: {
@@ -131,6 +131,10 @@ class App extends Component {
       NotificationManager.info(notification)
       this.draw.delete(id)
     }
+  }
+
+  printData(selectedLayers) {
+    return this.map.queryRenderedFeatures({ layers: selectedLayers });
   }
 
   handleFilters(conditions) {
@@ -468,9 +472,9 @@ class App extends Component {
 
     return (
       <div style={style} ref={el => this.mapContainer = el} >
-        <Header title={this.state.site.title} nameList={this.state.data.features.map((feature) => feature.properties.name)} buttons={this.state.site.buttons} handler={this.toggleModal} email={this.state.user.email} mapData={[["Name","Description", "Website", "Lat", "Long"]]}/>
+        <Header title={this.state.site.title} nameList={this.state.data.features.map((feature) => feature.properties.name)} buttons={this.state.site.buttons} handler={this.toggleModal} email={this.state.user.email} printData={this.printData} mapData={[["Name","Description", "Website", "Lat", "Long"]]}/>
         <Modal type={this.state.modal.type} removeFilters={this.removeFilters} title={this.state.modal.title} id={this.state.modal.id} subtitle={this.state.modal.subtitle} description={this.state.modal.description} email={this.state.user.email} handler={this.toggleModal} handleFilters={this.handleFilters} userLog={this.userLog} options={this.state.modal.options} data={this.state.modal.data} collection={this.state.site.collection} />
-        <Sidebar title={this.state.featureData.title} location={this.state.featureData.location} img={this.state.featureData.img} userEmail={this.state.user.email} creator={this.state.featureData.creator} description={this.state.featureData.description} address={this.state.featureData.address} email={this.state.featureData.email} url={this.state.featureData.url} twitter={this.state.featureData.twitter} facebook={this.state.featureData.facebook} phone={this.state.featureData.phone} show={this.state.featureData.show} closeSidebar={this.closeSidebar} />
+        <Sidebar collection={this.state.site.collection} title={this.state.featureData.title} location={this.state.featureData.location} img={this.state.featureData.img} userEmail={this.state.user.email} creator={this.state.featureData.creator} description={this.state.featureData.description} address={this.state.featureData.address} email={this.state.featureData.email} url={this.state.featureData.url} twitter={this.state.featureData.twitter} facebook={this.state.featureData.facebook} phone={this.state.featureData.phone} show={this.state.featureData.show} closeSidebar={this.closeSidebar} />
         <NotificationContainer/>
       </div>
     );
