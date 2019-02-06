@@ -12,6 +12,14 @@ class Help extends Component {
             <div className='modal-body'>
               <div className='backtittle'><h6 style={{padding:'5px'}}>{this.props.subtitle}</h6></div>
               <p className='text-justify'>{this.props.description}</p>
+
+
+              <div className='row'>
+                  <div className='col-md-12 col-lg-12 col-sm-12 text-center'>
+                    <button type='button' className='btn btn-primary-filters btn-sm'  onClick={() => this.props.handler(false)}>¡Comenzar!</button>
+                  </div>
+                </div>
+
               <a class='portada'><img class='portada' src='/assets/img/city.png'></img></a>
 
 
@@ -39,9 +47,11 @@ class Help extends Component {
                   </div>
 
                 <div className='row'>
-                    <div className='col-md-3 col-lg-3 col-sm-12 text-center'>
-                      <a href='https://www.polodigital.eu/'><img className='img-responsivePolo' src='/assets/img/polo.png' /></a>
-                    </div>
+
+                <div className='col-md-3 col-lg-3 col-sm-12 text-center'>
+                  <a href='http://www.malaga.eu/'><img className='img-responsive' src='/assets/img/ayunt.png' /></a>
+                </div>
+
 
                     <div className='col-md-3 col-lg-3 col-sm-12 text-center'>
                       <a href='http://www.andaluciatech.org/'><img className='img-responsive' src='/assets/img/andtech.png' /></a>
@@ -52,8 +62,9 @@ class Help extends Component {
                     </div>
 
                     <div className='col-md-3 col-lg-3 col-sm-12 text-center'>
-                      <a href='http://www.malaga.eu/'><img className='img-responsive' src='/assets/img/ayunt.png' /></a>
+                      <a href='https://www.polodigital.eu/'><img className='img-responsivePolo' src='/assets/img/polo.png' /></a>
                     </div>
+
                 </div>
                 </div>
               </div>

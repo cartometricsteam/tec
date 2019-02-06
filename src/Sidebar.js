@@ -1,35 +1,33 @@
 import React, { Component } from 'react';
-import {
-  FacebookShareButton,
-  GooglePlusShareButton,
-  LinkedinShareButton,
-  TwitterShareButton,
-  TelegramShareButton,
-  WhatsappShareButton,
-  PinterestShareButton,
-  VKShareButton,
-  OKShareButton,
-  RedditShareButton,
-  TumblrShareButton,
-  LivejournalShareButton,
-  MailruShareButton,
-  ViberShareButton,
-  WorkplaceShareButton,
-  LineShareButton,
-  EmailShareButton,
-} from 'react-share';
+import * as firebase from 'firebase';
+import {NotificationManager} from 'react-notifications';
 
 class Sidebar extends Component {
+
+  constructor(props) {
+    super(props);
+    this.deleteFeature = this.deleteFeature.bind(this)
+  }
+
+  deleteFeature(name, coordinates) {
+    firebase.firestore().collection(this.props.collection).doc(name + '_' + coordinates[0].toFixed(2) + '_' + coordinates[1].toFixed(2)).delete().then(function(response) {
+      console.log(response);
+      NotificationManager.success('Iniciativa eliminada con éxito. ¡Sentimos que te vayas! :(');
+  }).catch(error => {
+      console.error("Error removing document: ", error);
+      NotificationManager.error('Ha ocurrido un error al eliminar la iniciativa.');
+
+  });
+  };
+
   render() {
-    console.log(this.props.location)
+
     if (this.props.show) {
-      const url = this.props.url == null ? null :<div><a href={this.props.url} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons' style={{marginLeft:'5px' }}>link</i>Website</a></div>,
-        twitter = this.props.twitter == null ? null : <div><a href={this.props.twitter} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons' style={{marginLeft:'5px' }}>link</i>Twitter</a></div>,
-        phone = this.props.phone == null ? null : <div><a href={'tel:' + this.props.phone} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons' style={{marginLeft:'5px' }}>phone</i> {this.props.phone}</a></div>,
-        facebook = this.props.facebook == null ? null : <div><a href={this.props.facebook} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons' style={{marginLeft:'5px' }}>link</i>Facebook</a></div>,
-        pointLocation = <input className='btn btn-primary-filters btn-sm' value='Compartir'  />,
-        deletePoint = (this.props.creator === this.props.userEmail | this.props.creator == null ) ? <input className='btn btn-primary-filters btn-sm' value='Eliminar'  /> : null,
-        editPoint = (this.props.creator === this.props.userEmail | this.props.creator == null) ? <input className='btn btn-primary-filters btn-sm' value='Editar' /> : null,
+      const url = this.props.url == null ? null :<div><a href={this.props.url} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>link</i>Website</a></div>,
+        twitter = this.props.twitter == null ? null : <div><a href={this.props.twitter} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>link</i>Twitter</a></div>,
+        phone = this.props.phone == null ? null : <div><a href={'tel:' + this.props.phone} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>phone</i> {this.props.phone}</a></div>,
+        facebook = this.props.facebook == null ? null : <div><a href={this.props.facebook} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>link</i>Facebook</a></div>,
+        deletePoint = (this.props.creator === this.props.userEmail) ? <button className='btn btn-primary justify-content-center' style={{ backgroundColor: '#Ff8326' }} onClick={() => this.deleteFeature(this.props.title, this.props.location)} >Eliminar </button> : null,
         img = this.props.img == null ? null : <img className='card-img-top' src={this.props.img} />;
 
       return (
@@ -43,25 +41,24 @@ class Sidebar extends Component {
           <div class="blockquote undefined">  <p className=' text-justify'>{this.props.description}</p></div>
           <div className='backtittleTwo'>
             <div className='backtittleThree'>
-            <h6 class="text-muted" style={{padding:'5px' }}>Contacto:</h6></div>
+            <h6 class="text-muted" style={{padding:'5px' }}>Dónde encontrarnos:</h6></div>
 
             {url}
             {twitter}
             {facebook}
             {phone}
-
             <div className='backtittleFour'>
-            <h6 class="text-muted" style={{padding:'5px' }}>Compartir iniciativa en:</h6> </div>
-            <a  target='_blank'  href={"https://twitter.com/intent/tweet?url=localhost:3000" } className='card-link'><i class='fa fa-twitter' style={{marginBottom:'5px',marginLeft:'5px' }}></i> </a>
-            <a target='_blank'  href="https://facebook.com" className='card-link'><i class='fa fa-facebook-square' style={{marginBottom:'5px' }}> </i></a>
+            <h6 class="text-muted" style={{padding:'5px' }} >Compartir iniciativa en:</h6>
+            </div>
+            <a  target='_blank' href={"https://twitter.com/home?status=" + encodeURIComponent('localhost.com/#15/' + this.props.location[1] + '/' + this.props.location[0] ) } className='card-link'><i class='fa fa-twitter'></i> </a>
+            <a target='_blank' href={"https://facebook.com/sharer/sharer.php?u=" + encodeURIComponent('localhost.com/#15/' + this.props.location[1] + '/' + this.props.location[0] ) } className='card-link'><i class='fa fa-facebook-square'> </i></a>
 
-              </div>
-
-              <div className='modal-body' style={{ textAlign: 'center' }}>
-                {deletePoint}
-                {editPoint}
-              </div>
+            <div className='modal-body' style={{ textAlign: 'center' }}>
+              {deletePoint}
+              {/* {editPoint} */}
+            </div>
           </div>
+        </div>
         </div>
       )
     }

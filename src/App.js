@@ -4,7 +4,6 @@ import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import * as turf from '@turf/turf';
 import * as firebase from 'firebase';
-
 import Header from './Header';
 import Sidebar from './Sidebar';
 import Modal from './Modal';
@@ -21,7 +20,7 @@ firebase.initializeApp({
   storageBucket: 'catedras-uma.appspot.com',
   messagingSenderId: '657639469404'
 });
-firebase.firestore().settings({ timestampsInSnapshots: true });
+const storage = firebase.storage();
 const data = {
   "type": "FeatureCollection",
   "features": [
@@ -82,24 +81,24 @@ class App extends Component {
     this.composeFilters = this.composeFilters.bind(this)
     this.removeFilters = this.removeFilters.bind(this);
     localStorage.removeItem('checks');
-    this.closeSidebar = this.closeSidebar.bind(this)
+    this.closeSidebar = this.closeSidebar.bind(this);
+    this.printData = this.printData.bind(this);
 
     this.state = {
       modal: {
         title: 'Plataforma de Iniciativas Ciudadanas 🙌',
         subtitle: '¿QUÉ INICIATIVAS CIUDADANAS HAY EN TU BARRIO?, ¿PARTICIPAS EN ALGUNA?, ¿QUIERES DARLA A CONOCER?',
-        description: 'El objetivo de este proyecto es mostrar la ciudad de Málaga desde una perspectiva social de movimientos emergentes, iniciativas vecinales, nuevas tendencias urbanas dentro de sus barrios, dar a conocer esa realidad social -con poca visibilidad en la ciudad- además de crear una red de colectivos y asociaciones, y establecer posibles sinergias.',
+        description: 'El objetivo de este proyecto es mostrar la ciudad de Málaga desde una perspectiva social de movimientos emergentes, iniciativas vecinales y nuevas tendencias urbanas dentro de sus barrios. Dar a conocer esa realidad social -con poca visibilidad en la ciudad- además de crear una red de colectivos y asociaciones, y establecer posibles sinergias.',
         type: 'help',
         id: '',
         options: '',
       },
 
       data: data,
-
       site: {
         title: 'Iniciativas Ciudadanas',
         collection: 'initiatives',
-        buttons: [{ name: 'Iniciativas', description: 'Visualiza en el mapa el tipo de iniciativa que ha sido llevada a cabo por los ciudadanos.', id: 'purpose', filters: ['Accesibilidad', 'Arte urbano', 'Autogestión', 'Cuidado', 'Culto', 'Cultura', 'Deporte', 'Derechos sociales', 'Diversidad', 'Educación', 'Integración', 'Igualdad', 'Mediación', 'Medio ambiente', 'Migración', 'Movilidad sostenible', 'Patrimonio sociocultural', 'Política social', 'Regeneración urbana', 'Salud'] }, { name: 'Área de actuación', description:'Este filtro te ayudará a poder diferenciar en el mapa las iniciativas dependiendo del espacio o entorno en las que han sido desarrolladas. ', id: 'area', filters: ["Casa de la cultura", "Espacios virtuales", "Huerto urbano", "Solares vacíos", "Itinerarios urbanos", "Banco de recursos", "Escuela ciudadana", "Lugares de encuentro", "Coworking"] }, { name: 'Barrio', description: 'Si quieres enterarte de las iniciativas que han surgido en tu distrito o en cualquier otro, haz uso de este filtro y las verás en el mapa.', id: 'district', filters: district.features.map((feature) => feature.properties.name)}]
+        buttons: [{ name: 'Temática', description: 'Visualiza en el mapa el tipo de iniciativa por temática que ha sido llevada a cabo por los ciudadanos.', id: 'purpose', filters: ['Accesibilidad', 'Arte urbano', 'Autogestión', 'Cuidado', 'Culto', 'Cultura', 'Deporte', 'Derechos sociales', 'Diversidad', 'Educación', 'Integración', 'Igualdad', 'Mediación', 'Medio ambiente', 'Migración', 'Movilidad sostenible', 'Patrimonio sociocultural', 'Política social', 'Regeneración urbana', 'Salud'] }, { name: 'Zonas', description: 'Si quieres enterarte de las iniciativas que han surgido en tu distrito o en cualquier otro, haz uso de este filtro y las verás en el mapa.', id: 'district', filters: district.features.map((feature) => feature.properties.name)}]
       },
       user: {
         email:localStorage.getItem('email'),
@@ -134,6 +133,10 @@ class App extends Component {
     }
   }
 
+  printData(selectedLayers) {
+    return this.map.queryRenderedFeatures({ layers: selectedLayers });
+  }
+
   handleFilters(conditions) {
     const filters = this.state.map.filter;
     filters[Object.keys(conditions)[0]] = Object.values(conditions)[0];
@@ -163,6 +166,7 @@ class App extends Component {
         }
       }).filter( element => element !== undefined);
     return(['all',...matches])
+
   }
 
   // _toggle(satelliteImage) {
@@ -181,6 +185,8 @@ class App extends Component {
     //     this.map.setFilter('route', this.state.filter);
     //   });
     this.map.setFilter('pointActivities', this.composeFilters(this.state.map.filter));
+    this.map.setFilter('userActivities', this.composeFilters(this.state.map.filter));
+    console.log(this.map.getFilter('userActivities'));
     if(this.map.getSource('userSelected') !== undefined ) {
       this.map.setFilter('userSelected', this.composeFilters(this.state.map.filter));
       this.map.setFilter('selectedFeature', this.composeFilters(this.state.map.filter));
@@ -469,9 +475,9 @@ class App extends Component {
 
     return (
       <div style={style} ref={el => this.mapContainer = el} >
-        <Header title={this.state.site.title} nameList={this.state.data.features.map((feature) => feature.properties.name)} buttons={this.state.site.buttons} handler={this.toggleModal} email={this.state.user.email} />
+        <Header title={this.state.site.title} nameList={this.state.data.features.map((feature) => feature.properties.name)} buttons={this.state.site.buttons} handler={this.toggleModal} email={this.state.user.email} printData={this.printData} mapData={[["Name","Description", "Website", "Lat", "Long"]]}/>
         <Modal type={this.state.modal.type} removeFilters={this.removeFilters} title={this.state.modal.title} id={this.state.modal.id} subtitle={this.state.modal.subtitle} description={this.state.modal.description} email={this.state.user.email} handler={this.toggleModal} handleFilters={this.handleFilters} userLog={this.userLog} options={this.state.modal.options} data={this.state.modal.data} collection={this.state.site.collection} />
-        <Sidebar title={this.state.featureData.title} location={this.state.featureData.location} img={this.state.featureData.img} userEmail={this.state.user.email} creator={this.state.featureData.creator} description={this.state.featureData.description} address={this.state.featureData.address} email={this.state.featureData.email} url={this.state.featureData.url} twitter={this.state.featureData.twitter} facebook={this.state.featureData.facebook} phone={this.state.featureData.phone} show={this.state.featureData.show} closeSidebar={this.closeSidebar} />
+        <Sidebar collection={this.state.site.collection} title={this.state.featureData.title} location={this.state.featureData.location} img={this.state.featureData.img} userEmail={this.state.user.email} creator={this.state.featureData.creator} description={this.state.featureData.description} address={this.state.featureData.address} email={this.state.featureData.email} url={this.state.featureData.url} twitter={this.state.featureData.twitter} facebook={this.state.featureData.facebook} phone={this.state.featureData.phone} show={this.state.featureData.show} closeSidebar={this.closeSidebar} />
         <NotificationContainer/>
       </div>
     );
@@ -500,4 +506,7 @@ class App extends Component {
 //   ]
 //   }
 
-export default App;
+// export default App;
+export {
+    App as default,storage
+}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {NotificationManager} from 'react-notifications';
 import * as firebase from 'firebase';
+import {storage} from './App'
 
 class Form extends Component {
   constructor(props) {
@@ -17,12 +18,42 @@ class Form extends Component {
       enabler: '',
       description: '',
       image: '',
-      creator: this.props.email
+      creator: this.props.email,
+      file: null
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmission = this.handleSubmission.bind(this);
+      this.handleUpload = this.handleUpload.bind(this);
   }
+    handleUpload = e => {
+        if (e.target.files[0]) {
+            const file = e.target.files[0];
+            this.setState(() => ({file}));
+
+
+            const uploadTask = storage.ref(`images/${file.name}`).put(file);
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    // progrss function ....
+                    const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+                    this.setState({progress});
+                },
+                (error) => {
+                    // error function ....
+                    console.log(error);
+                },
+                () => {
+                    // complete function ....
+                    storage.ref('images').child(file.name).getDownloadURL().then(image => {
+                        this.setState({image});
+                        console.log(image, this.state)
+                    })
+                });
+        }
+    }
+
+
 
 
   handleChange(event) {
@@ -35,7 +66,7 @@ class Form extends Component {
       name: this.state.name,
       url: (this.state.web.toLocaleLowerCase().startsWith('http') ? this.state.web : 'https://' + this.state.web),
       address: this.state.address,
-      initiative: this.state.purpose,
+      purpose: this.state.purpose,
       action: this.state.action,
       area: this.state.area,
       enabler: this.state.enabler,
@@ -43,7 +74,7 @@ class Form extends Component {
       image: this.state.image,
       creator: this.state.creator
     }
-    firebase.firestore().collection(this.props.collection).add(data)
+    firebase.firestore().collection(this.props.collection).doc(data.properties.name + '_' + data.geometry.coordinates[0].toFixed(2) + '_' + data.geometry.coordinates[1].toFixed(2)).set(data)
       .then(() => {
         this.props.handler(false);
         NotificationManager.success('Iniciativa añadida con éxito. ¡Gracias por colaborar!');
@@ -73,7 +104,7 @@ class Form extends Component {
         </div>
         <div className='form-row'>
           <div className='form-group col-md-3'>
-            <label htmlFor='initiative'>Iniciativa</label>
+            <label htmlFor='initiative'>Temática</label>
             <select id='purpose' className='form-control' value={this.state.purpose} onChange={this.handleChange}>
               <option value='' disabled hidden>Elige una</option>
               <option value='accesibilidad'>Accesibilidad</option>
@@ -142,9 +173,9 @@ class Form extends Component {
           <label htmlFor='description'>Descripción</label>
           <textarea className='form-control' placeholder='Describe aqui la iniciativa' id='description' rows='3' value={this.state.description} onChange={this.handleChange} />
         </div>
-        <div className='form-group'>
-          <label htmlFor='image'>¿Alguna imagen?</label>
-          <input type='text' className='form-control' id='image' placeholder='Pon el enlace a la imagen de tu iniciativa.' value={this.state.image} onChange={this.handleChange} />
+        <div>
+          <label htmlFor="file" class="btn" style={{ backgroundColor: '#Ff8326' }}>Select Image</label>
+          <input type="file" id="file" style={{visibility:'hidden'}} accept=".png,.jpg" onChange={this.handleUpload}/>
         </div>
         <div className='modal-footer justify-content-center'>
           <input className='btn btn-primary-filters btn-sm' type='submit' value='Enviar' />
