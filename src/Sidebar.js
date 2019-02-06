@@ -21,7 +21,10 @@ class Sidebar extends Component {
   };
 
   render() {
+<<<<<<< HEAD
 
+=======
+>>>>>>> d36f2d22607e4507e11b5c1ebf4f1947b8f51663
     if (this.props.show) {
       const url = this.props.url == null ? null :<div><a href={this.props.url} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>link</i>Website</a></div>,
         twitter = this.props.twitter == null ? null : <div><a href={this.props.twitter} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>link</i>Twitter</a></div>,
@@ -32,7 +35,7 @@ class Sidebar extends Component {
 
       return (
         <div className='card card-sidebar' style={{ overflow: 'auto' }}>
-        <div className='modal-header'> <h5 className='modal-title'>{this.props.title}</h5><button type='button' className='close' aria-label='Close' onClick={this.props.closeSidebar}><span aria-hidden='true'>&times;</span></button></div>
+          <div className='modal-header'> <h5 className='modal-title'>{this.props.title}</h5><button type='button' className='close' aria-label='Close' onClick={this.props.closeSidebar}><span aria-hidden='true'>&times;</span></button></div>
           {img}
           <div className='card-body'>
 
@@ -53,9 +56,17 @@ class Sidebar extends Component {
             <a  target='_blank' href={"https://twitter.com/home?status=" + encodeURIComponent('localhost.com/#15/' + this.props.location[1] + '/' + this.props.location[0] ) } className='card-link'><i class='fa fa-twitter'></i> </a>
             <a target='_blank' href={"https://facebook.com/sharer/sharer.php?u=" + encodeURIComponent('localhost.com/#15/' + this.props.location[1] + '/' + this.props.location[0] ) } className='card-link'><i class='fa fa-facebook-square'> </i></a>
 
+<<<<<<< HEAD
             <div className='modal-body' style={{ textAlign: 'center' }}>
               {deletePoint}
               {/* {editPoint} */}
+=======
+              </div>
+
+            <div className='modal-body' style={{ textAlign: 'center' }}>
+              {deletePoint}
+              {editPoint}
+>>>>>>> d36f2d22607e4507e11b5c1ebf4f1947b8f51663
             </div>
           </div>
         </div>
