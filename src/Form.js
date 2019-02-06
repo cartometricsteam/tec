@@ -104,7 +104,7 @@ class Form extends Component {
         </div>
         <div className='form-row'>
           <div className='form-group col-md-3'>
-            <label htmlFor='initiative'>Iniciativa</label>
+            <label htmlFor='initiative'>Temática</label>
             <select id='purpose' className='form-control' value={this.state.purpose} onChange={this.handleChange}>
               <option value='' disabled hidden>Elige una</option>
               <option value='accesibilidad'>Accesibilidad</option>

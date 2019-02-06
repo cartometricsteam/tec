@@ -82,20 +82,22 @@ class Header extends Component {
                     </datalist>
                   </div>
                 </form>
-
-
-
               </li>
-              <li className='nav-item'>
-                <a className='nav-link-help' title='Ayuda' onClick={() => this.props.handler({ type: 'help', title: 'Plataforma de Iniciativas Ciudadanas', subtitle: '¿QUÉ INICIATIVAS CIUDADANAS HAY EN TU BARRIO?, ¿PARTICIPAS EN ALGUNA?, ¿QUIERES DARLA A CONOCER?', description: 'El objetivo de este proyecto es mostrar la ciudad de Málaga desde una perspectiva social de movimientos emergentes,iniciativas vecinales, nuevas tendencias urbanas dentro de sus barrios, dar a conocer esa realidad social -con poca visibilidad en la ciudad- además de crear una red de colectivos y asociaciones,y establecer posibles sinergias.' })}>
 
+            <li className='nav-item'>
+                <a className='nav-link' title='Ayuda' onClick={() => this.props.handler({ type: 'help', title: 'Plataforma de Iniciativas Ciudadanas', subtitle: '¿QUÉ INICIATIVAS CIUDADANAS HAY EN TU BARRIO?, ¿PARTICIPAS EN ALGUNA?, ¿QUIERES DARLA A CONOCER?', description: 'El objetivo de este proyecto es mostrar la ciudad de Málaga desde una perspectiva social de movimientos emergentes,iniciativas vecinales, nuevas tendencias urbanas dentro de sus barrios, dar a conocer esa realidad social -con poca visibilidad en la ciudad- además de crear una red de colectivos y asociaciones,y establecer posibles sinergias.' })}>
                   <i className='material-icons'>help</i>
                 </a>
               </li>
+
               <li className='nav-item'>
-              <CSVLink data={this.state.data} onClick={this.printCSV} className='nav-link'><i className='material-icons'>save</i></CSVLink>
+
+                  <CSVLink data={this.state.data} onClick={this.printCSV} className='nav-link'  title='Guardar como .CSV'>
+                        <i className='material-icons' >save</i>
+                    </CSVLink>
 
               </li>
+
               <li className='nav-item'><a className='nav-link' onClick={() => this.props.handler({ type: 'login', title: 'Panel de usuario' })}><i className='material-icons'>person</i>{logged}</a></li>
             </ul>
             {/*</div>*/}
