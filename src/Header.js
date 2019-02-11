@@ -76,7 +76,7 @@ class Header extends Component {
               <li className='nav-item'>
                 <form className="form-inline ml-auto nav-item" style={{ justifyContent: 'center' }}>
                   <div className="form-group has-black">
-                    <input type="list" className="form-control" list="activities" placeholder="Buscar por asociación" />
+                    <input type="list" className="form-control" list="activities" placeholder="Buscar por colectivo" />
                     <datalist id="activities">
                     {associationNames}
                     </datalist>
