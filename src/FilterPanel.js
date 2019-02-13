@@ -4,7 +4,6 @@ class FilterPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      active: [],
       filters:[]
     };
 
@@ -24,7 +23,7 @@ class FilterPanel extends Component {
             for(var i=0;i<l.filters.length; i++)
             {
                 var temp = l.filters[i].toString();
-                    if(document.getElementById(temp)!==null && document.getElementById(temp)!=undefined)
+                    if(document.getElementById(temp)!==null && document.getElementById(temp)!==undefined)
                     document.getElementById(temp).checked = true;
             }
     }
@@ -37,8 +36,7 @@ class FilterPanel extends Component {
   }
 
   handleChange(event) {
-      this.setState({ [event.target.id]: (this.state[event.target.id] === null || this.state[event.target.id] === undefined) ? true : !this.state[event.target.id] });
-      this.setState({ active: {[event.target.id]: (this.state.active[event.target.id] === null || this.state.active[event.target.id] === undefined) ? true : !this.state.active[event.target.id] }});
+      this.setState({[event.target.id]: (this.state[event.target.id] === null || this.state[event.target.id] === undefined) ? true : !this.state[event.target.id] });
       if (this.state.filters.includes(event.target.id)){
           var toremove = this.state.filters.indexOf(event.target.id);
           this.state.filters.splice(toremove, 1);
@@ -49,7 +47,7 @@ class FilterPanel extends Component {
       }
   }
   handleSubmission(event) {
-    this.props.handleFilters({[this.props.id]: Object.keys(this.state.active)})
+    this.props.handleFilters({[this.props.id]: Object.keys(this.state).filter(key => key !== "filters")})
     this.props.handler(false);
     event.preventDefault();
   }

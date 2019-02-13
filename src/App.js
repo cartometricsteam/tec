@@ -21,54 +21,6 @@ firebase.initializeApp({
   messagingSenderId: '657639469404'
 });
 const storage = firebase.storage();
-const data = {
-  "type": "FeatureCollection",
-  "features": [
-    { "type": "Feature", "properties": { "id": 1, related: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 16, 17, 18, 19, 20, 21, 22, 23, 24], 'nexus': 'true', "name": "BOSQUE URBANO MALAGA", "caracter": "NO REGLADO", "date": "2016/01/23", "mail": "sergioreyes@uma.es", 'url': "http://bosqueurbanomalaga.org/", "address": "CL BODEGUEROS, 9", "facebook": "https://www.facebook.com/BosqueUrbanoMalaga/", "twitter": "https://twitter.com/BosqueUrbanoMA", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.444496325793976, 36.705108612290161] } },
-    { "type": "Feature", "properties": { "id": 2, related: [1], "name": "A.V. LA COOPERACION", "caracter": "REGLADO", "date": "1986/06/06", "mail": "vegarcia@telefonica.net", 'url': "http://www.cruzdehumilladero.org/", "address": "nCL ARA, 1", "phone": "952329332", "facebook": "https://www.facebook.com/lacooperacion/", "twitter": "https://twitter.com/lacooperacion", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.443624993818503, 36.709371880868453] } },
-    { "type": "Feature", "properties": { "id": 3, related: [1], "name": "MAS LIBROS VERDES", "caracter": "REGLADO", "date": "2013/02/01", "mail": "comunicacion@maslibroslibres.com; info@maslibroslibres.com", 'url': "http://maslibroslibres.com/", "address": "nCL ARA, 1", "phone": "635033746", "facebook": "https://www.facebook.com/maslibroslibres/", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.443570622540628, 36.709285175546668] } },
-    { "type": "Feature", "properties": { "id": 4, related: [1], "name": "A.V. EL DUENDE", "caracter": "REGLADO", "date": "2002/05/22", "address": "nCL  RODOLFO HALFFTER, 1", "phone": "952335746; 645252718", "facebook": "https://www.facebook.com/Lagunillas-El-futuro-est%C3%A1-muy-Grease-270520043111026/", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.455660443220408, 36.702655698390629] } },
-    { "type": "Feature", "properties": { "id": 5, related: [1, 9], "name": "HUELIN TV", "caracter": "NO REGLADO", "mail": "huelinweb@gmail.com", 'url': "http://www.actiweb.es/huelin/", "address": "CL AYALA, 96", "phone": "687324502", "facebook": "https://www.facebook.com/HuelinTV/", "twitter": "https://twitter.com/HuelinTV?lang=es", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.437291768762851, 36.7043183051019] } },
-    { "type": "Feature", "properties": { "id": 6, related: [1], "name": "MERKAETICO EL CENACHO", "caracter": "NO REGLADO", "date": "2015/01/01", "mail": "merkaeticoelcenacho@gmail.com", 'url': "http://www.merkaeticoelcenacho.org/", "address": "CL REBOUL, 36", "phone": "951211542", "facebook": "https://www.facebook.com/merkaeticoelcenacho/", "twitter": "https://twitter.com/merkaetico", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.441305838454712, 36.709083491045583] } },
-    { "type": "Feature", "properties": { "id": 7, related: [1], "name": "A.V. EL TORCAL", "caracter": "REGLADO", "date": "1987/05/15", "mail": "aavveltorcal@gmail.com", "address": "CL NIDO DEL MUSEO, 12", "phone": "952360048", "twitter": "https://twitter.com/aveltorcal", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.448639494994418, 36.700038009581284] } },
-    { "type": "Feature", "properties": { "id": 8, related: [1], "name": "A.V. SANTA PAULA DE MALAGA", "caracter": "REGLADO", "date": "2004/07/14", "mail": "aavvsantapaula@hotmail.es", "address": "CL  FRANCISCO PADILLA , 13", "phone": "952172247; 652954389", "facebook": "https://www.facebook.com/aavvsantapaulamalaga29004/", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.448337367036948, 36.692890221267334] } },
-    { "type": "Feature", "properties": { "id": 9, related: [1, 5, 14, 15], "name": "A.V. TORRIJOS", "caracter": "REGLADO", "date": "1986/02/07", "mail": "aavvtorrijos1979@gmail.com", 'url': "http://avvtorrijos.blogspot.com/", "address": "nCL EMILIO DE LA CERDA, 24", "phone": "952326246; 951326246", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.437759949570668, 36.702480151795321] } },
-    { "type": "Feature", "properties": { "id": 10, related: [1, 11], "name": "ASOC. RUEDAS REDONDAS", "caracter": "REGLADO", "date": "2001/11/21", "mail": "hola@ruedasredondas.org; info@ruedasredondas.org", 'url': "www.ruedasredondas.org", "address": "CL POETA CONCHA MENDEZ, 3", "phone": "952254854; 744460809", "facebook": "https://www.facebook.com/ruedasredondas/", "twitter": "https://twitter.com/Ruedasredondas", "zone": "CENTRO" }, "geometry": { "type": "Point", "coordinates": [-4.41536721282954, 36.726747961782095] } },
-    { "type": "Feature", "properties": { "id": 11, related: [1, 10], "name": "AGRUPACION DE DESARROLLO MÁLAGA ACCESIBLE", "caracter": "NO REGLADO", "mail": "ad.malagaaccesible@gmail.com", "address": "CL CORREGIDOR FRANCISCO DE MOLINA, 1", "facebook": "https://www.facebook.com/admalagaaccesi1/", "twitter": "https://twitter.com/admalagaaccesi1", "zone": null }, "geometry": { "type": "Point", "coordinates": [-4.44790432839606, 36.713618747380316] } },
-    { "type": "Feature", "properties": { "id": 12, related: [1, 11, 13], "name": "RIZOMA date", "caracter": "NO REGLADO", "mail": "info@rizoma.org", 'url': "https://rizomafundacion.wordpress.com/; http://rizoma.org/rizoma_fundacion.html", "address": "CL CUEVA DE MENGA, 8", "phone": "952201520", "facebook": "https://www.facebook.com/RizomaFundaci%C3%B3n-145041939180024/", "twitter": "https://twitter.com/rizomaf", "zone": "ESTE" }, "geometry": { "type": "Point", "coordinates": [-4.347121562295649, 36.719517848604973] } },
-    { "type": "Feature", "properties": { "id": 13, related: [12], "name": "ASOC. ATOLMI TERAPIA OCUPACIONAL Y LABORAL DE MINUSVALIDOS", "caracter": "REGLADO", "date": "1985/10/18", "mail": "asociacionatolmi@gmail.com", 'url': "https://www.atolmi.org/", "address": "AV CARLOS HAYA, 29", "phone": "952613543; 952271383", "facebook": "https://www.facebook.com/Atolmi-469816123366962/", "twitter": "https://twitter.com/AsocATOLMI", "zone": "ESTE" }, "geometry": { "type": "Point", "coordinates": [-4.445329606806627, 36.721668202299441] } },
-    { "type": "Feature", "properties": { "id": 14, related: [9], "name": "nFEDERACION TERRITORIAL AA.VV. CC. Y UU. DEL MUNICIPIO DE MALAGA Y SU PROVINCIA 'UNIDAD'", "caracter": "REGLADO", "date": "1987/05/15", "mail": "conchaunidad@gmail.com; federacionunidad@gmail.com", "address": "nCL MERCED, 1 - LOC. 8", "phone": "952228702", "facebook": "https://www.facebook.com/federacion.aavvunidad/", "zone": "CENTRO" }, "geometry": { "type": "Point", "coordinates": [-4.417544103268098, 36.724396317359194] } },
-    { "type": "Feature", "properties": { "id": 15, related: [9], "name": "PLATAFORMA 'SALVEMOS LA PLAYA DE SAN ANDRÉS'", "caracter": "NO REGLADO", "date": "2017/05/23", "address": "PSO MARITIMO ANTONIO MACHADO, 62", "facebook": "https://www.facebook.com/SalvemosLaPlayaDeSanAndres/", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.432670972162008, 36.702720412027325] } },
-    { "type": "Feature", "properties": { "id": 16, related: [1], "name": "ASOC. DE CONSUMIDORES Y USUARIOS EN ACCION DE MALAGA - FACUA", "caracter": "REGLADO", "date": "1992/01/27", "mail": "malaga@facua.org", 'url': "https://www.facua.org/malaga", "address": "CL PEDRO DE TOLEDO, 1", "phone": "952276908; 952254607", "facebook": "https://www.facebook.com/consumidoresenaccion/", "twitter": "https://twitter.com/facua", "zone": "CENTRO" }, "geometry": { "type": "Point", "coordinates": [-4.418211290183656, 36.72080043415211] } },
-    { "type": "Feature", "properties": { "id": 17, related: [1], "name": "FEDERACIÓN PROVINCIAL DE AA.VV. SOLIDARIDAD", "caracter": "REGLADO", "date": "1996/05/22", "mail": "fdsolidaridad@hotamil.com", "address": "CL SHERLOCK HOLMES, 3 LC", "phone": "952339481", "facebook": "https://www.facebook.com/SolidaridadMalaga/", "twitter": "https://twitter.com/fdsolidaridad", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.461290282139374, 36.710567772007167] } },
-    { "type": "Feature", "properties": { "id": 18, related: [1], "name": "ASOCIACION VECINAL - LAGUNILLAS POR VENIR", "caracter": "REGLADO", "date": "2017/04/26", "mail": "rosasabina@hotmail.com", "address": "CL VITAL AZA, 18", "phone": "744463848", "zone": "CENTRO" }, "geometry": { "type": "Point", "coordinates": [-4.416064123305687, 36.725286602145445] } },
-    { "type": "Feature", "properties": { "id": 19, related: [1], "name": "FEDERACION DE COMERCIO DE MALAGA - FECOMA", "caracter": "NO REGLADO", "mail": "sec@fecoma.com", 'url': "http://fecoma.com/", "address": "CL ALFONSO REYES, 1", "phone": "952228844", "facebook": "https://www.facebook.com/fecomamalaga/", "twitter": "https://twitter.com/FecomaMalaga", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.427106410033319, 36.711184702705836] } },
-    { "type": "Feature", "properties": { "id": 20, related: [], "name": "A.V. MALAGA CENTRO", "caracter": "REGLADO", "date": "1998/03/30", "mail": "malagacentrovecinos@gmail.com; comunicacion@malagavecinos.es", "address": "CL CARRETERIA, 101 04 B", "phone": "605985951", "facebook": "https://www.facebook.com/MALAGA-CENTRO-VECINOS-282062268479431/", "twitter": "https://twitter.com/Malaga_Centro", "zone": "CENTRO" }, "geometry": { "type": "Point", "coordinates": [-4.421191832927384, 36.72434268071526] } },
-    { "type": "Feature", "properties": { "id": 21, related: [1], "name": "ASOC. 'ECOLOGISTAS EN ACCION - CIUDAD DE MALAGA'", "caracter": "REGLADO", "date": "2001/10/08", "mail": "mmalaga@ecologistasenaccion.org; malaga.ciudad@ecologistasenaccion.org", "address": "CL LEOPOLDO ALAS CLARIN, 7", "phone": "952355383; 660227308", "facebook": "https://www.facebook.com/eeamalaga/", "twitter": "https://twitter.com/EeaMalaga", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.433661561610068, 36.707082759565466] } },
-    { "type": "Feature", "properties": { "id": 22, related: [1], "name": "ECONOMIA DEL BIEN COMUN MALAGA", "caracter": "NO REGLADO", "mail": "ebcmalaga@gmail.com; malaga@economia-del-bien-comun.es", 'url': "https://ebcmalaga.wordpress.com/", "address": "AV ARROYO DE LOS ANGELES, 50", "facebook": "https://www.facebook.com/EBC-M%C3%A1laga-1604767003159608/", "twitter": "https://twitter.com/MalagaEBC", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.431876108385918, 36.730528328244375] } },
-    { "type": "Feature", "properties": { "id": 23, related: [1], "name": "ASOC. DE CIENCIAS AMBIENTALES MALAKA AMBIENTAL", "caracter": "REGLADO", "mail": "malakaambiental@gmail.com", 'url': "http://malakaambiental.blogspot.com/", "address": "BL LOUIS PASTEUR, 31", "phone": "952131864", "facebook": "https://www.facebook.com/Malaka-Ambiental-Ciencias-Ambientales-157140480993268/", "twitter": "https://twitter.com/MalakaAmbiental", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.472552455325802, 36.715482140858477] } },
-    { "type": "Feature", "properties": { "id": 24, related: [1], "name": "A.V. LA UNIDAD NUEVA MALAGA", "caracter": "REGLADO", "date": "1985/01/31", "mail": "av_unidad@hotmail.com", "address": "CMNO CASTILLEJOS, 6", "phone": "952306126", "facebook": "https://www.facebook.com/unidadnuevamalaga/", "twitter": "https://twitter.com/avv_unidad", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.445332683299543, 36.725561976717756] } },
-    { "type": "Feature", "properties": { "id": 25, related: [26, 27, 28, 29, 30, 31, 32, 33, 34], 'nexus': 'true', "name": "J-AULAS ABIERTAS", "caracter": "REGLADO", "mail": "jaulasabiertasavolar@gmail.com", 'url': "http://www.j-aulasabiertas.com/", "address": "CL LEON TOLSTOI, 0", "phone": "666458021", "facebook": "https://www.facebook.com/jaulasabiertasumaentransicion/", "twitter": "https://twitter.com/J_AulasAbiertas", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.468137883503629, 36.715247318512411] } },
-    { "type": "Feature", "properties": { "id": 26, related: [25], "name": "ASOC. PROVINCIAL SINDROME DE DOWN DE MALAGA", "caracter": "REGLADO", "date": "1992/02/22", "mail": "downmalaga@downmalaga.com", 'url': "http://www.downmalaga.com/", "address": "CL PIERROT, 27", "phone": "952274040; 665678204; 952274050", "facebook": "https://www.facebook.com/DownMalaga/", "twitter": "https://twitter.com/DownMalaga", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.465632817194586, 36.711950252748572] } },
-    { "type": "Feature", "properties": { "id": 27, related: [25], "name": "ASOC. MUJERES EN zone DE CONFLICTO. MZC", "caracter": "REGLADO", "date": "2001/01/22", "mail": "malaga@mzc.es", 'url': "http://www.mzc.es/", "address": "AV JANE BOWLES, 0 2B", "phone": "957082000; 635661111", "facebook": "https://www.facebook.com/EducacionparaelDesarrollo/", "twitter": "https://twitter.com/ongdmzc", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.426358401367077, 36.743472471169724] } },
-    { "type": "Feature", "properties": { "id": 28, related: [25], "name": "ASOC. EL CAMINITO", "caracter": "REGLADO", "date": "2012/03/08", "mail": "info@elcaminito.org", 'url': "http://www.elcaminito.org/", "address": "CL ZURBARAN, 3", "phone": "699010572", "facebook": "https://www.facebook.com/huertourbanoElCaminito/", "zone": "ESTE" }, "geometry": { "type": "Point", "coordinates": [-4.417441817537039, 36.733033079030967] } },
-    { "type": "Feature", "properties": { "id": 29, related: [25], "name": "COMUNIDAD SALVAR ARRAIJANAL", "caracter": "NO REGLADO", 'url': "http://parquenaturalmalaga.com/", "facebook": "https://www.facebook.com/Salvarelarraijanal/", "twitter": "https://twitter.com/SalvaArraijanal", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.466620985066098, 36.661557633968734] } },
-    { "type": "Feature", "properties": { "id": 30, related: [25], "name": "COLECTIVO CAFE FEMINISTA MALAGA", "caracter": "NO REGLADO", "mail": "cafefeministamalaga@gmail.com", "address": "BL LOUIS PASTEUR, 25", "facebook": "https://www.facebook.com/CafeFeministaMalaga/", "twitter": "https://twitter.com/MalagaCafe", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.469393844122569, 36.716217775662933] } },
-    { "type": "Feature", "properties": { "id": 31, related: [25], "name": "ASOC. ECOLUCIONA", "caracter": "REGLADO", "date": "2013/12/04", "mail": "ecoluciona.malaga@gmall.com", 'url': "https://ecolucionamalaga.com/", "address": "CL COMANDANTE ROMAN, 6 04 D", "phone": "695011907; 626910321", "facebook": "https://www.facebook.com/EcolucionaMalaga/", "twitter": "https://twitter.com/ECOluCiona", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.440067544913511, 36.700969982675112] } },
-    { "type": "Feature", "properties": { "id": 32, related: [25], "name": "ASOC. CULTURAL 'EL FUTURO ESTA MUY GREASE'", "caracter": 'NO REGLADO', "address": "CL AGUSTIN MORETO, 1", "facebook": "https://www.facebook.com/Lagunillas-El-futuro-est%C3%A1-muy-Grease-270520043111026/", "zone": "CENTRO" }, "geometry": { "type": "Point", "coordinates": [-4.415091757952935, 36.726012342773124] } },
-    { "type": "Feature", "properties": { "id": 33, related: [25], "name": "PLATAFORMA DE COMUNICACION COMUNITARIA ONDA COLOR", "caracter": "NO REGLADO", "date": "2010/07/29", "mail": "participacion@ondacolor.org", 'url': "http://www.ondacolor.org/", "address": "CL DR. GALVEZ MOLL, 5", "phone": "952611567; 676590199", "facebook": "https://www.facebook.com/ondacolormlg/", "twitter": "https://twitter.com/ondacolor", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.427242052041144, 36.73903996550856] } },
-    { "type": "Feature", "properties": { "id": 34, related: [25], "name": "COMUNIDAD YES WE TECH", "caracter": "NO REGLADO", "mail": "organiza@yeswetech.org;", 'url': "https://yeswetech.org/", "address": "BL LOUIS PASTEUR, 47", "facebook": "https://www.facebook.com/groups/yeswetech/", "twitter": "https://twitter.com/yeswetech_", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.497080463325609, 36.718700345639178] } },
-    { "type": "Feature", "properties": { "id": 35, related: [36, 37, 38, 39, 40, 41, 42, 43], 'area': 'Casa de la cultura', 'purpose': 'Accesibilidad', 'nexus': 'true', "name": "ASOC. FANTASIA EN LAGUNILLAS", "caracter": "REGLADO", "mail": "fantasiaenlagunillas@gmail.com", "address": "CL ALTOZANO, 0", "phone": "653456963; 605180819", "facebook": "https://www.facebook.com/fantasiaenlagunillas/", "zone": "CENTRO" }, "geometry": { "type": "Point", "coordinates": [-4.415198817682583, 36.726825153373291] } },
-    { "type": "Feature", "properties": { "id": 36, related: [35], "name": "ASOC. ACCEM", 'area': 'Huerto Urbano', "caracter": "REGLADO", "mail": "malaga@accem.es", 'url': "https://www.accem.es/tag/malaga/", "address": "CJON PERICON, 1", "phone": "952224076; 687499067", "facebook": "https://www.facebook.com/accem/", "twitter": "https://twitter.com/Accem_ong", "zone": "CENTRO" }, "geometry": { "type": "Point", "coordinates": [-4.423525010480852, 36.722586625327494] } },
-    { "type": "Feature", "properties": { "id": 37, related: [35], "name": "ASOC. GRUPO SCOUTS 124 MARISTAS - ABEL RELLOSO", "caracter": "REGLADO", "mail": "coordinador@gruposcout124.net; malaga@scoutsdeandalucia.org", 'url': "http://malaga.scoutsdeandalucia.org/", "address": "CL VICTORIA, 108", "phone": "659408447; 630454699", "facebook": "https://www.facebook.com/Delegaci%C3%B3n-Scout-de-M%C3%A1laga-ASDE-Scouts-de-Andaluc%C3%ADa-347392798800244/", "twitter": "https://twitter.com/GS124Maristas?lang=es", "zone": "CENTRO" }, "geometry": { "type": "Point", "coordinates": [-4.4139573000175, 36.726560740179266] } },
-    { "type": "Feature", "properties": { "id": 38, related: [35], "name": "CLUB DE LEONES MALAGA ILUSION", "caracter": "REGLADO", "mail": "malagailusion.clubleones@gmail.com", 'url': "http://malagailusion-clubleones.blogspot.com.es", "address": "CL LA ERA, 18 A2 4 E", "phone": "633456856", "facebook": "https://www.facebook.com/malagailusion.clubleones/", "twitter": "https://twitter.com/IlusionMalaga", "zone": "CENTRO" }, "geometry": { "type": "Point", "coordinates": [-4.402009403379797, 36.733567555232987] } },
-    { "type": "Feature", "properties": { "id": 39, related: [35], "name": "MAS MUSEO PICASSO", "caracter": "NO REGLADO", "mail": "info@museopicassomalaga.org", 'url': "http://www.masmuseopicasso.org/", "address": "CL SAN AGUSTIN, 8", "phone": "952127600", "facebook": "https://www.facebook.com/museopicassomalaga/", "twitter": "https://twitter.com/mPICASSOm", "zone": "CENTRO" }, "geometry": { "type": "Point", "coordinates": [-4.418444015074481, 36.721713586691983] } },
-    { "type": "Feature", "properties": { "id": 40, related: [35], "name": "ASOC. DE MUJERES KARTIO", "caracter": "REGLADO", "mail": "mujereskartio@gmail.com; cbelmonteh@telefonica.net", 'url': "http://mujereskartio.blogspot.com/", "address": "PSO MIRAMAR 10 3 A", "phone": "952265215; 952220347; 630033167; 649048889", "zone": "ESTE" }, "geometry": { "type": "Point", "coordinates": [-4.39665490075942, 36.724386905382417] } },
-    { "type": "Feature", "properties": { "id": 41, related: [35], "name": "FACULTAD CC. DE LA EDUCACION", "caracter": "NO REGLADO", "mail": "secretariofaceduma@gmail.com", 'url': "http://www.uma.es/facultad-de-ciencias-de-la-educacion", "address": "BL LOUIS PASTEUR, 25", "phone": "952131116", "facebook": "https://www.facebook.com/FacultadEducacionUMA/https://www.facebook.com/FacultadEducacionUMA/", "twitter": "https://twitter.com/Educacion_UMA", "zone": "OESTE" }, "geometry": { "type": "Point", "coordinates": [-4.469018365615561, 36.716429433658377] } },
-    { "type": "Feature", "properties": { "id": 42, related: [35], "name": "AMPA FAMILIAS CON GRACIA DEL CENTRO NTRA. SRA. DE GRACIA", "caracter": "REGLADO", "mail": "carmenparedes81@gmail.com", 'url': "https://www.ceipelgracia.com/", "address": "CL FERRANDIZ, 2", "phone": "951298894; 687988943; 951298895", "facebook": "https://www.facebook.com/ColegioElGracia/", "twitter": "https://twitter.com/ColegioElGracia", "zone": "CENTRO" }, "geometry": { "type": "Point", "coordinates": [-4.413045867882194, 36.726839194524302] } },
-    { "type": "Feature", "properties": { "id": 43, related: [35], "name": "CENTRO DE SALUD VICTORIA", "caracter": "NO REGLADO", 'url': "http://centrodesaludvictoria-malaga.blogspot.com/", "zone": "CENTRO" }, "geometry": { "type": "Point", "coordinates": [-4.415327619418009, 36.727062926461208] } }
-  ]
-};
 
 class App extends Component {
 
@@ -139,6 +91,9 @@ class App extends Component {
   handleFilters(conditions) {
     const filters = this.state.map.filter;
     filters[Object.keys(conditions)[0]] = Object.values(conditions)[0];
+    if(filters.purpose !== undefined) {
+      filters.purpose = filters.purpose.filter(purpose => district.features.map((feature) => feature.properties.name).includes(purpose) === false)
+    }
     this.setState({ map: { filter: filters } })
   }
 
@@ -151,6 +106,7 @@ class App extends Component {
   }
 
   composeFilters(filterObject) {
+
     let empty = {
       "type": "FeatureCollection",
       "features": []
@@ -356,6 +312,12 @@ class App extends Component {
             featureLocation = e.features[0].geometry.coordinates
           this.setState({ featureData: { title: featureProperties.name, location: featureLocation, show: true, img: featureProperties.image, description: featureProperties.description, purpose: featureProperties.purpose, action: featureProperties.action, area: featureProperties.area, enabler: featureProperties.enabler, url: featureProperties.url, twitter: featureProperties.twitter, facebook: featureProperties.facebook, phone: featureProperties.phone, address: featureProperties.address, creator: featureProperties.creator } })
         });
+
+        this.map.on('touchend', activityType, e => {
+          let featureProperties = e.features[0].properties,
+            featureLocation = e.features[0].geometry.coordinates
+          this.setState({ featureData: { title: featureProperties.name, location: featureLocation, show: true, img: featureProperties.image, description: featureProperties.description, purpose: featureProperties.purpose, action: featureProperties.action, area: featureProperties.area, enabler: featureProperties.enabler, url: featureProperties.url, twitter: featureProperties.twitter, facebook: featureProperties.facebook, phone: featureProperties.phone, address: featureProperties.address, creator: featureProperties.creator } })
+        });
       })
 
       this.map.on('click', 'userActivities', e => {
@@ -368,15 +330,19 @@ class App extends Component {
 
         let clickedFeature = e.features[0];
 
-        let lines
+        let lines;
+        let relatedPoints;
 
         if (clickedFeature.properties.related !== undefined) {
           let related = clickedFeature.properties.related.slice(1, -1).split(',').map(str => parseInt(str));
+          relatedPoints = this.state.data.features.filter(feature => {
+            return (related.includes(feature.properties.id))
+          })
+
+
           lines = {
             "type": "FeatureCollection",
-            "features": data.features.filter(feature => {
-              return (related.includes(feature.properties.id))
-            }).map(feature => {
+            "features": relatedPoints.map(feature => {
               let featureObject = {
                 "type": "Feature",
                 "properties": feature.properties,
@@ -394,7 +360,8 @@ class App extends Component {
           lines = {
             "type": "FeatureCollection",
             "features": []
-          }
+          };
+          relatedPoints = [];
         }
 
         this.map.addLayer({
@@ -426,11 +393,13 @@ class App extends Component {
           }
         });
 
+        
+
         this.map.addLayer({
           id: 'selectedFeature',
           source: {
             type: 'geojson',
-            data: clickedFeature
+            data: turf.featureCollection([...relatedPoints,clickedFeature])
           },
           type: 'circle',
           paint: {

@@ -24,15 +24,15 @@ class Header extends Component {
   }
 
   printCSV() {
-    this.setState({ data: [["Name","Description", "Website", "Lat", "Long"],...this.props.printData(['pointActivities']).map(point => {
-      return [point.properties.name, point.properties.description, point.properties.url, point.geometry.coordinates[0], point.geometry.coordinates[1]]
+    this.setState({ data: [["Name","Description","Twitter", "Facebook", "Website", "Email","Phone", "Lat", "Long"],...this.props.printData(['userActivities']).map(point => {
+      return [point.properties.name, point.properties.description, point.properties.twitter, point.properties.facebook, point.properties.url, point.properties.mail, point.properties.phone, point.geometry.coordinates[0], point.geometry.coordinates[1]]
     })]
   }) 
   }
 
   render() {
     var logged;
-    if (this.props.email != 'null' && this.props.email != undefined) {
+    if (this.props.email != 'null' && this.props.email !== undefined) {
       logged = <span>{this.props.email} </span>;
     }
     else {
@@ -67,7 +67,6 @@ class Header extends Component {
               <span className='navbar-toggler-icon'></span>
               <span className='navbar-toggler-icon1'></span>
               <span className='navbar-toggler-icon2'></span>
-
             </button>
 
           </div>
@@ -75,7 +74,7 @@ class Header extends Component {
             <ul className='navbar-nav ml-auto'>
               {buttons}
               <li className='nav-item'>
-                <form className="form-inline ml-auto nav-item" style={{ justifyContent: 'center' }}>
+                <form className="form-inline ml-auto nav-item" onSubmit={(() => this.state.fly())} style={{ justifyContent: 'center' }}>
                   <div className="form-group has-black">
                     <input type="list" className="form-control" list="activities" placeholder="Buscar por colectivo" />
                     <datalist id="activities">
