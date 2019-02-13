@@ -53,9 +53,11 @@ class Sidebar extends Component {
             <h6 class="text-muted" >Compartir iniciativa en:</h6>
             <a  target='_blank' href={"https://twitter.com/home?status=" + encodeURIComponent('localhost.com/#15/' + this.props.location[1] + '/' + this.props.location[0] ) } className='card-link'><i class='fa fa-twitter'></i> </a>
             <a target='_blank' href={"https://facebook.com/sharer/sharer.php?u=" + encodeURIComponent('localhost.com/#15/' + this.props.location[1] + '/' + this.props.location[0] ) } className='card-link'><i class='fa fa-facebook-square'> </i></a>
+
              <div>
                <span>Esta iniciativa esta con los tags: {tags}</span>
              </div>
+
             <div className='modal-body' style={{ textAlign: 'center' }}>
               {deletePoint}
               {/* {editPoint} */}
