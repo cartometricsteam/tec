@@ -92,8 +92,14 @@ class App extends Component {
         id: '',
         options: '',
       },
-
-      data: data,
+      data: {
+        "type": "FeatureCollection",
+        "features": []
+      },
+      tempData: {
+        "type": "FeatureCollection",
+        "features": []
+      },
       site: {
         title: 'Iniciativas Ciudadanas',
         collection: 'initiatives',
@@ -118,12 +124,6 @@ class App extends Component {
   }
 
   toggleModal(options, notification, id) {
-    // console.log('-------------Options-------------')
-    // console.log(options);
-    //   console.log('-------------Notification-------------')
-    //   console.log(notification);
-    //   console.log('-------------MODEL-------------')
-    // console.log(this.state.modal.selected);
 
     this.setState({ modal: options, featureData: { show: false } })
     if (notification) {
@@ -151,6 +151,30 @@ class App extends Component {
   }
 
   composeFilters(filterObject) {
+    let empty = {
+      "type": "FeatureCollection",
+      "features": []
+    }
+    let selected = Object.entries(filterObject).filter((entry) => entry[0] === 'district')
+    if (selected.length > 0) {
+      let template = {
+        "type": "FeatureCollection",
+        "features": []
+      }
+      let newDistricts = district.features.filter(district => selected[0][1].includes(district.properties.name))
+      template.features = newDistricts;
+      let pointsWithin = turf.pointsWithinPolygon(this.state.data, template);
+      this.map.getSource('districtPolygons').setData(template)
+      this.map.getSource('userActivitiesSource').setData(pointsWithin)
+    }
+    else {
+      this.map.getSource('districtPolygons').setData(empty)
+      if (this.map.getSource('userActivitiesSource') !== undefined) {
+        this.map.getSource('userActivitiesSource').setData(this.state.data)
+      }
+
+    }
+
     const matches =
       Object.entries(filterObject).filter((entry) => entry[0] !== 'district').map((filterComponent) => {
         if (filterComponent[1].length < 1) {
@@ -181,36 +205,8 @@ class App extends Component {
     //     this.map.addLayer(data);
     //     this.map.setFilter('route', this.state.filter);
     //   });
-    let test = ['all', [
-      "match",
-      [
-        "get",
-        "area"
-      ],
-      [
-        "Casa de la cultura",
-        "Huerto Urbano"
-      ],
-      true,
-      false
-    ],
-      ["match",
-        [
-          "get",
-          "purpose"
-        ],
-        [
-          "Accesibilidad"
-        ],
-        true,
-        false
-      ]
-    ];
-    // this.map.setFilter('pointActivities', this.composeFilters(this.state.map.filter));
-    // this.map.setFilter('userActivities', this.composeFilters(this.state.map.filter));
-    console.log(this.composeFilters(this.state.map.filter))
-    this.map.setFilter('pointActivities', test);
-    this.map.setFilter('userActivities', test);
+
+    this.map.setFilter('userActivities', this.composeFilters(this.state.map.filter));
     if (this.map.getSource('userSelected') !== undefined) {
       this.map.setFilter('userSelected', this.composeFilters(this.state.map.filter));
       this.map.setFilter('selectedFeature', this.composeFilters(this.state.map.filter));
@@ -280,51 +276,9 @@ class App extends Component {
         data: this.state.data
       });
 
-      this.map.addLayer({
-        id: 'lineActivities',
-        source: 'activities',
-        type: 'line',
-        'layout': {
-          'line-join': 'round',
-          'line-cap': 'round'
-        },
-        'paint': {
-          'line-color': '#AAA',
-          'line-width': 2
-        }
-      });
-
-      this.map.addLayer({
-        id: 'pointActivities',
-        source: 'activities',
-        type: 'circle',
-        paint: {
-          'circle-radius': [
-            "interpolate", ["linear"], ["zoom"],
-            // zoom is 5 (or less) -> circle radius will be 1px
-            4, ['match',
-              ['get', 'nexus'],
-              'true', 1.5,
-              1
-            ],
-            // zoom is 10 (or greater) -> circle radius will be 5px
-            12, ['match',
-              ['get', 'nexus'],
-              'true', 7.5,
-              5
-            ]
-          ],
-
-          'circle-color': [
-            'match',
-            ['get', 'name'],
-            'bike', '#fbb03b',
-            'parkour', '#223b53',
-            'running', '#e55e5e',
-            'yoga', '#3bb2d0',
-            '#d75d00'
-          ]
-        }
+      this.map.addSource('districtPolygons', {
+        type: 'geojson',
+        data: district
       });
 
       firebase.firestore().collection(this.state.site.collection).get().then(querySnapshot => {
@@ -336,13 +290,26 @@ class App extends Component {
           template.features.push(doc.data())
         });
 
+        this.setState({data: template})
+
+        this.map.addLayer({
+          id: 'district',
+          source: 'districtPolygons',
+          type: 'fill',
+          'paint': {
+            'fill-color': '#d75d00',
+            'fill-opacity': 0.2
+            }
+        });
+
+        this.map.addSource('userActivitiesSource',{
+            type: 'geojson',
+            data: this.state.data
+        })
+
         this.map.addLayer({
           id: 'userActivities',
-          source: {
-            type: 'geojson',
-            data: template
-
-          },
+          source: 'userActivitiesSource',
           type: 'circle',
           paint: {
             'circle-radius': [
@@ -375,7 +342,7 @@ class App extends Component {
 
       });
 
-      ['pointActivities', 'userActivities', 'lineActivities'].forEach(activityType => {
+      ['userActivities'].forEach(activityType => {
         this.map.on('mouseenter', activityType, () => {
           this.map.getCanvas().style.cursor = 'pointer';
         });
@@ -391,7 +358,7 @@ class App extends Component {
         });
       })
 
-      this.map.on('click', 'pointActivities', e => {
+      this.map.on('click', 'userActivities', e => {
         if (this.map.getSource('userSelected') !== undefined) {
           this.map.removeLayer('userSelected');
           this.map.removeSource('userSelected');
@@ -399,23 +366,35 @@ class App extends Component {
           this.map.removeSource('selectedFeature');
         }
 
-        let clickedFeature = e.features[0],
-          related = clickedFeature.properties.related.slice(1, -1).split(',').map(str => parseInt(str));
-        let lines = {
-          "type": "FeatureCollection",
-          "features": data.features.filter(feature => {
-            return (related.includes(feature.properties.id))
-          }).map(feature => {
-            let featureObject = {
-              "type": "Feature",
-              "properties": feature.properties,
-              "geometry": {
-                "type": "LineString",
-                "coordinates": [clickedFeature.geometry.coordinates, feature.geometry.coordinates]
+        let clickedFeature = e.features[0];
+
+        let lines
+
+        if (clickedFeature.properties.related !== undefined) {
+          let related = clickedFeature.properties.related.slice(1, -1).split(',').map(str => parseInt(str));
+          lines = {
+            "type": "FeatureCollection",
+            "features": data.features.filter(feature => {
+              return (related.includes(feature.properties.id))
+            }).map(feature => {
+              let featureObject = {
+                "type": "Feature",
+                "properties": feature.properties,
+                "geometry": {
+                  "type": "LineString",
+                  "coordinates": [clickedFeature.geometry.coordinates, feature.geometry.coordinates]
+                }
               }
-            }
-            return (featureObject)
-          })
+              return (featureObject)
+            })
+          }
+        }
+
+        else {
+          lines = {
+            "type": "FeatureCollection",
+            "features": []
+          }
         }
 
         this.map.addLayer({

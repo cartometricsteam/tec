@@ -23,13 +23,14 @@ class Sidebar extends Component {
   render() {
 
     if (this.props.show) {
+      let additionalInfo = [this.props.action,this.props.enabler,this.props.area,this.props.purpose].filter(info => (info !== undefined && info.length > 1 ));      
       const url = this.props.url == null ? null :<div><a href={this.props.url} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>link</i>Website</a></div>,
-        twitter = this.props.twitter == null ? null : <div><a href={this.props.twitter} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>link</i>Twitter</a></div>,
+        twitter = this.props.twitter == null ? null : <div><a href={this.props.twitter} target='_blank' rel="noopener noreferrer" className='card-link'><i class='fa fa-twitter'></i> Twitter</a></div>,
         phone = this.props.phone == null ? null : <div><a href={'tel:' + this.props.phone} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>phone</i> {this.props.phone}</a></div>,
-        facebook = this.props.facebook == null ? null : <div><a href={this.props.facebook} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>link</i>Facebook</a></div>,
+        facebook = this.props.facebook == null ? null : <div><a href={this.props.facebook} target='_blank' rel="noopener noreferrer" className='card-link'><i class='fa fa-facebook-square'></i> Facebook</a></div>,
         deletePoint = (this.props.creator === this.props.userEmail) ? <button className='btn btn-primary justify-content-center' style={{ backgroundColor: '#Ff8326' }} onClick={() => this.deleteFeature(this.props.title, this.props.location)} >Eliminar </button> : null,
-        img = this.props.img == null ? null : <img className='card-img-top' src={this.props.img} />;
-        // tags = '#' + [this.props.action,this.props.enabler,this.props.area,this.props.purpose].map(text => (text.length < 1 || text !== undefined) ? text.replace(/\s/g,'').join(' #') : '');
+        img = this.props.img == null ? null : <img className='card-img-top' src={this.props.img} />,
+        tags = additionalInfo.length > 0 ? '#' + additionalInfo.map(text => text.replace(/\s/g,'')).join(' #') : <a href="mailto:info@teciudadania.uma.es">Ningún tag. ¡Contacta con nosotros y ayudanos a mejorarla!</a>;
     
       return (
         <div className='card card-sidebar' style={{ overflow: 'auto' }}>
@@ -53,7 +54,7 @@ class Sidebar extends Component {
             <a  target='_blank' href={"https://twitter.com/home?status=" + encodeURIComponent('localhost.com/#15/' + this.props.location[1] + '/' + this.props.location[0] ) } className='card-link'><i class='fa fa-twitter'></i> </a>
             <a target='_blank' href={"https://facebook.com/sharer/sharer.php?u=" + encodeURIComponent('localhost.com/#15/' + this.props.location[1] + '/' + this.props.location[0] ) } className='card-link'><i class='fa fa-facebook-square'> </i></a>
              <div>
-               {/* <span>{tags}</span> */}
+               <span>Esta iniciativa esta con los tags: {tags}</span>
              </div>
             <div className='modal-body' style={{ textAlign: 'center' }}>
               {deletePoint}

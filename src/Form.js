@@ -19,6 +19,9 @@ class Form extends Component {
       description: '',
       image: '',
       creator: this.props.email,
+      twitter: '',
+      facebook: '',
+      group: '',
       file: null
     };
 
@@ -64,7 +67,7 @@ class Form extends Component {
     let data = this.props.data;
     data.properties = {
       name: this.state.name,
-      url: (this.state.web.toLocaleLowerCase().startsWith('http') ? this.state.web : 'https://' + this.state.web),
+      url: this.state.web,
       address: this.state.address,
       purpose: this.state.purpose,
       action: this.state.action,
@@ -72,7 +75,10 @@ class Form extends Component {
       enabler: this.state.enabler,
       description: this.state.description,
       image: this.state.image,
-      creator: this.state.creator
+      creator: this.state.creator,
+      group: this.state.group,
+      twitter:this.state.twitter,
+      facebook: this.state.facebook
     }
     firebase.firestore().collection(this.props.collection).doc(data.properties.name + '_' + data.geometry.coordinates[0].toFixed(2) + '_' + data.geometry.coordinates[1].toFixed(2)).set(data)
       .then(() => {
@@ -98,82 +104,100 @@ class Form extends Component {
             <input type='text' className='form-control' id='web' placeholder='https://example.com' value={this.state.web} onChange={this.handleChange} />
           </div>
         </div>
-        <div className='form-group'>
+        <div className='form-row'>
+        <div className='form-group col-md-6'>
           <label htmlFor='address'>Dirección</label>
           <input type='text' className='form-control' id='address' placeholder='Calle de la Piruleta 1, Bloque 2, Puerta 4' value={this.state.address} onChange={this.handleChange} />
+        </div>
+        <div className='form-group col-md-6'>
+          <label htmlFor='address'>Grupo</label>
+          <input type='text' className='form-control' id='group' placeholder='Cruz Roja' value={this.state.group} onChange={this.handleChange} />
+        </div>
         </div>
         <div className='form-row'>
           <div className='form-group col-md-3'>
             <label htmlFor='initiative'>Temática</label>
             <select id='purpose' className='form-control' value={this.state.purpose} onChange={this.handleChange}>
               <option value='' disabled hidden>Elige una</option>
-              <option value='accesibilidad'>Accesibilidad</option>
-              <option value='arte urbano'>Arte urbano</option>
-              <option value='autogestión'>Autogestión</option>
-              <option value='cuidado'>Cuidado</option>
-              <option value='culto'>Culto</option>
-              <option value='cultura'>Cultura</option>
-              <option value='deporte'>Deporte</option>
-              <option value='derechos sociales'>Derechos sociales</option>
-              <option value='diversidad'>Diversidad</option>
-              <option value='educación'>Educación</option>
-              <option value='integracion'>Integración</option>
-              <option value='igualdad'>Igualdad</option>
-              <option value='mediacion'>Mediación</option>
-              <option value='medio ambiente'>Medio ambiente</option>
-              <option value='migracion'>Migración</option>
-              <option value='movilidad sostenible'>Movilidad sostenible</option>
-              <option value='patrimonio sociocultural'>Patrimonio sociocultural</option>
-              <option value='politica social'>Política social</option>
-              <option value='regeneración urbana'>Regeneración urbana</option>
-              <option value='salud'>Salud</option>
+              <option value='Accesibilidad'>Accesibilidad</option>
+              <option value='Arte urbano'>Arte urbano</option>
+              <option value='Autogestión'>Autogestión</option>
+              <option value='Cuidado'>Cuidado</option>
+              <option value='Culto'>Culto</option>
+              <option value='Cultura'>Cultura</option>
+              <option value='Deporte'>Deporte</option>
+              <option value='Derechos sociales'>Derechos sociales</option>
+              <option value='Diversidad'>Diversidad</option>
+              <option value='Educación'>Educación</option>
+              <option value='Integración'>Integración</option>
+              <option value='Igualdad'>Igualdad</option>
+              <option value='Mediación'>Mediación</option>
+              <option value='Medio ambiente'>Medio ambiente</option>
+              <option value='Migración'>Migración</option>
+              <option value='Movilidad sostenible'>Movilidad sostenible</option>
+              <option value='Patrimonio sociocultural'>Patrimonio sociocultural</option>
+              <option value='Política social'>Política social</option>
+              <option value='Regeneración urbana'>Regeneración urbana</option>
+              <option value='Salud'>Salud</option>
             </select>
           </div>
           <div className='form-group col-md-3'>
             <label htmlFor='action'>Acción</label>
             <select id='action' className='form-control' value={this.state.action} onChange={this.handleChange}>
               <option value='' disabled hidden>Elige una</option>
-              <option value='taller'>Taller: curso, workshop , seminario, jornadas...</option>
-              <option value='digital'>Digital: espacios virtuales, redes sociales... </option>
-              <option value='reunion'>Reunión: punto de encuentro, foro, asamblea... </option>
-              <option value='accion'>Acción: performance, acción, intervención...</option>
-              <option value='exposicion'>Exposición: muestra, evento, presentación...</option>
-              <option value='difusion'>Difusión: promoción, publicación, divulgación...</option>
+              <option value='Taller'>Taller: curso, workshop , seminario, jornadas...</option>
+              <option value='Digital'>Digital: espacios virtuales, redes sociales... </option>
+              <option value='Reunion'>Reunión: punto de encuentro, foro, asamblea... </option>
+              <option value='Accion'>Acción: performance, acción, intervención...</option>
+              <option value='Exposicion'>Exposición: muestra, evento, presentación...</option>
+              <option value='Difusion'>Difusión: promoción, publicación, divulgación...</option>
             </select>
           </div>
           <div className='form-group col-md-3'>
             <label htmlFor='area'>Área</label>
             <select id='area' className='form-control' value={this.state.area} onChange={this.handleChange}>
               <option value='' disabled hidden>Elige una</option>
-              <option value='casa de la cultura'>Casa de la cultura</option>
-              <option value='espacios virtuales'>Espacios virtuales</option>
-              <option value='huerto urbano'>Huerto urbano</option>
-              <option value='solares vacios'>Solares vacíos</option>
-              <option value='itinerarios urbanos'>Itinerarios urbanos</option>
-              <option value='banco de recursos'>Banco de recursos</option>
-              <option value='escuela ciudadana'>Escuela ciudadana</option>
-              <option value='lugares de encuentro'>Lugares de encuentro</option>
-              <option value='coworking'>Coworking</option>
+              <option value='Casa de la cultura'>Casa de la cultura</option>
+              <option value='Espacios virtuales'>Espacios virtuales</option>
+              <option value='Huerto urbano'>Huerto urbano</option>
+              <option value='Solares vacios'>Solares vacíos</option>
+              <option value='Itinerarios urbanos'>Itinerarios urbanos</option>
+              <option value='Banco de recursos'>Banco de recursos</option>
+              <option value='Escuela ciudadana'>Escuela ciudadana</option>
+              <option value='Lugares de encuentro'>Lugares de encuentro</option>
+              <option value='Coworking'>Coworking</option>
             </select>
           </div>
           <div className='form-group col-md-3'>
             <label htmlFor='enabler'>Facilitador</label>
             <select id='enabler' className='form-control' value={this.state.enabler} onChange={this.handleChange}>
               <option value='' disabled hidden>Elige uno</option>
-              <option value='administración pública'>Administración pública</option>
-              <option value='asociación de vecinos/as'>Asociación de vecinos/as</option>
-              <option value='asamblea local'>Asamblea local</option>
-              <option value='movimiento ciudadano'>Movimiento ciudadano</option>
-              <option value='colectivo tradicional'>Colectivo tradicional</option>
-              <option value='obra social'>Obra social</option>
+              <option value='Administración pública'>Administración pública</option>
+              <option value='Asociación de vecinos/as'>Asociación de vecinos/as</option>
+              <option value='Asamblea local'>Asamblea local</option>
+              <option value='Movimiento ciudadano'>Movimiento ciudadano</option>
+              <option value='Colectivo tradicional'>Colectivo tradicional</option>
+              <option value='Obra social'>Obra social</option>
             </select>
           </div>
         </div>
-        <div className='form-group'>
+        <div className='form-row'>
+        <div className='form-group col-md-6'>
           <label htmlFor='description'>Descripción</label>
           <textarea className='form-control' placeholder='Describe aqui la iniciativa' id='description' rows='3' value={this.state.description} onChange={this.handleChange} />
         </div>
+        <div className='form-group col-md-6'>
+          <div className='form-row'>
+            <label htmlFor='twitter' style={{marginBottom: '5px'}}>Twitter</label>
+            <input type='text' className='form-control' id='twitter' placeholder='https://twitter.com/devtwitter' value={this.state.twitter} onChange={this.handleChange} />
+          </div>
+          <div className='form-row'>
+            <label htmlFor='facebook' style={{marginTop: '5px', marginBottom: '3px'}}>Facebook</label>
+            <input type='text' className='form-control' id='facebook' placeholder='https://facebook.com/devfacebook/' value={this.state.facebook} onChange={this.handleChange} />
+          </div>
+        </div>
         <div>
+          </div>
           <label htmlFor="file" class="btn" style={{ backgroundColor: '#Ff8326' }}>Select Image</label>
           <input type="file" id="file" style={{visibility:'hidden'}} accept=".png,.jpg" onChange={this.handleUpload}/>
         </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // import { fromJS } from 'immutable';
-import { CSVLink, CSVDownload } from "react-csv";
+import { CSVLink} from "react-csv";
 
 
 class Header extends Component {
@@ -52,6 +52,7 @@ class Header extends Component {
         <option value={name} />
       )
     })
+
     return (
       <header>
         <nav className='navbar navbar-color-on-scroll fixed-top navbar-expand-lg' style={{ backgroundColor: '#Ff8326' }}>
