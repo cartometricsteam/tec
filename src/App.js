@@ -124,9 +124,10 @@ class App extends Component {
       this.map.getSource('userActivitiesSource').setData(pointsWithin)
     }
     else {
-      this.map.getSource('districtPolygons').setData(empty)
       if (this.map.getSource('userActivitiesSource') !== undefined) {
         this.map.getSource('userActivitiesSource').setData(this.state.data)
+        this.map.getSource('districtPolygons').setData(empty)
+
       }
 
     }
@@ -236,6 +237,12 @@ class App extends Component {
         type: 'geojson',
         data: district
       });
+      let empty = {
+        "type": "FeatureCollection",
+        "features": []
+      }
+      this.map.getSource('districtPolygons').setData(empty)
+
 
       firebase.firestore().collection(this.state.site.collection).get().then(querySnapshot => {
         let template = {

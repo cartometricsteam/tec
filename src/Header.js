@@ -31,8 +31,8 @@ class Header extends Component {
   }
 
   render() {
-    var logged;
-    if (this.props.email != 'null' && this.props.email !== undefined) {
+    let logged;
+    if (this.props.email != 'null' && this.props.email != undefined) {
       logged = <span>{this.props.email} </span>;
     }
     else {
@@ -74,7 +74,7 @@ class Header extends Component {
             <ul className='navbar-nav ml-auto'>
               {buttons}
               <li className='nav-item'>
-                <form className="form-inline ml-auto nav-item" onSubmit={(() => this.state.fly())} style={{ justifyContent: 'center' }}>
+                <form className="form-inline ml-auto nav-item"  style={{ justifyContent: 'center' }}>
                   <div className="form-group has-black">
                     <input type="list" className="form-control" list="activities" placeholder="Buscar por colectivo" />
                     <datalist id="activities">
