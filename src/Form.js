@@ -82,8 +82,7 @@ class Form extends Component {
     }
     firebase.firestore().collection(this.props.collection).doc(data.properties.name + '_' + data.geometry.coordinates[0].toFixed(2) + '_' + data.geometry.coordinates[1].toFixed(2)).set(data)
       .then(() => {
-        this.props.handler(false);
-        NotificationManager.success('Iniciativa añadida con éxito. ¡Gracias por colaborar!');
+        this.props.handler(false, 'Iniciativa añadida con éxito. ¡Gracias por colaborar!', this.props.data.id);
       })
       .catch((error) => {
         NotificationManager.error('Ha ocurrido un error al crear la iniciativa.');

@@ -12,6 +12,7 @@ class FilterPanel extends Component {
     this.restoreFilters = this.restoreFilters.bind(this);
   }
   componentDidMount(){
+    if(JSON.parse(localStorage.getItem('checks')) !=null || JSON.parse(localStorage.getItem('checks')) != undefined)
     this.setState(JSON.parse(localStorage.getItem('checks')));
     this.RestoreChecks();
     }
