@@ -16,7 +16,7 @@ class Help extends Component {
 
               <div className='row'>
                   <div className='col-md-12 col-lg-12 col-sm-12 text-center'>
-                    <button type='button' className='btn btn-primary-filters btn-sm'   onClick={() => this.props.handler(false)}>¡Comenzar!</button>
+                    <button type='button' className='btn btn-primary-filters btn-sm' onClick={() => this.props.handler(false)}>¡Comenzar!</button>
                   </div>
                 </div>
 
