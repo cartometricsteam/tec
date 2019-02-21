@@ -17,6 +17,8 @@ class Header extends Component {
     // This binding is necessary to make `this` work in the callback
     this.handleClick = this.handleClick.bind(this);
     this.handlechange = this.handlechange.bind(this);
+    this.noSubmit = this.noSubmit.bind(this);
+
   }
   handleClick() {
     this.setState(state => ({
