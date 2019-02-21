@@ -9,6 +9,7 @@ import Sidebar from './Sidebar';
 import Modal from './Modal';
 import district from './districts.json';
 import introJs from 'intro.js';
+import { Steps, Hints } from 'intro.js-react';
 import 'intro.js/introjs.css';
 require('dotenv').config();
 
@@ -48,6 +49,7 @@ class App extends Component {
         id: '',
         options: '',
       },
+      stepsEnabled: true,
       data: {
         "type": "FeatureCollection",
         "features": []
@@ -59,7 +61,7 @@ class App extends Component {
       site: {
         title: 'Iniciativas Ciudadanas',
         collection: 'initiatives',
-        buttons: [{ name: 'Temática', description: 'Visualiza en el mapa el tipo de iniciativa por temática que ha sido llevada a cabo por los ciudadanos.', id: 'purpose', filters: ['Accesibilidad', 'Arte urbano', 'Autogestión', 'Cuidado', 'Culto', 'Cultura', 'Deporte', 'Derechos sociales', 'Diversidad', 'Educación', 'Integración', 'Igualdad', 'Mediación', 'Medio ambiente', 'Migración', 'Movilidad sostenible', 'Patrimonio sociocultural', 'Política social', 'Regeneración urbana', 'Salud'] }, { name: 'Zonas', description: 'Si quieres enterarte de las iniciativas que han surgido en tu distrito o en cualquier otro, haz uso de este filtro y las verás en el mapa.', id: 'district', filters: district.features.map((feature) => feature.properties.name)}]
+        buttons: [{ name: 'Temática', description: 'Visualiza en el mapa el tipo de iniciativa por temática que ha sido llevada a cabo por los ciudadanos.', id: 'purpose', filters: ['Accesibilidad', 'Arte urbano', 'Autogestión', 'Cuidado', 'Culto', 'Cultura', 'Deporte', 'Derechos sociales', 'Diversidad', 'Educación', 'Integración', 'Igualdad', 'Mediación', 'Medio ambiente', 'Migración', 'Movilidad sostenible', 'Patrimonio sociocultural', 'Política social', 'Regeneración urbana', 'Salud'] }, { name: 'Zonas', description: 'Si quieres enterarte de las iniciativas que han surgido en tu distrito o en cualquier otro, haz uso de este filtro y las verás en el mapa.', id: 'district', filters: district.features.map((feature) => feature.properties.name) }]
       },
       user: {
         email: localStorage.getItem('email'),
@@ -75,14 +77,14 @@ class App extends Component {
     }
   }
 
-      gotoselected(name){
-      for(var i=0; i<this.state.data.features.length; i++) {
-          if (this.state.data.features[i].properties.name === name) {
-              this.map.setCenter(this.state.data.features[i].geometry.coordinates);
-              this.map.setZoom(15);
-          }
+  gotoselected(name) {
+    for (var i = 0; i < this.state.data.features.length; i++) {
+      if (this.state.data.features[i].properties.name === name) {
+        this.map.setCenter(this.state.data.features[i].geometry.coordinates);
+        this.map.setZoom(15);
       }
     }
+  }
 
   closeSidebar() {
     this.setState({ featureData: { show: false } })
@@ -93,7 +95,7 @@ class App extends Component {
     this.setState({ modal: options, featureData: { show: false } })
     if (notification) {
       NotificationManager.info(notification)
-      if(id != undefined) {
+      if (id != undefined) {
         this.draw.delete(id)
       }
       firebase.firestore().collection(this.state.site.collection).get().then(querySnapshot => {
@@ -105,7 +107,7 @@ class App extends Component {
           template.features.push(doc.data())
         });
 
-        this.setState({data: template})
+        this.setState({ data: template })
         this.map.getSource('userActivities').setData(this.state.data)
         this.map.removeLayer('userSelected');
         this.map.removeSource('userSelected');
@@ -120,17 +122,17 @@ class App extends Component {
   }
 
   handleFilters(conditions) {
-   console.log(conditions)
-   const filters = this.state.map.filter;
-   filters[Object.keys(conditions)[0]] = Object.values(conditions)[0];
-   if(filters.purpose !== undefined) {
-     filters.purpose = filters.purpose.filter(purpose => district.features.map((feature) => feature.properties.name).includes(purpose) === false)
-   }
-   this.setState({ map: { filter: filters } })
-     this.map.removeLayer('userSelected');
-     this.map.removeLayer('selectedFeature');
+    console.log(conditions)
+    const filters = this.state.map.filter;
+    filters[Object.keys(conditions)[0]] = Object.values(conditions)[0];
+    if (filters.purpose !== undefined) {
+      filters.purpose = filters.purpose.filter(purpose => district.features.map((feature) => feature.properties.name).includes(purpose) === false)
+    }
+    this.setState({ map: { filter: filters } })
+    this.map.removeLayer('userSelected');
+    this.map.removeLayer('selectedFeature');
 
- }
+  }
 
   userLog(userInfo) {
     this.setState({ user: userInfo })
@@ -139,6 +141,10 @@ class App extends Component {
   removeFilters() {
     this.setState({ map: { filter: {} } })
   }
+
+  onExit = () => {
+    this.setState(() => ({ stepsEnabled: false }));
+  };
 
   composeFilters(filterObject) {
 
@@ -177,8 +183,8 @@ class App extends Component {
             filterTargets = filterComponent[1];
           return (['match', ['get', filterField], filterTargets, true, false])
         }
-      }).filter( element => element !== undefined);
-    return(['all',...matches])
+      }).filter(element => element !== undefined);
+    return (['all', ...matches])
 
   }
 
@@ -206,7 +212,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    introJs().start();
+    // introJs().start();
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
       style: 'mapbox://styles/mapbox/light-v9',
@@ -288,7 +294,7 @@ class App extends Component {
           template.features.push(doc.data())
         });
 
-        this.setState({data: template})
+        this.setState({ data: template })
 
         this.map.addLayer({
           id: 'district',
@@ -297,12 +303,12 @@ class App extends Component {
           'paint': {
             'fill-color': '#d75d00',
             'fill-opacity': 0.2
-            }
+          }
         });
 
-        this.map.addSource('userActivitiesSource',{
-            type: 'geojson',
-            data: this.state.data
+        this.map.addSource('userActivitiesSource', {
+          type: 'geojson',
+          data: this.state.data
         })
 
         this.map.addLayer({
@@ -441,7 +447,7 @@ class App extends Component {
           id: 'selectedFeature',
           source: {
             type: 'geojson',
-            data: turf.featureCollection([...relatedPoints,clickedFeature])
+            data: turf.featureCollection([...relatedPoints, clickedFeature])
           },
           type: 'circle',
           paint: {
@@ -488,13 +494,37 @@ class App extends Component {
       bottom: 0,
       width: '100%'
     };
+    const initialStep = 0,
+     steps = [
+      {
+        element: '.selector1',
+        intro: 'test 1',
+        position: 'right',
+        tooltipClass: 'myTooltipClass',
+        highlightClass: 'myHighlightClass',
+      },
+      {
+        element: '.selector2',
+        intro: 'test 2',
+      },
+      {
+        element: '.selector3',
+        intro: 'test 3',
+      },
+    ];
 
     return (
       <div style={style} ref={el => this.mapContainer = el} >
         <Header title={this.state.site.title} nameList={this.state.data.features.map((feature) => feature.properties.name)} buttons={this.state.site.buttons} handler={this.toggleModal} email={this.state.user.email} printData={this.printData} gotoselected={this.gotoselected} mapData={[["Name", "Description", "Website", "Lat", "Long"]]} />
         <Modal type={this.state.modal.type} removeFilters={this.removeFilters} title={this.state.modal.title} id={this.state.modal.id} subtitle={this.state.modal.subtitle} description={this.state.modal.description} email={this.state.user.email} handler={this.toggleModal} handleFilters={this.handleFilters} userLog={this.userLog} options={this.state.modal.options} data={this.state.modal.data} collection={this.state.site.collection} />
-        <Sidebar handler= {this.toggleModal} collection={this.state.site.collection} action={this.state.featureData.action} enabler={this.state.featureData.enabler} purpose={this.state.featureData.purpose} area={this.state.featureData.area} title={this.state.featureData.title} location={this.state.featureData.location} img={this.state.featureData.img} userEmail={this.state.user.email} creator={this.state.featureData.creator} description={this.state.featureData.description} address={this.state.featureData.address} email={this.state.featureData.email} url={this.state.featureData.url} twitter={this.state.featureData.twitter} facebook={this.state.featureData.facebook} phone={this.state.featureData.phone} show={this.state.featureData.show} closeSidebar={this.closeSidebar} />
+        <Sidebar handler={this.toggleModal} collection={this.state.site.collection} action={this.state.featureData.action} enabler={this.state.featureData.enabler} purpose={this.state.featureData.purpose} area={this.state.featureData.area} title={this.state.featureData.title} location={this.state.featureData.location} img={this.state.featureData.img} userEmail={this.state.user.email} creator={this.state.featureData.creator} description={this.state.featureData.description} address={this.state.featureData.address} email={this.state.featureData.email} url={this.state.featureData.url} twitter={this.state.featureData.twitter} facebook={this.state.featureData.facebook} phone={this.state.featureData.phone} show={this.state.featureData.show} closeSidebar={this.closeSidebar} />
         <NotificationContainer />
+        <Steps
+          enabled={this.state.stepsEnabled}
+          steps={steps}
+          initialStep={initialStep}
+          onExit={this.onExit}
+        />
       </div>
     );
   }

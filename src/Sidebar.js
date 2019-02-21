@@ -12,7 +12,7 @@ class Sidebar extends Component {
   deleteFeature(name, coordinates) {
     firebase.firestore().collection(this.props.collection).doc(name + '_' + coordinates[0].toFixed(2) + '_' + coordinates[1].toFixed(2)).delete()
     .then(response => {
-      this.props.handler(false, 'Iniciativa eliminada con éxito. ¡Sentimos que te vayas! :(');
+      this.props.handler(false, 'Iniciativa eliminada con éxito. ¡Sentimos que te vayas! :( ');
   }).catch(error => {
       NotificationManager.error('Ha ocurrido un error al eliminar la iniciativa.');
 
