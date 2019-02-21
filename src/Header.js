@@ -16,6 +16,7 @@ class Header extends Component {
 
     // This binding is necessary to make `this` work in the callback
     this.handleClick = this.handleClick.bind(this);
+    this.handlechange = this.handlechange.bind(this);
   }
   handleClick() {
     this.setState(state => ({
@@ -27,8 +28,14 @@ class Header extends Component {
     this.setState({ data: [["Name","Description","Twitter", "Facebook", "Website", "Email","Phone", "Lat", "Long"],...this.props.printData(['userActivities']).map(point => {
       return [point.properties.name, point.properties.description, point.properties.twitter, point.properties.facebook, point.properties.url, point.properties.mail, point.properties.phone, point.geometry.coordinates[0], point.geometry.coordinates[1]]
     })]
-  }) 
+  })
   }
+
+  handlechange(event){
+   this.props.gotoselected(event.target.value);
+       event.preventDefault();
+   }
+
 
   render() {
     let logged;
@@ -76,7 +83,7 @@ class Header extends Component {
               <li className='nav-item'>
                 <form className="form-inline ml-auto nav-item"  style={{ justifyContent: 'center' }}>
                   <div className="form-group has-black">
-                    <input type="list" className="form-control" list="activities" placeholder="Buscar por colectivo" />
+                  <input onChange={this.handlechange} type="list" className="form-control" list="activities" placeholder="Buscar por colectivo" />
                     <datalist id="activities">
                     {associationNames}
                     </datalist>
