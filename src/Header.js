@@ -36,6 +36,10 @@ class Header extends Component {
        event.preventDefault();
    }
 
+   noSubmit(event){
+     event.preventDefault()
+   }
+
 
   render() {
     let logged;
@@ -81,7 +85,7 @@ class Header extends Component {
             <ul className='navbar-nav ml-auto'>
               {buttons}
               <li className='nav-item'>
-                <form className="form-inline ml-auto nav-item"  style={{ justifyContent: 'center' }}>
+                <form onSubmit={this.noSubmit} className="form-inline ml-auto nav-item"  style={{ justifyContent: 'center' }}>
                   <div className="form-group has-black">
                   <input onChange={this.handlechange} type="list" className="form-control" list="activities" placeholder="Buscar por colectivo" />
                     <datalist id="activities">
