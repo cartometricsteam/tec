@@ -4702,9 +4702,12 @@ tbody.collapse.show {
 }
 
 .card-img-top {
-  width: 100%;
-  border-top-left-radius: calc(0.25rem - 1px);
-  border-top-right-radius: calc(0.25rem - 1px);
+      width: 80%;
+      border-top-left-radius: calc(0.25rem - 1px);
+      border-top-right-radius: calc(0.25rem - 1px);
+      padding-top: 2rem;
+      margin-left: auto;
+      margin-right: auto;
 }
 
 .card-img-bottom {
@@ -5596,7 +5599,7 @@ button.close {
   align-items: flex-start;
   justify-content: space-between;
   padding: 1rem;
-  border-bottom: 1px solid #e9ecef;
+
   border-top-left-radius: 0.3rem;
   border-top-right-radius: 0.3rem;
 
@@ -12062,7 +12065,7 @@ form {
   border: 0;
   height: 36px;
   transition: background 0s ease-out;
-  padding-left: 0;
+  padding-left: 12px;
   padding-right: 0;
   border-radius: 0;
   font-size: 14px;

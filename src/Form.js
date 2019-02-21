@@ -114,7 +114,7 @@ class Form extends Component {
         </div>
         </div>
         <div className='form-row'>
-          <div className='form-group col-md-3'>
+          <div className='form-group col-md-6'>
             <label htmlFor='initiative'>Temática</label>
             <select id='purpose' className='form-control' value={this.state.purpose} onChange={this.handleChange}>
               <option value='' disabled hidden>Elige una</option>
@@ -140,20 +140,10 @@ class Form extends Component {
               <option value='Salud'>Salud</option>
             </select>
           </div>
-          <div className='form-group col-md-3'>
-            <label htmlFor='action'>Acción</label>
-            <select id='action' className='form-control' value={this.state.action} onChange={this.handleChange}>
-              <option value='' disabled hidden>Elige una</option>
-              <option value='Taller'>Taller: curso, workshop , seminario, jornadas...</option>
-              <option value='Digital'>Digital: espacios virtuales, redes sociales... </option>
-              <option value='Reunion'>Reunión: punto de encuentro, foro, asamblea... </option>
-              <option value='Accion'>Acción: performance, acción, intervención...</option>
-              <option value='Exposicion'>Exposición: muestra, evento, presentación...</option>
-              <option value='Difusion'>Difusión: promoción, publicación, divulgación...</option>
-            </select>
-          </div>
-          <div className='form-group col-md-3'>
-            <label htmlFor='area'>Área</label>
+
+
+          <div className='form-group col-md-6'>
+            <label htmlFor='area'>Ámbito de actuación</label>
             <select id='area' className='form-control' value={this.state.area} onChange={this.handleChange}>
               <option value='' disabled hidden>Elige una</option>
               <option value='Casa de la cultura'>Casa de la cultura</option>
@@ -167,18 +157,8 @@ class Form extends Component {
               <option value='Coworking'>Coworking</option>
             </select>
           </div>
-          <div className='form-group col-md-3'>
-            <label htmlFor='enabler'>Facilitador</label>
-            <select id='enabler' className='form-control' value={this.state.enabler} onChange={this.handleChange}>
-              <option value='' disabled hidden>Elige uno</option>
-              <option value='Administración pública'>Administración pública</option>
-              <option value='Asociación de vecinos/as'>Asociación de vecinos/as</option>
-              <option value='Asamblea local'>Asamblea local</option>
-              <option value='Movimiento ciudadano'>Movimiento ciudadano</option>
-              <option value='Colectivo tradicional'>Colectivo tradicional</option>
-              <option value='Obra social'>Obra social</option>
-            </select>
-          </div>
+
+
         </div>
         <div className='form-row'>
         <div className='form-group col-md-6'>
@@ -197,7 +177,7 @@ class Form extends Component {
         </div>
         <div>
           </div>
-          <label htmlFor="file" class="btn" style={{ backgroundColor: '#Ff8326' }}>Select Image</label>
+          <label htmlFor="file" class="btn btn-primary-filters btn-sm" >Select Image</label>
           <input type="file" id="file" style={{visibility:'hidden'}} accept=".png,.jpg" onChange={this.handleUpload}/>
         </div>
         <div className='modal-footer justify-content-center'>

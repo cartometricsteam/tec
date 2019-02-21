@@ -27,10 +27,10 @@ class Sidebar extends Component {
         twitter = this.props.twitter == null ? null : <div><a href={this.props.twitter} target='_blank' rel="noopener noreferrer" className='card-link'><i class='fa fa-twitter'></i> Twitter</a></div>,
         phone = this.props.phone == null ? null : <div><a href={'tel:' + this.props.phone} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>phone</i> {this.props.phone}</a></div>,
         facebook = this.props.facebook == null ? null : <div><a href={this.props.facebook} target='_blank' rel="noopener noreferrer" className='card-link'><i class='fa fa-facebook-square'></i> Facebook</a></div>,
-        deletePoint = (this.props.creator === this.props.userEmail) ? <button className='btn btn-primary justify-content-center' style={{ backgroundColor: '#Ff8326' }} onClick={() => this.deleteFeature(this.props.title, this.props.location)} >Eliminar </button> : null,
+        deletePoint = (this.props.creator === this.props.userEmail) ? <button className='btn btn-primary-filters btn-sm' style={{ backgroundColor: '#AF2828' }} onClick={() => this.deleteFeature(this.props.title, this.props.location)} >Eliminar </button> : null,
         img = this.props.img == null ? null : <img className='card-img-top' src={this.props.img} />,
         tags = additionalInfo.length > 0 ? '#' + additionalInfo.map(text => text.replace(/\s/g,'')).join(' #') : <a href="mailto:info@teciudadania.uma.es">Ningún tag. ¡Contacta con nosotros y ayúdanos a mejorarla!</a>;
-    
+
       return (
         <div className='card card-sidebar' style={{ overflow: 'auto' }}>
         <div className='modal-header'> <h5 className='modal-title'>{this.props.title}</h5><button type='button' className='close' aria-label='Close' onClick={this.props.closeSidebar}><span aria-hidden='true'>&times;</span></button></div>
@@ -54,7 +54,7 @@ class Sidebar extends Component {
             <a target='_blank' href={"https://facebook.com/sharer/sharer.php?u=" + encodeURIComponent('localhost.com/#15/' + this.props.location[1] + '/' + this.props.location[0] ) } className='card-link'><i class='fa fa-facebook-square'> </i></a>
 
              <div>
-               <span>Está iniciativa contiene los tags: {tags}</span>
+               <span>Esta iniciativa contiene los tags: {tags}</span>
              </div>
 
             <div className='modal-body' style={{ textAlign: 'center' }}>

@@ -59,8 +59,8 @@ class Header extends Component {
           {/*<div className='container' style={{ backgroundColor: '#Ff8326' }}>*/}
           <div className='navbar-translate'>
             <a className='navbar-brand' href='/'>
-              <img class='logoImg' src={process.env.PUBLIC_URL + 'assets/img/logo.png'} />
-              {this.props.title}
+              <img class='logoImg' src={process.env.PUBLIC_URL + 'assets/img/logo2.png'} />
+
             </a>
             <button onClick={this.handleClick} className='navbar-toggler' type='button' aria-expanded='false' aria-label='Toggle navigation'>
               <span className='sr-only'>Toggle navigation</span>
