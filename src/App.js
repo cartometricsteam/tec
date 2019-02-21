@@ -34,6 +34,7 @@ class App extends Component {
     localStorage.removeItem('checks');
     this.closeSidebar = this.closeSidebar.bind(this);
     this.printData = this.printData.bind(this);
+    this.gotoselected = this.gotoselected.bind(this);
 
     this.state = {
       modal: {
@@ -70,6 +71,15 @@ class App extends Component {
       }
     }
   }
+
+      gotoselected(name){
+      for(var i=0; i<this.state.data.features.length; i++) {
+          if (this.state.data.features[i].properties.name === name) {
+              this.map.setCenter(this.state.data.features[i].geometry.coordinates);
+              this.map.setZoom(15);
+          }
+      }
+    }
 
   closeSidebar() {
     this.setState({ featureData: { show: false } })
@@ -478,7 +488,7 @@ class App extends Component {
 
     return (
       <div style={style} ref={el => this.mapContainer = el} >
-        <Header title={this.state.site.title} nameList={this.state.data.features.map((feature) => feature.properties.name)} buttons={this.state.site.buttons} handler={this.toggleModal} email={this.state.user.email} printData={this.printData} mapData={[["Name", "Description", "Website", "Lat", "Long"]]} />
+        <Header title={this.state.site.title} nameList={this.state.data.features.map((feature) => feature.properties.name)} buttons={this.state.site.buttons} handler={this.toggleModal} email={this.state.user.email} printData={this.printData} gotoselected={this.gotoselected} mapData={[["Name", "Description", "Website", "Lat", "Long"]]} />
         <Modal type={this.state.modal.type} removeFilters={this.removeFilters} title={this.state.modal.title} id={this.state.modal.id} subtitle={this.state.modal.subtitle} description={this.state.modal.description} email={this.state.user.email} handler={this.toggleModal} handleFilters={this.handleFilters} userLog={this.userLog} options={this.state.modal.options} data={this.state.modal.data} collection={this.state.site.collection} />
         <Sidebar handler= {this.toggleModal} collection={this.state.site.collection} action={this.state.featureData.action} enabler={this.state.featureData.enabler} purpose={this.state.featureData.purpose} area={this.state.featureData.area} title={this.state.featureData.title} location={this.state.featureData.location} img={this.state.featureData.img} userEmail={this.state.user.email} creator={this.state.featureData.creator} description={this.state.featureData.description} address={this.state.featureData.address} email={this.state.featureData.email} url={this.state.featureData.url} twitter={this.state.featureData.twitter} facebook={this.state.featureData.facebook} phone={this.state.featureData.phone} show={this.state.featureData.show} closeSidebar={this.closeSidebar} />
         <NotificationContainer />
