@@ -62,7 +62,7 @@ class Header extends Component {
 
     return (
       <header>
-        <nav className='navbar navbar-color-on-scroll fixed-top navbar-expand-lg'  style={{ backgroundColor: '#Ff8326' }}>
+        <nav className='navbar navbar-color-on-scroll fixed-top navbar-expand-lg' data-step="1" data-intro="This is a tooltip!" style={{ backgroundColor: '#Ff8326' }}>
           {/*<div className='container' style={{ backgroundColor: '#Ff8326' }}>*/}
           <div className='navbar-translate'>
             <a className='navbar-brand' href='/'>
@@ -105,7 +105,7 @@ class Header extends Component {
 
               </li>
 
-              <li className='nav-item' ><a className='nav-link' onClick={() => this.props.handler({ type: 'login', title: 'Panel de usuario' })}><i className='material-icons'>person</i>{logged}</a></li>
+              <li className='nav-item'><a className='nav-link' onClick={() => this.props.handler({ type: 'login', title: 'Panel de usuario' })}><i className='material-icons'>person</i>{logged}</a></li>
             </ul>
             {/*</div>*/}
           </div>

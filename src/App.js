@@ -106,11 +106,11 @@ class App extends Component {
         });
 
         this.setState({data: template})
-
+        this.map.getSource('userActivities').setData(this.state.data)
         this.map.removeLayer('userSelected');
-
+        this.map.removeSource('userSelected');
         this.map.removeLayer('selectedFeature');
-        
+        this.map.removeSource('selectedFeature');
       })
     }
   }
