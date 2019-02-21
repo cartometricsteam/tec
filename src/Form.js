@@ -75,7 +75,7 @@ class Form extends Component {
       name: this.state.name,
       url: this.state.web,
       address: this.state.address,
-      purpose: this.state.purpose.map(purpose => purpose.label),
+      purpose:  this.state.purpose === undefined ? '' : this.state.purpose.map(purpose => purpose.label),
       action: this.state.action,
       area: this.state.area,
       enabler: this.state.enabler,
