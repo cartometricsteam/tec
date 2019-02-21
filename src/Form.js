@@ -91,6 +91,7 @@ class Form extends Component {
   }
 
   render() {
+    let imageOk = this.state.image.length > 0 ? <span>¡Imagen subida con éxito!</span> : null
     return (
       <form className='form' onSubmit={this.handleSubmission}>
         <div className='form-row'>
@@ -179,6 +180,7 @@ class Form extends Component {
           </div>
           <label htmlFor="file" class="btn btn-primary-filters btn-sm" >Select Image</label>
           <input type="file" id="file" style={{visibility:'hidden'}} accept=".png,.jpg" onChange={this.handleUpload}/>
+          {imageOk}
         </div>
         <div className='modal-footer justify-content-center'>
           <input className='btn btn-primary-filters btn-sm' type='submit' value='Enviar' />
