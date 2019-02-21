@@ -27,7 +27,7 @@ class Header extends Component {
     this.setState({ data: [["Name","Description","Twitter", "Facebook", "Website", "Email","Phone", "Lat", "Long"],...this.props.printData(['userActivities']).map(point => {
       return [point.properties.name, point.properties.description, point.properties.twitter, point.properties.facebook, point.properties.url, point.properties.mail, point.properties.phone, point.geometry.coordinates[0], point.geometry.coordinates[1]]
     })]
-  })
+  }) 
   }
 
   render() {

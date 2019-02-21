@@ -3,27 +3,26 @@ import * as firebase from 'firebase';
 import {NotificationManager} from 'react-notifications';
 
 class Sidebar extends Component {
-
+  
   constructor(props) {
     super(props);
     this.deleteFeature = this.deleteFeature.bind(this)
   }
-
+  
   deleteFeature(name, coordinates) {
-    firebase.firestore().collection(this.props.collection).doc(name + '_' + coordinates[0].toFixed(2) + '_' + coordinates[1].toFixed(2)).delete().then(function(response) {
-      console.log(response);
-      NotificationManager.success('Iniciativa eliminada con éxito. ¡Sentimos que te vayas! :(');
+    firebase.firestore().collection(this.props.collection).doc(name + '_' + coordinates[0].toFixed(2) + '_' + coordinates[1].toFixed(2)).delete()
+    .then(response => {
+      this.props.handler(false, 'Iniciativa eliminada con éxito. ¡Sentimos que te vayas! :(');
   }).catch(error => {
-      console.error("Error removing document: ", error);
       NotificationManager.error('Ha ocurrido un error al eliminar la iniciativa.');
 
   });
   };
-
+  
   render() {
 
     if (this.props.show) {
-      let additionalInfo = [this.props.action,this.props.enabler,this.props.area,this.props.purpose].filter(info => (info !== undefined && info.length > 1 ));
+      let additionalInfo = [this.props.action,this.props.enabler,this.props.area,this.props.purpose].filter(info => (info !== undefined && info.length > 1 ));      
       const url = this.props.url == null ? null :<div><a href={this.props.url} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>link</i>Website</a></div>,
         twitter = this.props.twitter == null ? null : <div><a href={this.props.twitter} target='_blank' rel="noopener noreferrer" className='card-link'><i class='fa fa-twitter'></i> Twitter</a></div>,
         phone = this.props.phone == null ? null : <div><a href={'tel:' + this.props.phone} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>phone</i> {this.props.phone}</a></div>,
