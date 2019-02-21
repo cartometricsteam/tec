@@ -8,7 +8,10 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 import Modal from './Modal';
 import district from './districts.json';
+import introJs from 'intro.js';
+import 'intro.js/introjs.css';
 require('dotenv').config();
+
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA';
 
@@ -203,7 +206,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-
+    introJs().start();
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
       style: 'mapbox://styles/mapbox/light-v9',
