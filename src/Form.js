@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {NotificationManager} from 'react-notifications';
 import * as firebase from 'firebase';
-import {storage} from './App'
+import {storage} from './App';
+import Select from 'react-select';
 
 class Form extends Component {
   constructor(props) {
@@ -27,6 +28,7 @@ class Form extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleMulti = this.handleMulti.bind(this);
     this.handleSubmission = this.handleSubmission.bind(this);
       this.handleUpload = this.handleUpload.bind(this);
   }
@@ -63,6 +65,9 @@ class Form extends Component {
   handleChange(event) {
     this.setState({ [event.target.id]: event.target.value });
   }
+  handleMulti (selectedOption) {
+    this.setState({ purpose: selectedOption });
+  }
 
   handleSubmission(event) {
     let data = this.props.data;
@@ -80,10 +85,9 @@ class Form extends Component {
       group: this.state.group,
       twitter:this.state.twitter,
       facebook: this.state.facebook,
-      // phone: this.state.phone
       phone: this.state.phone
-
     }
+
     firebase.firestore().collection(this.props.collection).doc(data.properties.name + '_' + data.geometry.coordinates[0].toFixed(2) + '_' + data.geometry.coordinates[1].toFixed(2)).set(data)
       .then(() => {
         this.props.handler(false, 'Iniciativa añadida con éxito. ¡Gracias por colaborar!', this.props.data.id);
@@ -95,6 +99,27 @@ class Form extends Component {
   }
 
   render() {
+    const purpose = [
+      { value: 'Accesibilidad', label: 'Accesibilidad' },
+      { value: 'Arte urbano', label: 'Arte urbano' },
+      { value: 'Cuidado', label: 'Cuidado' },
+      { value: 'Culto', label: 'Culto' },
+      { value: 'Cultura', label: 'Cultura' },
+      { value: 'Deporte', label: 'Deporte' },
+      { value: 'Derechos sociales', label: 'Derechos sociales' },
+      { value: 'Diversidad', label: 'Diversidad' },
+      { value: 'Educación', label: 'Educación' },
+      { value: 'Integración', label: 'Integración' },
+      { value: 'Igualdad', label: 'Igualdad' },
+      { value: 'Medio ambiente', label: 'Medio ambiente' },
+      { value: 'Migración', label: 'Migración' },
+      { value: 'Movilidad sostenible', label: 'Movilidad sostenible' },
+      { value: 'Política social', label: 'Política social' },
+      { value: 'Patrimonio sociocultural', label: 'Patrimonio sociocultural' },
+      { value: 'Regeneración urbana', label: 'Regeneración urbana' },
+      { value: 'Salud', label: 'Salud' }
+    ]
+
     let imageOk = this.state.image.length > 0 ? <span>¡Imagen subida con éxito!</span> : null
     return (
       <form className='form' onSubmit={this.handleSubmission}>
@@ -119,35 +144,21 @@ class Form extends Component {
         </div>
         </div>
         <div className='form-row'>
-          <div className='form-group col-md-6'>
+          <div className='form-group col-md-12'>
             <label htmlFor='initiative'>Temática</label>
-            <select id='purpose' className='form-control' value={this.state.purpose} onChange={this.handleChange}>
-              <option value='' disabled hidden>Elige una</option>
-              <option value='Accesibilidad'>Accesibilidad</option>
-              <option value='Arte urbano'>Arte urbano</option>
-              <option value='Autogestión'>Autogestión</option>
-              <option value='Cuidado'>Cuidado</option>
-              <option value='Culto'>Culto</option>
-              <option value='Cultura'>Cultura</option>
-              <option value='Deporte'>Deporte</option>
-              <option value='Derechos sociales'>Derechos sociales</option>
-              <option value='Diversidad'>Diversidad</option>
-              <option value='Educación'>Educación</option>
-              <option value='Integración'>Integración</option>
-              <option value='Igualdad'>Igualdad</option>
-              <option value='Mediación'>Mediación</option>
-              <option value='Medio ambiente'>Medio ambiente</option>
-              <option value='Migración'>Migración</option>
-              <option value='Movilidad sostenible'>Movilidad sostenible</option>
-              <option value='Patrimonio sociocultural'>Patrimonio sociocultural</option>
-              <option value='Política social'>Política social</option>
-              <option value='Regeneración urbana'>Regeneración urbana</option>
-              <option value='Salud'>Salud</option>
-            </select>
+            <Select
+        value={this.state.purpose}
+        onChange={this.handleMulti}
+        isMulti={true}
+        isSearchable={true}
+        options={purpose}
+      />
+            {/* <select multiple id='purpose' className='form-control' value={this.state.purpose} onChange={this.handleChange}>
+            </select> */}
           </div>
 
 
-          <div className='form-group col-md-6'>
+          {/* <div className='form-group col-md-6'>
             <label htmlFor='area'>Ámbito de actuación</label>
             <select id='area' className='form-control' value={this.state.area} onChange={this.handleChange}>
               <option value='' disabled hidden>Elige una</option>
@@ -161,7 +172,7 @@ class Form extends Component {
               <option value='Lugares de encuentro'>Lugares de encuentro</option>
               <option value='Coworking'>Coworking</option>
             </select>
-          </div>
+          </div> */}
 
 
         </div>
