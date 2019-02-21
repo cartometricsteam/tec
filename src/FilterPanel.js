@@ -3,31 +3,20 @@ import React, { Component } from 'react';
 class FilterPanel extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      filters:[]
-    };
-
+ 
+      if(localStorage.getItem('checks') !=null || localStorage.getItem('checks') != undefined){
+          this.state = JSON.parse(localStorage.getItem('checks'));
+            }
+            else{
+                this.state = {
+                    active: [],
+                    filters: [],
+                };
+      }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmission = this.handleSubmission.bind(this);
-    this.restoreFilters = this.restoreFilters.bind(this);
   }
-  componentDidMount(){
-    if(JSON.parse(localStorage.getItem('checks')) !=null || JSON.parse(localStorage.getItem('checks')) != undefined)
-    this.setState(JSON.parse(localStorage.getItem('checks')));
-    this.RestoreChecks();
-    }
-    RestoreChecks = () => {
-        var l = JSON.parse(localStorage.getItem('checks'))
 
-
-        if(l!==undefined && l!==null)
-            for(var i=0;i<l.filters.length; i++)
-            {
-                var temp = l.filters[i].toString();
-                    if(document.getElementById(temp)!==null && document.getElementById(temp)!==undefined)
-                    document.getElementById(temp).checked = true;
-            }
-    }
     componentWillUnmount(){
       localStorage.setItem('checks',JSON.stringify(this.state));
     }
@@ -59,7 +48,7 @@ class FilterPanel extends Component {
       return (
         <div className='form-check'>
           <label className='form-check-label'>
-            <input className='form-check-input' type='checkbox' id={option} value={option} onChange={this.handleChange}/> {option}
+            <input className='form-check-input' type='checkbox' id={option} value={option} onChange={this.handleChange} checked={this.state[option]} /> {option}
             <span className='form-check-sign'>
               <span className='check'></span>
             </span>
