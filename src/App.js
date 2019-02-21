@@ -203,7 +203,6 @@ class App extends Component {
     //     this.map.addLayer(data);
     //     this.map.setFilter('route', this.state.filter);
     //   });
-
     this.map.setFilter('userActivities', this.composeFilters(this.state.map.filter));
     if (this.map.getSource('userSelected') !== undefined) {
       this.map.setFilter('userSelected', this.composeFilters(this.state.map.filter));
@@ -212,7 +211,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // introJs().start();
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
       style: 'mapbox://styles/mapbox/light-v9',
