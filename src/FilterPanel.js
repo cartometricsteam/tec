@@ -1,37 +1,47 @@
 import React, { Component } from 'react';
 
 class FilterPanel extends Component {
-  constructor(props) {
-    super(props);
- 
-      if(localStorage.getItem('checks') !=null || localStorage.getItem('checks') != undefined){
-          this.state = JSON.parse(localStorage.getItem('checks'));
-            }
-            else{
-                this.state = {
-                    active: [],
-                    filters: [],
-                };
-      }
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmission = this.handleSubmission.bind(this);
-  }
-
-    componentWillUnmount(){
-      localStorage.setItem('checks',JSON.stringify(this.state));
+    constructor(props) {
+        super(props);
+        if(localStorage.getItem('checks') !=null || localStorage.getItem('checks') != undefined){
+            this.state = JSON.parse(localStorage.getItem('checks'));
+        }
+        else{
+            this.state = {
+                active: [],
+                filters: ['active'],
+            };
+        }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmission = this.handleSubmission.bind(this);
     }
-  restoreFilters() {
-    this.props.handler(false);
-    this.props.removeFilters();
-  }
-
-  handleChange(event) {
-      this.setState({[event.target.id]: (this.state[event.target.id] === null || this.state[event.target.id] === undefined) ? true : !this.state[event.target.id] });
-      if (this.state.filters.includes(event.target.id)){
-          var toremove = this.state.filters.indexOf(event.target.id);
-          this.state.filters.splice(toremove, 1);
-      }
-      else
+    componentWillUnmount(){
+        console.log("will unmount");
+        console.log(this.state);
+        localStorage.setItem('checks',JSON.stringify(this.state));
+    }
+    restoreFilters() {
+        for(var i=1; i<this.state.filters.length; i++){
+            this.state[this.state.filters[i]] = false;
+            delete this.state[this.state.filters[i]];
+            // this.state.filters.splice(1, 1);
+        }
+        // for(var i=1; i<this.state.filters.length; i++){
+            // this.state[this.state.filters[i]] = false;
+            // delete this.state[this.state.filters[i]];
+            this.state.filters.splice(1,this.state.filters.length-1);
+        // }
+        // this.setState({filters:[]});
+        this.props.handler(false);
+        this.props.removeFilters();
+    }
+    handleChange(event) {
+        this.setState({[event.target.id]: (this.state[event.target.id] === null || this.state[event.target.id] === undefined) ? true : !this.state[event.target.id] });
+        if (this.state.filters.includes(event.target.id)){
+            var toremove = this.state.filters.indexOf(event.target.id);
+            this.state.filters.splice(toremove, 1);
+        }
+        else
         {
           this.state.filters.push(event.target.id);
       }
@@ -52,34 +62,33 @@ class FilterPanel extends Component {
             <span className='form-check-sign'>
               <span className='check'></span>
             </span>
-          </label>
-        </div>
-      )
-    });
+                    </label>
+                </div>
+            )
+        });
 
-    return (
-      <form onSubmit={this.handleSubmission}>
-        <div className='modal fade show' style={{ display: 'block', overflow: 'auto' }} tabIndex='-1' role='dialog' aria-labelledby='ModalLabel' aria-hidden='true'>
-          <div className='modal-dialog' role='document'>
-            <div className='modal-content'>
-              {header}
-              <div className='modal-body'>
-                <div className='backtittle'>
-                  <h6 style={{padding:'5px' }}>{this.props.description}</h6></div>
-                    {options}
-                  </div>
+        return (
+            <form onSubmit={this.handleSubmission}>
+                <div className='modal fade show' style={{ display: 'block', overflow: 'auto' }} tabIndex='-1' role='dialog' aria-labelledby='ModalLabel' aria-hidden='true'>
+                    <div className='modal-dialog' role='document'>
+                        <div className='modal-content'>
+                            {header}
+                            <div className='modal-body'>
+                                <div className='backtittle'>
+                                    <h6 style={{padding:'5px' }}>{this.props.description}</h6></div>
+                                {options}
+                            </div>
 
-              <div className='modal-footer justify-content-center'>
-                <input className='btn btn-primary-filters btn-sm' type='submit' value='Filtrar'  />
-                <button type='button' className='btn btn-primary-filters btn-sm'  onClick={() => this.restoreFilters()}>Eliminar TODOS los filtros</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </form>
-    );
+                            <div className='modal-footer justify-content-center'>
+                                <input className='btn btn-primary-filters btn-sm' type='submit' value='Filtrar'  />
+                                <button type='button' className='btn btn-primary-filters btn-sm'  onClick={() => this.restoreFilters()}>Eliminar TODOS los filtros</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        );
 
-  }
-
+    }
 }
 export default FilterPanel;

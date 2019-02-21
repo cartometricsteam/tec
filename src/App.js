@@ -107,14 +107,17 @@ class App extends Component {
   }
 
   handleFilters(conditions) {
-    console.log(conditions)
-    const filters = this.state.map.filter;
-    filters[Object.keys(conditions)[0]] = Object.values(conditions)[0];
-    if(filters.purpose !== undefined) {
-      filters.purpose = filters.purpose.filter(purpose => district.features.map((feature) => feature.properties.name).includes(purpose) === false)
-    }
-    this.setState({ map: { filter: filters } })
-  }
+   console.log(conditions)
+   const filters = this.state.map.filter;
+   filters[Object.keys(conditions)[0]] = Object.values(conditions)[0];
+   if(filters.purpose !== undefined) {
+     filters.purpose = filters.purpose.filter(purpose => district.features.map((feature) => feature.properties.name).includes(purpose) === false)
+   }
+   this.setState({ map: { filter: filters } })
+     this.map.removeLayer('userSelected');
+     this.map.removeLayer('selectedFeature');
+
+ }
 
   userLog(userInfo) {
     this.setState({ user: userInfo })
@@ -419,7 +422,7 @@ class App extends Component {
           }
         });
 
-        
+
 
         this.map.addLayer({
           id: 'selectedFeature',
