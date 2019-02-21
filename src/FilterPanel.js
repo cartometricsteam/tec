@@ -16,8 +16,6 @@ class FilterPanel extends Component {
         this.handleSubmission = this.handleSubmission.bind(this);
     }
     componentWillUnmount(){
-        console.log("will unmount");
-        console.log(this.state);
         localStorage.setItem('checks',JSON.stringify(this.state));
     }
     restoreFilters() {
