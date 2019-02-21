@@ -9,7 +9,9 @@ import Sidebar from './Sidebar';
 import Modal from './Modal';
 import district from './districts.json';
 import introJs from 'intro.js';
+
 import { Steps, Hints } from 'intro.js-react';
+
 import 'intro.js/introjs.css';
 require('dotenv').config();
 
@@ -109,10 +111,11 @@ class App extends Component {
 
         this.setState({ data: template })
         this.map.getSource('userActivities').setData(this.state.data)
+
         this.map.removeLayer('userSelected');
-        this.map.removeSource('userSelected');
+
         this.map.removeLayer('selectedFeature');
-        this.map.removeSource('selectedFeature');
+        
       })
     }
   }
@@ -211,6 +214,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
       style: 'mapbox://styles/mapbox/light-v9',
