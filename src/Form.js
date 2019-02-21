@@ -105,13 +105,17 @@ class Form extends Component {
           </div>
         </div>
         <div className='form-row'>
-        <div className='form-group col-md-6'>
+        <div className='form-group col-md-4'>
           <label htmlFor='address'>Dirección</label>
           <input type='text' className='form-control' id='address' placeholder='Calle de la Piruleta 1, Bloque 2, Puerta 4' value={this.state.address} onChange={this.handleChange} />
         </div>
-        <div className='form-group col-md-6'>
+        <div className='form-group col-md-4'>
           <label htmlFor='address'>Grupo</label>
           <input type='text' className='form-control' id='group' placeholder='Cruz Roja' value={this.state.group} onChange={this.handleChange} />
+        </div>
+        <div className='form-group col-md-4'>
+          <label htmlFor='address'>Teléfono</label>
+          <input type='text' className='form-control' id='tel' placeholder='+34 629 91 88 13' value={this.state.tel} onChange={this.handleChange} />
         </div>
         </div>
         <div className='form-row'>
