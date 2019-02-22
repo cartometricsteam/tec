@@ -9,9 +9,7 @@ import Sidebar from './Sidebar';
 import Modal from './Modal';
 import district from './districts.json';
 import introJs from 'intro.js';
-
 import { Steps, Hints } from 'intro.js-react';
-
 import 'intro.js/introjs.css';
 require('dotenv').config();
 
@@ -52,6 +50,7 @@ class App extends Component {
         options: '',
       },
       stepsEnabled: false,
+      again: true,
       data: {
         "type": "FeatureCollection",
         "features": []
@@ -92,7 +91,7 @@ class App extends Component {
     this.setState({ featureData: { show: false } })
   }
 
-  toggleModal(options, notification, id) {
+  toggleModal(options, notification, id, help) {
 
     this.setState({ modal: options, featureData: { show: false } })
     if (notification) {
@@ -111,12 +110,15 @@ class App extends Component {
 
         this.setState({ data: template })
         this.map.getSource('userActivities').setData(this.state.data)
-
         this.map.removeLayer('userSelected');
 
         this.map.removeLayer('selectedFeature');
 
       })
+    }
+
+    if(this.state.again) {
+      this.setState(() => ({ stepsEnabled: true}));
     }
   }
 
@@ -145,7 +147,7 @@ class App extends Component {
   }
 
   onExit = () => {
-    this.setState(() => ({ stepsEnabled: false }));
+    this.setState(() => ({ stepsEnabled: false, again: false }));
   };
 
   composeFilters(filterObject) {
@@ -162,14 +164,13 @@ class App extends Component {
       let newDistricts = district.features.filter(district => selected[0][1].includes(district.properties.name))
       template.features = newDistricts;
       let pointsWithin = turf.pointsWithinPolygon(this.state.data, template);
-      this.map.getSource('districtPolygons').setData(template)
-      this.map.getSource('userActivitiesSource').setData(pointsWithin)
+      this.map.getSource('districtPolygons').setData(template);
+      this.map.getSource('userActivitiesSource').setData(pointsWithin);
     }
     else {
       if (this.map.getSource('userActivitiesSource') !== undefined) {
         this.map.getSource('userActivitiesSource').setData(this.state.data)
         this.map.getSource('districtPolygons').setData(empty)
-
       }
 
     }
@@ -182,24 +183,26 @@ class App extends Component {
         else {
           const filterField = filterComponent[0],
             filterTargets = filterComponent[1];
-            let array;
-            console.log(Array.from(Array(20).keys()).map(x => {
-              return (['match', ['at',x,['get', filterField]], filterTargets, true, false])
-            }))
+            let filterArray = [];
+            Array.from(Array(20).keys()).forEach(x => {
+              filterArray.push(['match', ['at',x,['get', filterField]], filterTargets, true, false])
+            })
+            return filterArray;             
             // return filterTargets.map(target => {
             //   return (['match', target, ['get', filterField], true, false])
             // })
         }
       }).filter(element => element !== undefined);
-      return (['all', ...matches])
-      // let result;
-      // if(['any',...matches.flat()][1] === null || ['any',...matches.flat()][1] === undefined) {
-      //   result = ['all', null]
-      // }
-      // else {
-      //   result = (['any',...matches.flat()])
-      // }
-      // return result
+      // console.log(['all', ...matches.flat()])
+      // return (['all', ...matches.flat()])
+      let result;
+      if(['any',...matches.flat()][1] === null || ['any',...matches.flat()][1] === undefined) {
+        result = ['all', null]
+      }
+      else {
+        result = (['any',...matches.flat()])
+      }
+      return result
   }
 
   // _toggle(satelliteImage) {
@@ -233,7 +236,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
       style: 'mapbox://styles/mapbox/light-v9',
@@ -520,15 +522,12 @@ class App extends Component {
     const initialStep = 0,
      steps = [
       {
-        element: '.selector1',
-        intro: 'test 1',
-        position: 'right',
-        tooltipClass: 'myTooltipClass',
-        highlightClass: 'myHighlightClass',
+        element: '.navbar-color-on-scroll',
+        intro: '¡Hola! Bienvenido a PIC Málaga.',
       },
       {
-        element: '.selector2',
-        intro: 'test 2',
+        element: '.mapbox-gl-draw_point',
+        intro: 'Pulsa aquí para agregar tu iniciativa',
       },
       {
         element: '.selector3',
