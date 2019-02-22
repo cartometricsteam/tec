@@ -85,7 +85,9 @@ class Form extends Component {
       group: this.state.group,
       twitter:this.state.twitter,
       facebook: this.state.facebook,
+      // phone: this.state.phone
       phone: this.state.phone
+
     }
 
     firebase.firestore().collection(this.props.collection).doc(data.properties.name + '_' + data.geometry.coordinates[0].toFixed(2) + '_' + data.geometry.coordinates[1].toFixed(2)).set(data)

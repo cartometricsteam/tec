@@ -520,12 +520,15 @@ class App extends Component {
     const initialStep = 0,
      steps = [
       {
-        element: '.navbar-color-on-scroll',
-        intro: '¡Hola! Bienvenido a PIC Málaga.',
+        element: '.selector1',
+        intro: 'test 1',
+        position: 'right',
+        tooltipClass: 'myTooltipClass',
+        highlightClass: 'myHighlightClass',
       },
       {
-        element: '.mapbox-gl-draw_point',
-        intro: 'Pulsa aquí para agregar tu iniciativa',
+        element: '.selector2',
+        intro: 'test 2',
       },
       {
         element: '.selector3',
