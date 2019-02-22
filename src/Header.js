@@ -17,6 +17,8 @@ class Header extends Component {
     // This binding is necessary to make `this` work in the callback
     this.handleClick = this.handleClick.bind(this);
     this.handlechange = this.handlechange.bind(this);
+    this.noSubmit = this.noSubmit.bind(this);
+
   }
   handleClick() {
     this.setState(state => ({
@@ -34,6 +36,10 @@ class Header extends Component {
   handlechange(event){
    this.props.gotoselected(event.target.value);
        event.preventDefault();
+   }
+
+   noSubmit(event){
+     event.preventDefault()
    }
 
 
@@ -62,7 +68,7 @@ class Header extends Component {
 
     return (
       <header>
-        <nav className='navbar navbar-color-on-scroll fixed-top navbar-expand-lg selector1' style={{ backgroundColor: '#Ff8326' }}>
+        <nav className='navbar navbar-color-on-scroll fixed-top navbar-expand-lg'  style={{ backgroundColor: '#Ff8326' }}>
           {/*<div className='container' style={{ backgroundColor: '#Ff8326' }}>*/}
           <div className='navbar-translate'>
             <a className='navbar-brand' href='/'>
@@ -78,10 +84,10 @@ class Header extends Component {
 
           </div>
           <div className={this.state.isToggleOn ? 'navbar-collapse' : 'collapse navbar-collapse'}>
-            <ul className='navbar-nav ml-auto selector1'>
+            <ul className='navbar-nav ml-auto'>
               {buttons}
               <li className='nav-item'>
-                <form className="form-inline ml-auto nav-item"  style={{ justifyContent: 'center' }}>
+                <form onSubmit={this.noSubmit} className="form-inline ml-auto nav-item"  style={{ justifyContent: 'center' }}>
                   <div className="form-group has-black">
                   <input onChange={this.handlechange} type="list" className="form-control" list="activities" placeholder="Buscar por colectivo" />
                     <datalist id="activities">
@@ -97,7 +103,7 @@ class Header extends Component {
                 </a>
               </li>
 
-              <li className='nav-item selector1'>
+              <li className='nav-item'>
 
                   <CSVLink data={this.state.data} onClick={this.printCSV} className='nav-link'  title='Guardar como .CSV'>
                         <i className='material-icons' >save</i>
@@ -105,7 +111,7 @@ class Header extends Component {
 
               </li>
 
-              <li className='nav-item'><a className='nav-link' onClick={() => this.props.handler({ type: 'login', title: 'Panel de usuario' })}><i className='material-icons'>person</i>{logged}</a></li>
+              <li className='nav-item' ><a className='nav-link' onClick={() => this.props.handler({ type: 'login', title: 'Panel de usuario' })}><i className='material-icons'>person</i>{logged}</a></li>
             </ul>
             {/*</div>*/}
           </div>

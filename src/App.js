@@ -51,7 +51,7 @@ class App extends Component {
         id: '',
         options: '',
       },
-      stepsEnabled: true,
+      stepsEnabled: false,
       data: {
         "type": "FeatureCollection",
         "features": []
@@ -125,7 +125,6 @@ class App extends Component {
   }
 
   handleFilters(conditions) {
-    console.log(conditions)
     const filters = this.state.map.filter;
     filters[Object.keys(conditions)[0]] = Object.values(conditions)[0];
     if (filters.purpose !== undefined) {
@@ -150,7 +149,6 @@ class App extends Component {
   };
 
   composeFilters(filterObject) {
-
     let empty = {
       "type": "FeatureCollection",
       "features": []
@@ -184,11 +182,24 @@ class App extends Component {
         else {
           const filterField = filterComponent[0],
             filterTargets = filterComponent[1];
-          return (['match', ['get', filterField], filterTargets, true, false])
+            let array;
+            console.log(Array.from(Array(20).keys()).map(x => {
+              return (['match', ['at',x,['get', filterField]], filterTargets, true, false])
+            }))
+            // return filterTargets.map(target => {
+            //   return (['match', target, ['get', filterField], true, false])
+            // })
         }
       }).filter(element => element !== undefined);
-    return (['all', ...matches])
-
+      return (['all', ...matches])
+      // let result;
+      // if(['any',...matches.flat()][1] === null || ['any',...matches.flat()][1] === undefined) {
+      //   result = ['all', null]
+      // }
+      // else {
+      //   result = (['any',...matches.flat()])
+      // }
+      // return result
   }
 
   // _toggle(satelliteImage) {
@@ -206,11 +217,19 @@ class App extends Component {
     //     this.map.addLayer(data);
     //     this.map.setFilter('route', this.state.filter);
     //   });
-    this.map.setFilter('userActivities', this.composeFilters(this.state.map.filter));
-    if (this.map.getSource('userSelected') !== undefined) {
-      this.map.setFilter('userSelected', this.composeFilters(this.state.map.filter));
-      this.map.setFilter('selectedFeature', this.composeFilters(this.state.map.filter));
+    let unfilteredFilters = this.composeFilters(this.state.map.filter),
+    filters;
+    if (unfilteredFilters[1] === null) {
+      filters = [unfilteredFilters[0]]
     }
+    else {
+      filters = unfilteredFilters
+    }
+    this.map.setFilter('userActivities', filters);
+      if (this.map.getSource('userSelected') !== undefined) {
+        this.map.setFilter('userSelected', filters);
+        this.map.setFilter('selectedFeature', filters);
+      }
   }
 
   componentDidMount() {
@@ -238,6 +257,8 @@ class App extends Component {
     this.map.addControl(this.draw, 'bottom-right');
 
     this.map.on('load', () => {
+
+      this.setState(() => ({ stepsEnabled: true }));
 
       let layers = this.map.getStyle().layers;
       let labelLayerId;
@@ -314,39 +335,39 @@ class App extends Component {
         })
 
         this.map.addLayer({
-          id: 'userActivities',
-          source: 'userActivitiesSource',
-          type: 'circle',
-          paint: {
-            'circle-radius': [
-              "interpolate", ["linear"], ["zoom"],
-              // zoom is 5 (or less) -> circle radius will be 1px
-              5, ['match',
-                ['get', 'nexus'],
-                'true', 2,
-                1
-              ],
-              // zoom is 10 (or greater) -> circle radius will be 5px
-              12, ['match',
-                ['get', 'nexus'],
-                'true', 10,
-                5
-              ]
+        id: 'userActivities',
+        source: 'userActivitiesSource',
+        type: 'circle',
+        paint: {
+          'circle-radius': [
+            "interpolate", ["linear"], ["zoom"],
+            // zoom is 5 (or less) -> circle radius will be 1px
+            5, ['match',
+              ['get', 'nexus'],
+              'true', 2,
+              3
             ],
-
-            'circle-color': [
-              'match',
-              ['get', 'name'],
-              'bike', '#fbb03b',
-              'parkour', '#223b53',
-              'running', '#e55e5e',
-              'yoga', '#3bb2d0',
-              '#d75d00'
+            // zoom is 10 (or greater) -> circle radius will be 5px
+            12, ['match',
+              ['get', 'nexus'],
+              'true', 10,
+              7
             ]
-          }
-        });
+          ],
 
+          'circle-color': [
+            'match',
+            ['get', 'name'],
+            'bike', '#fbb03b',
+            'parkour', '#223b53',
+            'running', '#e55e5e',
+            'yoga', '#3bb2d0',
+            'rgba(215, 93, 0, 0.8)'
+          ]
+        }
       });
+
+    });
 
       ['userActivities'].forEach(activityType => {
         this.map.on('mouseenter', activityType, () => {
@@ -499,15 +520,12 @@ class App extends Component {
     const initialStep = 0,
      steps = [
       {
-        element: '.selector1',
-        intro: 'En esta barra encontrarás los filtros por temática y zona. También puedes buscar por colectivo',
-        position: 'bottom',
-        tooltipClass: 'myTooltipClass',
-        highlightClass: 'myHighlightClass',
+        element: '.navbar-color-on-scroll',
+        intro: '¡Hola! Bienvenido a PIC Málaga.',
       },
       {
-        element: '.selector2',
-        intro: 'test 2',
+        element: '.mapbox-gl-draw_point',
+        intro: 'Pulsa aquí para agregar tu iniciativa',
       },
       {
         element: '.selector3',
