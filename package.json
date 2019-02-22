@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@khanacademy/react-multi-select": "^0.3.2",
     "@mapbox/mapbox-gl-draw": "^1.1.1",
     "@turf/turf": "^5.1.6",
     "create-react-app": "^2.1.5",
@@ -15,6 +16,7 @@
     "react-dom": "^16.8.2",
     "react-notifications": "^1.4.3",
     "react-scripts": "2.1.1",
+    "react-select": "^2.4.1",
     "react-share": "^2.4.0",
     "react-simple-popover": "^0.2.4",
     "react-tiny-popover": "^3.4.2",

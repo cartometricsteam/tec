@@ -17,6 +17,8 @@ class Header extends Component {
     // This binding is necessary to make `this` work in the callback
     this.handleClick = this.handleClick.bind(this);
     this.handlechange = this.handlechange.bind(this);
+    this.noSubmit = this.noSubmit.bind(this);
+
   }
   handleClick() {
     this.setState(state => ({
@@ -34,6 +36,10 @@ class Header extends Component {
   handlechange(event){
    this.props.gotoselected(event.target.value);
        event.preventDefault();
+   }
+
+   noSubmit(event){
+     event.preventDefault()
    }
 
 
@@ -81,7 +87,7 @@ class Header extends Component {
             <ul className='navbar-nav ml-auto'>
               {buttons}
               <li className='nav-item'>
-                <form className="form-inline ml-auto nav-item"  style={{ justifyContent: 'center' }}>
+                <form onSubmit={this.noSubmit} className="form-inline ml-auto nav-item"  style={{ justifyContent: 'center' }}>
                   <div className="form-group has-black">
                   <input onChange={this.handlechange} type="list" className="form-control" list="activities" placeholder="Buscar por colectivo" />
                     <datalist id="activities">
