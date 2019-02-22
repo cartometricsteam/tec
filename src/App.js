@@ -182,24 +182,26 @@ class App extends Component {
         else {
           const filterField = filterComponent[0],
             filterTargets = filterComponent[1];
-            let array;
-            console.log(Array.from(Array(20).keys()).map(x => {
-              return (['match', ['at',x,['get', filterField]], filterTargets, true, false])
-            }))             
+            let filterArray = [];
+            Array.from(Array(20).keys()).forEach(x => {
+              filterArray.push(['match', ['at',x,['get', filterField]], filterTargets, true, false])
+            })
+            return filterArray;             
             // return filterTargets.map(target => {
             //   return (['match', target, ['get', filterField], true, false])
             // })
         }
       }).filter(element => element !== undefined);
-      return (['all', ...matches])
-      // let result;
-      // if(['any',...matches.flat()][1] === null || ['any',...matches.flat()][1] === undefined) {
-      //   result = ['all', null]
-      // }
-      // else {
-      //   result = (['any',...matches.flat()])
-      // }
-      // return result
+      // console.log(['all', ...matches.flat()])
+      // return (['all', ...matches.flat()])
+      let result;
+      if(['any',...matches.flat()][1] === null || ['any',...matches.flat()][1] === undefined) {
+        result = ['all', null]
+      }
+      else {
+        result = (['any',...matches.flat()])
+      }
+      return result
   }
 
   // _toggle(satelliteImage) {
