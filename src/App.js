@@ -52,6 +52,7 @@ class App extends Component {
         options: '',
       },
       stepsEnabled: false,
+      again: true,
       data: {
         "type": "FeatureCollection",
         "features": []
@@ -92,7 +93,7 @@ class App extends Component {
     this.setState({ featureData: { show: false } })
   }
 
-  toggleModal(options, notification, id) {
+  toggleModal(options, notification, id, help) {
 
     this.setState({ modal: options, featureData: { show: false } })
     if (notification) {
@@ -117,6 +118,10 @@ class App extends Component {
         this.map.removeLayer('selectedFeature');
         
       })
+    }
+
+    if(this.state.again) {
+      this.setState(() => ({ stepsEnabled: true}));
     }
   }
 
@@ -145,7 +150,7 @@ class App extends Component {
   }
 
   onExit = () => {
-    this.setState(() => ({ stepsEnabled: false }));
+    this.setState(() => ({ stepsEnabled: false, again: false }));
   };
 
   composeFilters(filterObject) {
@@ -162,14 +167,13 @@ class App extends Component {
       let newDistricts = district.features.filter(district => selected[0][1].includes(district.properties.name))
       template.features = newDistricts;
       let pointsWithin = turf.pointsWithinPolygon(this.state.data, template);
-      this.map.getSource('districtPolygons').setData(template)
-      this.map.getSource('userActivitiesSource').setData(pointsWithin)
+      this.map.getSource('districtPolygons').setData(template);
+      this.map.getSource('userActivitiesSource').setData(pointsWithin);
     }
     else {
       if (this.map.getSource('userActivitiesSource') !== undefined) {
         this.map.getSource('userActivitiesSource').setData(this.state.data)
         this.map.getSource('districtPolygons').setData(empty)
-
       }
 
     }
@@ -259,8 +263,6 @@ class App extends Component {
     this.map.addControl(this.draw, 'bottom-right');
 
     this.map.on('load', () => {
-
-      this.setState(() => ({ stepsEnabled: true }));
 
       let layers = this.map.getStyle().layers;
       let labelLayerId;
