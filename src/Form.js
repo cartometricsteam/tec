@@ -124,15 +124,20 @@ class Form extends Component {
     return (
       <form className='form' onSubmit={this.handleSubmission}>
         <div className='form-row'>
-          <div className='form-group col-md-6'>
+          <div className='form-group col-md-4'>
             <label htmlFor='name'>Nombre</label>
             <input type='text' className='form-control' id='name' placeholder='Nombre de la Iniciativa' value={this.state.name} onChange={this.handleChange} />
           </div>
-          <div className='form-group col-md-6'>
+          <div className='form-group col-md-4'>
             <label htmlFor='web'>Web</label>
             <input type='text' className='form-control' id='web' placeholder='https://example.com' value={this.state.web} onChange={this.handleChange} />
           </div>
-        </div>
+
+        <div className='form-group col-md-4'>
+            <label htmlFor='tel'>Teléfono</label>
+            <input type='text' className='form-control' id='tel' placeholder='+34 629118190' value={this.state.tel} onChange={this.handleChange} />
+          </div>
+          </div>
         <div className='form-row'>
         <div className='form-group col-md-6'>
           <label htmlFor='address'>Dirección</label>
