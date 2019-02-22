@@ -125,7 +125,6 @@ class App extends Component {
   }
 
   handleFilters(conditions) {
-    console.log(conditions)
     const filters = this.state.map.filter;
     filters[Object.keys(conditions)[0]] = Object.values(conditions)[0];
     if (filters.purpose !== undefined) {
@@ -150,7 +149,6 @@ class App extends Component {
   };
 
   composeFilters(filterObject) {
-
     let empty = {
       "type": "FeatureCollection",
       "features": []
@@ -187,6 +185,7 @@ class App extends Component {
           return (['match', ['get', filterField], filterTargets, true, false])
         }
       }).filter(element => element !== undefined);
+      console.log(['all', ...matches])
     return (['all', ...matches])
 
   }
@@ -206,11 +205,19 @@ class App extends Component {
     //     this.map.addLayer(data);
     //     this.map.setFilter('route', this.state.filter);
     //   });
-    this.map.setFilter('userActivities', this.composeFilters(this.state.map.filter));
-    if (this.map.getSource('userSelected') !== undefined) {
-      this.map.setFilter('userSelected', this.composeFilters(this.state.map.filter));
-      this.map.setFilter('selectedFeature', this.composeFilters(this.state.map.filter));
+    let unfilteredFilters = this.composeFilters(this.state.map.filter),
+    filters;
+    if (unfilteredFilters[1] === null) {
+      filters = [unfilteredFilters[0]]
     }
+    else {
+      filters = unfilteredFilters
+    }
+    this.map.setFilter('userActivities', filters);
+      if (this.map.getSource('userSelected') !== undefined) {
+        this.map.setFilter('userSelected', filters);
+        this.map.setFilter('selectedFeature', filters);
+      }
   }
 
   componentDidMount() {

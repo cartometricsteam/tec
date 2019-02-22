@@ -6,18 +6,18 @@ class FilterPanel extends Component {
         if(localStorage.getItem('checks') !=null || localStorage.getItem('checks') != undefined){
             this.state = JSON.parse(localStorage.getItem('checks'));
         }
-        else{
+        else {
             this.state = {
-                active: [],
-                filters: ['active'],
+                // active: [],
+                filters: []
             };
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmission = this.handleSubmission.bind(this);
     }
     componentWillUnmount(){
-        console.log("will unmount");
-        console.log(this.state);
+        // console.log("will unmount");
+        // console.log(this.state);
         localStorage.setItem('checks',JSON.stringify(this.state));
     }
     restoreFilters() {

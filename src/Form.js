@@ -53,7 +53,7 @@ class Form extends Component {
                     // complete function ....
                     storage.ref('images').child(file.name).getDownloadURL().then(image => {
                         this.setState({image});
-                        console.log(image, this.state)
+                        // console.log(image, this.state)
                     })
                 });
         }
