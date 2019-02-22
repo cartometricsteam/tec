@@ -9,9 +9,7 @@ import Sidebar from './Sidebar';
 import Modal from './Modal';
 import district from './districts.json';
 import introJs from 'intro.js';
-
 import { Steps, Hints } from 'intro.js-react';
-
 import 'intro.js/introjs.css';
 require('dotenv').config();
 
@@ -112,11 +110,10 @@ class App extends Component {
 
         this.setState({ data: template })
         this.map.getSource('userActivities').setData(this.state.data)
-
         this.map.removeLayer('userSelected');
 
         this.map.removeLayer('selectedFeature');
-        
+
       })
     }
 
@@ -239,7 +236,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
       style: 'mapbox://styles/mapbox/light-v9',
@@ -263,6 +259,8 @@ class App extends Component {
     this.map.addControl(this.draw, 'bottom-right');
 
     this.map.on('load', () => {
+
+      this.setState(() => ({ stepsEnabled: true }));
 
       let layers = this.map.getStyle().layers;
       let labelLayerId;
@@ -339,39 +337,39 @@ class App extends Component {
         })
 
         this.map.addLayer({
-          id: 'userActivities',
-          source: 'userActivitiesSource',
-          type: 'circle',
-          paint: {
-            'circle-radius': [
-              "interpolate", ["linear"], ["zoom"],
-              // zoom is 5 (or less) -> circle radius will be 1px
-              5, ['match',
-                ['get', 'nexus'],
-                'true', 2,
-                1
-              ],
-              // zoom is 10 (or greater) -> circle radius will be 5px
-              12, ['match',
-                ['get', 'nexus'],
-                'true', 10,
-                5
-              ]
+        id: 'userActivities',
+        source: 'userActivitiesSource',
+        type: 'circle',
+        paint: {
+          'circle-radius': [
+            "interpolate", ["linear"], ["zoom"],
+            // zoom is 5 (or less) -> circle radius will be 1px
+            5, ['match',
+              ['get', 'nexus'],
+              'true', 2,
+              3
             ],
-
-            'circle-color': [
-              'match',
-              ['get', 'name'],
-              'bike', '#fbb03b',
-              'parkour', '#223b53',
-              'running', '#e55e5e',
-              'yoga', '#3bb2d0',
-              '#d75d00'
+            // zoom is 10 (or greater) -> circle radius will be 5px
+            12, ['match',
+              ['get', 'nexus'],
+              'true', 10,
+              7
             ]
-          }
-        });
+          ],
 
+          'circle-color': [
+            'match',
+            ['get', 'name'],
+            'bike', '#fbb03b',
+            'parkour', '#223b53',
+            'running', '#e55e5e',
+            'yoga', '#3bb2d0',
+            'rgba(215, 93, 0, 0.8)'
+          ]
+        }
       });
+
+    });
 
       ['userActivities'].forEach(activityType => {
         this.map.on('mouseenter', activityType, () => {
