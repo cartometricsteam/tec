@@ -51,7 +51,7 @@ class App extends Component {
         id: '',
         options: '',
       },
-      stepsEnabled: true,
+      stepsEnabled: false,
       data: {
         "type": "FeatureCollection",
         "features": []
@@ -182,12 +182,24 @@ class App extends Component {
         else {
           const filterField = filterComponent[0],
             filterTargets = filterComponent[1];
-          return (['match', ['get', filterField], filterTargets, true, false])
+            let array;
+            console.log(Array.from(Array(20).keys()).map(x => {
+              return (['match', ['at',x,['get', filterField]], filterTargets, true, false])
+            }))             
+            // return filterTargets.map(target => {
+            //   return (['match', target, ['get', filterField], true, false])
+            // })
         }
       }).filter(element => element !== undefined);
-      console.log(['all', ...matches])
-    return (['all', ...matches])
-
+      return (['all', ...matches])
+      // let result;
+      // if(['any',...matches.flat()][1] === null || ['any',...matches.flat()][1] === undefined) {
+      //   result = ['all', null]
+      // }
+      // else {
+      //   result = (['any',...matches.flat()])
+      // }
+      // return result
   }
 
   // _toggle(satelliteImage) {
@@ -245,6 +257,8 @@ class App extends Component {
     this.map.addControl(this.draw, 'bottom-right');
 
     this.map.on('load', () => {
+
+      this.setState(() => ({ stepsEnabled: true }));
 
       let layers = this.map.getStyle().layers;
       let labelLayerId;
@@ -506,15 +520,12 @@ class App extends Component {
     const initialStep = 0,
      steps = [
       {
-        element: '.selector1',
-        intro: 'test 1',
-        position: 'right',
-        tooltipClass: 'myTooltipClass',
-        highlightClass: 'myHighlightClass',
+        element: '.navbar-color-on-scroll',
+        intro: '¡Hola! Bienvenido a PIC Málaga.',
       },
       {
-        element: '.selector2',
-        intro: 'test 2',
+        element: '.mapbox-gl-draw_point',
+        intro: 'Pulsa aquí para agregar tu iniciativa',
       },
       {
         element: '.selector3',
