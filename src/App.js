@@ -187,7 +187,7 @@ class App extends Component {
             Array.from(Array(20).keys()).forEach(x => {
               filterArray.push(['match', ['at',x,['get', filterField]], filterTargets, true, false])
             })
-            return filterArray;             
+            return filterArray;
             // return filterTargets.map(target => {
             //   return (['match', target, ['get', filterField], true, false])
             // })
@@ -523,16 +523,13 @@ class App extends Component {
      steps = [
       {
         element: '.navbar-color-on-scroll',
-        intro: '¡Hola! Bienvenido a PIC Málaga.',
+        intro: 'Bienvenido a PIC Málaga. En esta barra encontrarás los filtros necesarios para buscar las iniciativas creadas en la ciudad.',
       },
       {
         element: '.mapbox-gl-draw_point',
-        intro: 'Pulsa aquí para agregar tu iniciativa',
+        intro: 'Utiliza el lápiz para añadir la iniciativa al mapa. Antes deberás estar registrado en la plataforma.',
       },
-      {
-        element: '.selector3',
-        intro: 'test 3',
-      },
+      
     ];
 
     return (
