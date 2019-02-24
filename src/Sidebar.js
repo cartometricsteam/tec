@@ -25,7 +25,8 @@ class Sidebar extends Component {
       let additionalInfo = [this.props.action,this.props.enabler,this.props.area,this.props.purpose].filter(info => (info !== undefined && info.length > 1 ));      
       const url = this.props.url == null ? null :<div><a href={this.props.url} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>link</i>Website</a></div>,
         twitter = this.props.twitter == null ? null : <div><a href={this.props.twitter} target='_blank' rel="noopener noreferrer" className='card-link'><i class='fa fa-twitter'></i> Twitter</a></div>,
-        phone = this.props.phone == null ? null : <div><a href={'tel:' + this.props.phone} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>phone</i> {this.props.phone}</a></div>,
+        email = (this.props.mail == null || this.props.mail == '') ? null : <div><a href={'mailto:' + this.props.mail} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>email</i> {this.props.mail}</a></div>,
+        phone = (this.props.phone == null || this.props.phone == '') ? null : <div><a href={'tel:' + this.props.phone} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>phone</i> {this.props.phone}</a></div>,
         facebook = this.props.facebook == null ? null : <div><a href={this.props.facebook} target='_blank' rel="noopener noreferrer" className='card-link'><i class='fa fa-facebook-square'></i> Facebook</a></div>,
         deletePoint = (this.props.creator === this.props.userEmail) ? <button className='btn btn-primary-filters btn-sm' style={{ backgroundColor: '#AF2828' }} onClick={() => this.deleteFeature(this.props.title, this.props.location)} >Eliminar </button> : null,
         img = this.props.img == null ? null : <img className='card-img-top' src={this.props.img} />,
@@ -47,6 +48,7 @@ class Sidebar extends Component {
             {url}
             {twitter}
             {facebook}
+            {email}
             {phone}
 
             <h6 class="text-muted" >Compartir iniciativa en:</h6>

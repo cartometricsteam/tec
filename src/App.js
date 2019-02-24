@@ -366,7 +366,7 @@ class App extends Component {
               'parkour', '#223b53',
               'running', '#e55e5e',
               'yoga', '#3bb2d0',
-              '#d75d00'
+              'rgba(215,93,0,0.8)'
             ]
           }
         });
@@ -385,7 +385,7 @@ class App extends Component {
         this.map.on('click', activityType, e => {
           let featureProperties = e.features[0].properties,
             featureLocation = e.features[0].geometry.coordinates
-          this.setState({ featureData: { title: featureProperties.name, location: featureLocation, show: true, img: featureProperties.image, description: featureProperties.description, purpose: featureProperties.purpose, action: featureProperties.action, area: featureProperties.area, enabler: featureProperties.enabler, url: featureProperties.url, twitter: featureProperties.twitter, facebook: featureProperties.facebook, phone: featureProperties.phone, address: featureProperties.address, creator: featureProperties.creator } })
+          this.setState({ featureData: { title: featureProperties.name, location: featureLocation, show: true, img: featureProperties.image, description: featureProperties.description, purpose: featureProperties.purpose, action: featureProperties.action, area: featureProperties.area, enabler: featureProperties.enabler, url: featureProperties.url, twitter: featureProperties.twitter, facebook: featureProperties.facebook, phone: featureProperties.phone, address: featureProperties.address, creator: featureProperties.creator} })
         });
 
         this.map.on('touchend', activityType, e => {

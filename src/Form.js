@@ -29,6 +29,7 @@ class Form extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleMulti = this.handleMulti.bind(this);
+    this.handleMulti_2 = this.handleMulti_2.bind(this);
     this.handleSubmission = this.handleSubmission.bind(this);
       this.handleUpload = this.handleUpload.bind(this);
   }
@@ -69,6 +70,10 @@ class Form extends Component {
     this.setState({ purpose: selectedOption });
   }
 
+  handleMulti_2 (selectedOption) {
+    this.setState({ area: selectedOption });
+  }
+
   handleSubmission(event) {
     let data = this.props.data;
     data.properties = {
@@ -77,10 +82,11 @@ class Form extends Component {
       address: this.state.address,
       purpose:  this.state.purpose === '' ? '' : this.state.purpose.map(purpose => purpose.label),
       action: this.state.action,
-      area: this.state.area,
+      area: this.state.area === '' ? '' : this.state.area.map(area => area.label),
       enabler: this.state.enabler,
       description: this.state.description,
       image: this.state.image,
+      mail: this.props.email,
       creator: this.state.creator,
       group: this.state.group,
       twitter:this.state.twitter,
@@ -120,6 +126,18 @@ class Form extends Component {
       { value: 'Salud', label: 'Salud' }
     ]
 
+    const area = [
+      {value: 'Casa de la cultura', label: 'Casa de la cultura' },
+      {value: 'Espacios virtuales', label: 'Espacios virtuales' },
+      {value: 'Huerto urbano', label: 'Huerto urbano' },
+      {value: 'Solares vacios', label: 'Solares vacios' },
+      {value: 'Itinerarios urbanos', label: 'Itinerarios urbanos' },
+      {value: 'Banco de recursos', label: 'Banco de recursos' },
+      {value: 'Escuela ciudadana', label: 'Escuela ciudadana' },
+      {value: 'Lugares de encuentro', label: 'Lugares de encuentro' },
+      {value: 'Coworking', label: 'Coworking' },
+    ]
+
     let imageOk = this.state.image.length > 0 ? <span>¡Imagen subida con éxito!</span> : null
     return (
       <form className='form' onSubmit={this.handleSubmission}>
@@ -134,8 +152,8 @@ class Form extends Component {
           </div>
 
         <div className='form-group col-md-4'>
-            <label htmlFor='tel'>Teléfono</label>
-            <input type='text' className='form-control' id='tel' placeholder='+34 629118190' value={this.state.tel} onChange={this.handleChange} />
+            <label htmlFor='phone'>Teléfono</label>
+            <input type='text' className='form-control' id='phone' placeholder='+34 629118190' value={this.state.phone} onChange={this.handleChange} />
           </div>
           </div>
         <div className='form-row'>
@@ -158,11 +176,19 @@ class Form extends Component {
         isSearchable={true}
         options={purpose}
       />
-            {/* <select multiple id='purpose' className='form-control' value={this.state.purpose} onChange={this.handleChange}>
-            </select> */}
           </div>
-
-
+          </div>
+          <div className='form-row'>
+          <div className='form-group col-md-12'>
+            <label htmlFor='area'>Ámbito</label>
+          <Select
+        value={this.state.area}
+        onChange={this.handleMulti_2}
+        isMulti={true}
+        isSearchable={true}
+        options={area}
+      />
+      </div>
           {/* <div className='form-group col-md-6'>
             <label htmlFor='area'>Ámbito de actuación</label>
             <select id='area' className='form-control' value={this.state.area} onChange={this.handleChange}>
