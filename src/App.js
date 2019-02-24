@@ -9,7 +9,9 @@ import Sidebar from './Sidebar';
 import Modal from './Modal';
 import district from './districts.json';
 import introJs from 'intro.js';
+
 import { Steps, Hints } from 'intro.js-react';
+
 import 'intro.js/introjs.css';
 require('dotenv').config();
 
@@ -44,7 +46,7 @@ class App extends Component {
       modal: {
         title: 'Plataforma de Iniciativas Ciudadanas 🙌',
         subtitle: '¿QUÉ INICIATIVAS CIUDADANAS HAY EN TU BARRIO?, ¿PARTICIPAS EN ALGUNA?, ¿QUIERES DARLA A CONOCER?',
-        description: 'El objetivo de este proyecto es mostrar la ciudad de Málaga desde una perspectiva social de movimientos emergentes, iniciativas vecinales y nuevas tendencias urbanas dentro de sus barrios. Dar a conocer esa realidad social -con poca visibilidad en la ciudad- además de crear una red de colectivos y asociaciones, y establecer posibles sinergias.',
+        description: 'El objetivo de este proyecto es mostrar la ciudad de Málaga desde una perspectiva social de movimientos emergentes, iniciativas vecinales y nuevas tendencias urbanas dentro de sus barrios. Dar a conocer esa realidad social  -con poca visibilidad en la ciudad- además de crear una red de colectivos y asociaciones, y establecer posibles sinergias.',
         type: 'help',
         id: '',
         options: '',
@@ -62,7 +64,7 @@ class App extends Component {
       site: {
         title: 'Iniciativas Ciudadanas',
         collection: 'initiatives',
-        buttons: [{ name: 'Temática', description: 'Visualiza en el mapa el tipo de iniciativa por temática que ha sido llevada a cabo por los ciudadanos.', id: 'purpose', filters: ['Accesibilidad', 'Arte urbano', 'Autogestión', 'Cuidado', 'Culto', 'Cultura', 'Deporte', 'Derechos sociales', 'Diversidad', 'Educación', 'Integración', 'Igualdad', 'Mediación', 'Medio ambiente', 'Migración', 'Movilidad sostenible', 'Patrimonio sociocultural', 'Política social', 'Regeneración urbana', 'Salud'] }, { name: 'Zonas', description: 'Si quieres enterarte de las iniciativas que han surgido en tu distrito o en cualquier otro, haz uso de este filtro y las verás en el mapa.', id: 'district', filters: district.features.map((feature) => feature.properties.name) }]
+        buttons: [{ name: 'Temática', description: 'Visualiza en el mapa el tipo de iniciativa por temática que ha sido llevada a cabo por los ciudadanos.', id: 'purpose', filters: ['Accesibilidad', 'Arte urbano', 'Arquitectura', 'Autogestión', 'Cuidado', 'Culto', 'Cultura', 'Deporte', 'Derechos sociales', 'Diversidad', 'Educación', 'Integración', 'Igualdad', 'Mediación', 'Medio ambiente', 'Movilidad sostenible', 'Patrimonio material', 'Patrimonio cultural inmaterial', 'Política social',  'Urbanismo', 'Salud'] }, { name: 'Zonas', description: 'Si quieres enterarte de las iniciativas que han surgido en tu distrito o en cualquier otro, haz uso de este filtro y las verás en el mapa.', id: 'district', filters: district.features.map((feature) => feature.properties.name) }]
       },
       user: {
         email: localStorage.getItem('email'),
@@ -111,7 +113,6 @@ class App extends Component {
         this.setState({ data: template })
         this.map.getSource('userActivities').setData(this.state.data)
         this.map.removeLayer('userSelected');
-
         this.map.removeLayer('selectedFeature');
 
       })
@@ -236,6 +237,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
       style: 'mapbox://styles/mapbox/light-v9',
@@ -259,8 +261,6 @@ class App extends Component {
     this.map.addControl(this.draw, 'bottom-right');
 
     this.map.on('load', () => {
-
-      this.setState(() => ({ stepsEnabled: true }));
 
       let layers = this.map.getStyle().layers;
       let labelLayerId;
@@ -337,39 +337,39 @@ class App extends Component {
         })
 
         this.map.addLayer({
-        id: 'userActivities',
-        source: 'userActivitiesSource',
-        type: 'circle',
-        paint: {
-          'circle-radius': [
-            "interpolate", ["linear"], ["zoom"],
-            // zoom is 5 (or less) -> circle radius will be 1px
-            5, ['match',
-              ['get', 'nexus'],
-              'true', 2,
-              3
+          id: 'userActivities',
+          source: 'userActivitiesSource',
+          type: 'circle',
+          paint: {
+            'circle-radius': [
+              "interpolate", ["linear"], ["zoom"],
+              // zoom is 5 (or less) -> circle radius will be 1px
+              5, ['match',
+                ['get', 'nexus'],
+                'true', 2,
+                1
+              ],
+              // zoom is 10 (or greater) -> circle radius will be 5px
+              12, ['match',
+                ['get', 'nexus'],
+                'true', 10,
+                5
+              ]
             ],
-            // zoom is 10 (or greater) -> circle radius will be 5px
-            12, ['match',
-              ['get', 'nexus'],
-              'true', 10,
-              7
+
+            'circle-color': [
+              'match',
+              ['get', 'name'],
+              'bike', '#fbb03b',
+              'parkour', '#223b53',
+              'running', '#e55e5e',
+              'yoga', '#3bb2d0',
+              'rgba(215, 93, 0, 0.8)'
             ]
-          ],
+          }
+        });
 
-          'circle-color': [
-            'match',
-            ['get', 'name'],
-            'bike', '#fbb03b',
-            'parkour', '#223b53',
-            'running', '#e55e5e',
-            'yoga', '#3bb2d0',
-            'rgba(215, 93, 0, 0.8)'
-          ]
-        }
       });
-
-    });
 
       ['userActivities'].forEach(activityType => {
         this.map.on('mouseenter', activityType, () => {
@@ -529,7 +529,7 @@ class App extends Component {
         element: '.mapbox-gl-draw_point',
         intro: 'Utiliza el lápiz para añadir la iniciativa al mapa. Antes deberás estar registrado en la plataforma.',
       },
-      
+
     ];
 
     return (

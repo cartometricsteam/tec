@@ -16,7 +16,9 @@ class Help extends Component {
 
               <div className='row'>
                   <div className='col-md-12 col-lg-12 col-sm-12 text-center'>
+
                     <button type='button' className='btn btn-primary-filters btn-sm' onClick={() => this.props.handler(false)}>¡Comenzar!</button>
+
                   </div>
                 </div>
 
@@ -25,7 +27,16 @@ class Help extends Component {
 
               <div className='container'>
 
+              <div className='row'>
+                <div className='col-md-12 col-lg-12 col-sm-12 text-center'>
+                  <p className='text'>Contáctanos:</p>
 
+                <a href='mailto:info@teciudadania.uma.es' style={{paddingRight:'20px'}}><img class='' src='/assets/img/mail.png'></img></a>
+                <a href='https://twitter.com/teciudadania?lang=es' style={{paddingRight:'20px'}}><img class='' src='/assets/img/twitter.png'></img></a>
+                <a href='https://www.facebook.com/teciudadania.ciudadania.1' style={{paddingRight:'20px'}}><img class='' src='/assets/img/facebook.png'></img></a>
+                <a href='https://www.instagram.com/teciudadania/?hl=es' ><img class='' src='/assets/img/instagram.png'></img></a>
+                </div>
+              </div>
 
                 <div className='row'>
                   <div className='col-md-4 col-lg-4 col-sm-12 text-center'>
@@ -63,6 +74,17 @@ class Help extends Component {
 
                     <div className='col-md-3 col-lg-3 col-sm-12 text-center'>
                       <a href='https://www.polodigital.eu/'><img className='img-responsivePolo' src='/assets/img/polo.png' /></a>
+                    </div>
+
+
+
+
+                    <div className='col-md-6 col-lg-6 col-sm-12 text-center'>
+                      <a href='https://www.uma.es/vicerrectorado-de-proyectos-estrategicos/'><img className='img-responsive' src='/assets/img/vice.png' /></a>
+                    </div>
+
+                    <div className='col-md-6 col-lg-6 col-sm-12 text-center'>
+                      <a href='https://cartometrics.com/'><img className='img-responsive' src='/assets/img/cartometrics.png' /></a>
                     </div>
 
                 </div>
