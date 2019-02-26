@@ -29,7 +29,8 @@ class FilterPanel extends Component {
         // for(var i=1; i<this.state.filters.length; i++){
             // this.state[this.state.filters[i]] = false;
             // delete this.state[this.state.filters[i]];
-            this.state.filters.splice(1,this.state.filters.length-1);
+            // this.state.filters.splice(1,this.state.filters.length-1);
+            this.state.filters.splice(1,this.state.filters.length);
         // }
         // this.setState({filters:[]});
         this.props.handler(false);
