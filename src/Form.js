@@ -78,7 +78,7 @@ class Form extends Component {
     let data = this.props.data;
     data.properties = {
       name: this.state.name,
-      url: this.state.web,
+      url: this.state.web.startsWith('http') ? this.state.web : 'https://' + this.state.web,
       address: this.state.address,
       purpose:  this.state.purpose === '' ? '' : this.state.purpose.map(purpose => purpose.label),
       action: this.state.action,
@@ -131,15 +131,10 @@ class Form extends Component {
     ]
 
     const area = [
-      {value: 'Casa de la cultura', label: 'Casa de la cultura' },
-      {value: 'Espacios virtuales', label: 'Espacios virtuales' },
-      {value: 'Huerto urbano', label: 'Huerto urbano' },
-      {value: 'Solares vacios', label: 'Solares vacios' },
-      {value: 'Itinerarios urbanos', label: 'Itinerarios urbanos' },
-      {value: 'Banco de recursos', label: 'Banco de recursos' },
-      {value: 'Escuela ciudadana', label: 'Escuela ciudadana' },
-      {value: 'Lugares de encuentro', label: 'Lugares de encuentro' },
-      {value: 'Coworking', label: 'Coworking' },
+      {value: 'Espacios culturales', label: 'Espacios culturales: Centro cultural, bibliotecas, museos, universidad..' },
+      {value: 'Sedes ciudadanas', label: 'Sedes ciudadanas: Sede de asociaciones, coworking(espacios de trabajo colaborativo), talleres...' },
+      {value: 'Espacio público', label: 'Espacio público: Plazas, parques, calles, vacíos urbanos...' },
+      {value: 'Espacios virtuales', label: 'Espacios virtuales: Redes sociales, plataformas, blogs..' },
     ]
 
     let imageOk = this.state.image.length > 0 ? <span>¡Imagen subida con éxito!</span> : null

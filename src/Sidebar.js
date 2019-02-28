@@ -20,7 +20,7 @@ class Sidebar extends Component {
   };
 
   editFeature() {
-    this.props.handler({ type: 'edit', title: 'Añade una iniciativa', data: this.props.featureData.featureLocation });
+    this.props.handler({ type: 'edit', title: 'Añade una iniciativa', data: {properties: this.props.featureData,geometry: {coordinates: this.props.featureData.featureLocation}}});
   }
   
   render() {
