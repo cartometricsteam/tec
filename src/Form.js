@@ -86,7 +86,7 @@ class Form extends Component {
       enabler: this.state.enabler,
       description: this.state.description,
       image: this.state.image,
-      mail: this.props.email,
+      mail: this.state.email,
       creator: this.state.creator,
       group: this.state.group,
       twitter:this.state.twitter,
@@ -105,6 +105,7 @@ class Form extends Component {
   }
 
   render() {
+    console.log(this.props)
     const purpose = [
       { value: 'Accesibilidad', label: 'Accesibilidad: eliminación de barreras, diseño universal..' },
       { value: 'Arte urbano', label: 'Arte urbano: educación artística, graffiti..' },
