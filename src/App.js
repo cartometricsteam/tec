@@ -112,9 +112,10 @@ class App extends Component {
 
         this.setState({ data: template })
         this.map.getSource('userActivities').setData(this.state.data)
+
         this.map.removeLayer('userSelected');
         this.map.removeLayer('selectedFeature');
-
+        
       })
     }
 
@@ -188,7 +189,7 @@ class App extends Component {
             Array.from(Array(20).keys()).forEach(x => {
               filterArray.push(['match', ['at',x,['get', filterField]], filterTargets, true, false])
             })
-            return filterArray;
+            return filterArray;             
             // return filterTargets.map(target => {
             //   return (['match', target, ['get', filterField], true, false])
             // })
@@ -383,7 +384,7 @@ class App extends Component {
         this.map.on('click', activityType, e => {
           let featureProperties = e.features[0].properties,
             featureLocation = e.features[0].geometry.coordinates
-          this.setState({ featureData: { title: featureProperties.name, location: featureLocation, show: true, img: featureProperties.image, description: featureProperties.description, purpose: featureProperties.purpose, action: featureProperties.action, area: featureProperties.area, enabler: featureProperties.enabler, url: featureProperties.url, twitter: featureProperties.twitter, facebook: featureProperties.facebook, phone: featureProperties.phone, address: featureProperties.address, creator: featureProperties.creator } })
+          this.setState({ featureData: { title: featureProperties.name, location: featureLocation, show: true, img: featureProperties.image, description: featureProperties.description, purpose: featureProperties.purpose, action: featureProperties.action, area: featureProperties.area, enabler: featureProperties.enabler, url: featureProperties.url, twitter: featureProperties.twitter, facebook: featureProperties.facebook, phone: featureProperties.phone, address: featureProperties.address, creator: featureProperties.creator} })
         });
 
         this.map.on('touchend', activityType, e => {
