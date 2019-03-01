@@ -76,23 +76,26 @@ class Form extends Component {
 
   handleSubmission(event) {
     let data = this.props.data;
+    console.log(this.props.data)
     data.properties = {
       name: this.state.name,
-      url: this.state.web,
+      url: this.state.web.startsWith('http') ? this.state.web : 'https://' + this.state.web,
       address: this.state.address,
-      purpose:  this.state.purpose === '' ? '' : this.state.purpose.map(purpose => purpose.label),
+      purpose:  this.state.purpose,
       action: this.state.action,
       area: this.state.area === '' ? '' : this.state.area.map(area => area.label),
       enabler: this.state.enabler,
       description: this.state.description,
       image: this.state.image,
-      mail: this.props.email,
+      mail: this.state.email,
       creator: this.state.creator,
       group: this.state.group,
       twitter:this.state.twitter,
       facebook: this.state.facebook,
       phone: this.state.phone
     }
+
+    console.log(data)
 
     firebase.firestore().collection(this.props.collection).doc(data.properties.name + '_' + data.geometry.coordinates[0].toFixed(2) + '_' + data.geometry.coordinates[1].toFixed(2)).set(data)
       .then(() => {
@@ -102,6 +105,30 @@ class Form extends Component {
         NotificationManager.error('Ha ocurrido un error al crear la iniciativa.');
       });
     event.preventDefault();
+  }
+
+  componentDidMount () {
+    if (this.props.data.properties.featureLocation !== undefined){
+    if (this.props.data.properties.featureLocation.length > 0) {
+      this.setState({
+        email: this.props.data.properties.featureProperties.mail,
+        address: this.props.data.properties.featureProperties.address,
+        name: this.props.data.properties.featureProperties.name,
+        web: this.props.data.properties.featureProperties.url,
+        phone: this.props.data.properties.featureProperties.phone,
+        purpose: JSON.parse(this.props.data.properties.featureProperties.purpose),
+        action: '',
+        area: JSON.parse(this.props.data.properties.featureProperties.purpose),
+        enabler: '',
+        description: this.props.data.properties.featureProperties.description,
+        image: this.props.data.properties.featureProperties.image,
+        creator: this.props.data.properties.featureProperties.creator,
+        twitter: this.props.data.properties.featureProperties.twitter,
+        facebook: this.props.data.properties.featureProperties.facebook,
+        group: '',
+        file: null
+      })
+    }}
   }
 
   render() {
@@ -130,15 +157,10 @@ class Form extends Component {
     ]
 
     const area = [
-      {value: 'Casa de la cultura', label: 'Casa de la cultura' },
-      {value: 'Espacios virtuales', label: 'Espacios virtuales' },
-      {value: 'Huerto urbano', label: 'Huerto urbano' },
-      {value: 'Solares vacios', label: 'Solares vacios' },
-      {value: 'Itinerarios urbanos', label: 'Itinerarios urbanos' },
-      {value: 'Banco de recursos', label: 'Banco de recursos' },
-      {value: 'Escuela ciudadana', label: 'Escuela ciudadana' },
-      {value: 'Lugares de encuentro', label: 'Lugares de encuentro' },
-      {value: 'Coworking', label: 'Coworking' },
+      {value: 'Espacios culturales', label: 'Espacios culturales: Centro cultural, bibliotecas, museos, universidad..' },
+      {value: 'Sedes ciudadanas', label: 'Sedes ciudadanas: Sede de asociaciones, coworking(espacios de trabajo colaborativo), talleres...' },
+      {value: 'Espacio público', label: 'Espacio público: Plazas, parques, calles, vacíos urbanos...' },
+      {value: 'Espacios virtuales', label: 'Espacios virtuales: Redes sociales, plataformas, blogs..' },
     ]
 
     let imageOk = this.state.image.length > 0 ? <span>¡Imagen subida con éxito!</span> : null
@@ -192,22 +214,6 @@ class Form extends Component {
         options={area}
       />
       </div>
-          {/* <div className='form-group col-md-6'>
-            <label htmlFor='area'>Ámbito de actuación</label>
-            <select id='area' className='form-control' value={this.state.area} onChange={this.handleChange}>
-              <option value='' disabled hidden>Elige una</option>
-              <option value='Casa de la cultura'>Casa de la cultura</option>
-              <option value='Espacios virtuales'>Espacios virtuales</option>
-              <option value='Huerto urbano'>Huerto urbano</option>
-              <option value='Solares vacios'>Solares vacíos</option>
-              <option value='Itinerarios urbanos'>Itinerarios urbanos</option>
-              <option value='Banco de recursos'>Banco de recursos</option>
-              <option value='Escuela ciudadana'>Escuela ciudadana</option>
-              <option value='Lugares de encuentro'>Lugares de encuentro</option>
-              <option value='Coworking'>Coworking</option>
-            </select>
-          </div> */}
-
 
         </div>
         <div className='form-row'>

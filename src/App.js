@@ -384,7 +384,7 @@ class App extends Component {
         this.map.on('click', activityType, e => {
           let featureProperties = e.features[0].properties,
             featureLocation = e.features[0].geometry.coordinates
-          this.setState({ featureData: { title: featureProperties.name, location: featureLocation, show: true, img: featureProperties.image, description: featureProperties.description, purpose: featureProperties.purpose, action: featureProperties.action, area: featureProperties.area, enabler: featureProperties.enabler, url: featureProperties.url, twitter: featureProperties.twitter, facebook: featureProperties.facebook, phone: featureProperties.phone, address: featureProperties.address, creator: featureProperties.creator} })
+          this.setState({ featureData: {featureProperties, featureLocation, show: true}})
         });
 
         this.map.on('touchend', activityType, e => {
@@ -537,7 +537,7 @@ class App extends Component {
       <div style={style} ref={el => this.mapContainer = el} >
         <Header title={this.state.site.title} nameList={this.state.data.features.map((feature) => feature.properties.name)} buttons={this.state.site.buttons} handler={this.toggleModal} email={this.state.user.email} printData={this.printData} gotoselected={this.gotoselected} mapData={[["Name", "Description", "Website", "Lat", "Long"]]} />
         <Modal type={this.state.modal.type} removeFilters={this.removeFilters} title={this.state.modal.title} id={this.state.modal.id} subtitle={this.state.modal.subtitle} description={this.state.modal.description} email={this.state.user.email} handler={this.toggleModal} handleFilters={this.handleFilters} userLog={this.userLog} options={this.state.modal.options} data={this.state.modal.data} collection={this.state.site.collection} />
-        <Sidebar handler={this.toggleModal} collection={this.state.site.collection} action={this.state.featureData.action} enabler={this.state.featureData.enabler} purpose={this.state.featureData.purpose} area={this.state.featureData.area} title={this.state.featureData.title} location={this.state.featureData.location} img={this.state.featureData.img} userEmail={this.state.user.email} creator={this.state.featureData.creator} description={this.state.featureData.description} address={this.state.featureData.address} email={this.state.featureData.email} url={this.state.featureData.url} twitter={this.state.featureData.twitter} facebook={this.state.featureData.facebook} phone={this.state.featureData.phone} show={this.state.featureData.show} closeSidebar={this.closeSidebar} />
+        <Sidebar handler={this.toggleModal} featureData={this.state.featureData} collection={this.state.site.collection} userEmail={this.state.user.email} show={this.state.featureData.show} closeSidebar={this.closeSidebar} />
         <NotificationContainer />
         <Steps
           enabled={this.state.stepsEnabled}
