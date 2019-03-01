@@ -21,21 +21,16 @@ class FilterPanel extends Component {
         localStorage.setItem('checks',JSON.stringify(this.state));
     }
     restoreFilters() {
-        for(var i=1; i<this.state.filters.length; i++){
-            this.state[this.state.filters[i]] = false;
-            delete this.state[this.state.filters[i]];
-            // this.state.filters.splice(1, 1);
-        }
-        // for(var i=1; i<this.state.filters.length; i++){
-            // this.state[this.state.filters[i]] = false;
-            // delete this.state[this.state.filters[i]];
-            // this.state.filters.splice(1,this.state.filters.length-1);
-            this.state.filters.splice(1,this.state.filters.length);
-        // }
-        // this.setState({filters:[]});
-        this.props.handler(false);
-        this.props.removeFilters();
-    }
+       for(var i=0; i<this.state.filters.length; i++){
+           this.state[this.state.filters[i]] = false;
+           delete this.state[this.state.filters[i]];
+       }
+           this.state.filters.splice(0,this.state.filters.length);
+       this.props.handler(false);
+       this.props.removeFilters();
+   }
+
+
     handleChange(event) {
         this.setState({[event.target.id]: (this.state[event.target.id] === null || this.state[event.target.id] === undefined) ? true : !this.state[event.target.id] });
         if (this.state.filters.includes(event.target.id)){
