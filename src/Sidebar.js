@@ -3,12 +3,12 @@ import * as firebase from 'firebase';
 import {NotificationManager} from 'react-notifications';
 
 class Sidebar extends Component {
-
+  
   constructor(props) {
     super(props);
     this.deleteFeature = this.deleteFeature.bind(this)
   }
-
+  
   deleteFeature(name, coordinates) {
     firebase.firestore().collection(this.props.collection).doc(name + '_' + coordinates[0].toFixed(2) + '_' + coordinates[1].toFixed(2)).delete()
     .then(response => {
@@ -20,9 +20,7 @@ class Sidebar extends Component {
   };
 
   editFeature() {
-    let data = this.props.featureData;
-    console.log(data)
-    this.props.handler({ type: 'edit', title: 'Añade una iniciativa', data: {properties: this.props.featureData, geometry: {coordinates: this.props.featureData.featureLocation, type: "Point"}}});
+    this.props.handler({ type: 'edit', title: 'Añade una iniciativa', data: {properties: this.props.featureData,geometry: {coordinates: this.props.featureData.featureLocation}}});
   }
   
   render() {
@@ -61,7 +59,7 @@ class Sidebar extends Component {
             <a  target='_blank' href={"https://twitter.com/home?status=" + encodeURIComponent('localhost.com/#15/' + this.props.featureData.featureLocation[1] + '/' + this.props.featureData.featureLocation[0] ) } className='card-link'><i class='fa fa-twitter'></i> </a>
             <a target='_blank' href={"https://facebook.com/sharer/sharer.php?u=" + encodeURIComponent('localhost.com/#15/' + this.props.featureData.featureLocation[1] + '/' + this.props.featureData.featureLocation[0] ) } className='card-link'><i class='fa fa-facebook-square'> </i></a>
 
-             <div style={{marginLeft: '8px' }}>
+             <div>
                <span>Esta iniciativa contiene los tags: {tags}</span>
              </div>
 
