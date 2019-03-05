@@ -68,6 +68,8 @@ class Form extends Component {
   }
   handleMulti (selectedOption) {
     this.setState({ purpose: selectedOption });
+    console.log(this.state)
+
   }
 
   handleMulti_2 (selectedOption) {
@@ -76,13 +78,14 @@ class Form extends Component {
 
   handleSubmission(event) {
     let data = this.props.data;
+    data.geometry.type = 'Point';
     data.properties = {
       name: this.state.name,
-      url: this.state.web.startsWith('http') ? this.state.web : 'https://' + this.state.web,
+      url: this.state.web == '' ? this.state.web : (this.state.web.startsWith('http') ? this.state.web : 'https://' + this.state.web),
       address: this.state.address,
-      purpose:  this.state.purpose === '' ? '' : this.state.purpose.map(purpose => purpose.label),
+      purpose:  this.state.purpose === '' ? '' : this.state.purpose,
       action: this.state.action,
-      area: this.state.area === '' ? '' : this.state.area.map(area => area.label),
+      area: this.state.area === '' ? '' : this.state.area,
       enabler: this.state.enabler,
       description: this.state.description,
       image: this.state.image,
@@ -104,8 +107,31 @@ class Form extends Component {
     event.preventDefault();
   }
 
+  componentDidMount () {
+    if (this.props.data.properties.featureLocation !== undefined){
+    if (this.props.data.properties.featureLocation.length > 0) {
+      this.setState({
+        email: this.props.data.properties.featureProperties.mail,
+        address: this.props.data.properties.featureProperties.address,
+        name: this.props.data.properties.featureProperties.name,
+        web: this.props.data.properties.featureProperties.url,
+        phone: this.props.data.properties.featureProperties.phone,
+        purpose: this.props.data.properties.featureProperties.purpose === '' ? this.props.data.properties.featureProperties.purpose : JSON.parse(this.props.data.properties.featureProperties.purpose),
+        action: '',
+        area: this.props.data.properties.featureProperties.purpose === '' ? this.props.data.properties.featureProperties.purpose : JSON.parse(this.props.data.properties.featureProperties.purpose),
+        enabler: '',
+        description: this.props.data.properties.featureProperties.description,
+        image: this.props.data.properties.featureProperties.image,
+        creator: this.props.data.properties.featureProperties.creator,
+        twitter: this.props.data.properties.featureProperties.twitter,
+        facebook: this.props.data.properties.featureProperties.facebook,
+        group: '',
+        file: null
+      })
+    }}
+  }
+
   render() {
-    console.log(this.props)
     const purpose = [
       { value: 'Accesibilidad', label: 'Accesibilidad: eliminación de barreras, diseño universal..' },
       { value: 'Arte urbano', label: 'Arte urbano: educación artística, graffiti..' },
@@ -188,22 +214,6 @@ class Form extends Component {
         options={area}
       />
       </div>
-          {/* <div className='form-group col-md-6'>
-            <label htmlFor='area'>Ámbito de actuación</label>
-            <select id='area' className='form-control' value={this.state.area} onChange={this.handleChange}>
-              <option value='' disabled hidden>Elige una</option>
-              <option value='Casa de la cultura'>Casa de la cultura</option>
-              <option value='Espacios virtuales'>Espacios virtuales</option>
-              <option value='Huerto urbano'>Huerto urbano</option>
-              <option value='Solares vacios'>Solares vacíos</option>
-              <option value='Itinerarios urbanos'>Itinerarios urbanos</option>
-              <option value='Banco de recursos'>Banco de recursos</option>
-              <option value='Escuela ciudadana'>Escuela ciudadana</option>
-              <option value='Lugares de encuentro'>Lugares de encuentro</option>
-              <option value='Coworking'>Coworking</option>
-            </select>
-          </div> */}
-
 
         </div>
         <div className='form-row'>

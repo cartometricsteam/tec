@@ -25,7 +25,8 @@ class Sidebar extends Component {
   
   render() {
     if (this.props.show) {
-      let additionalInfo = [this.props.action,this.props.enabler,this.props.area,this.props.purpose].filter(info => (info !== undefined && info.length > 1 ));      
+      let additionalInfo = [this.props.featureData.featureProperties.area,this.props.featureData.featureProperties.purpose].filter(info => (info !== undefined && info.length > 1 ));      
+      console.log(additionalInfo.map(text => JSON.parse(text)))
       const url = (this.props.featureData.featureProperties.url == null || this.props.featureData.featureProperties.url == '' ) ? null :<div><a href={this.props.featureData.featureProperties.url} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>link</i>Website</a></div>,
         twitter = (this.props.featureData.featureProperties.twitter == null || this.props.featureData.featureProperties.twitter == '') ? null : <div><a href={this.props.featureData.featureProperties.twitter} target='_blank' rel="noopener noreferrer" className='card-link'><i class='fa fa-twitter'></i> Twitter</a></div>,
         email = (this.props.featureData.featureProperties.mail == null || this.props.featureData.featureProperties.mail == '') ? null : <div><a href={'mailto:' + this.props.featureData.featureProperties.mail} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>email</i> {this.props.featureData.featureProperties.mail} </a></div>,
