@@ -24,12 +24,14 @@ class Form extends Component {
       twitter: '',
       facebook: '',
       group: '',
-      file: null
+      file: null,
+        initiatives:'',
     };
-
+console.log(this.props.points);
     this.handleChange = this.handleChange.bind(this);
     this.handleMulti = this.handleMulti.bind(this);
     this.handleMulti_2 = this.handleMulti_2.bind(this);
+      this.handleMulti_3 = this.handleMulti_3.bind(this);
     this.handleSubmission = this.handleSubmission.bind(this);
       this.handleUpload = this.handleUpload.bind(this);
   }
@@ -37,7 +39,6 @@ class Form extends Component {
         if (e.target.files[0]) {
             const file = e.target.files[0];
             this.setState(() => ({file}));
-
 
             const uploadTask = storage.ref(`images/${file.name}`).put(file);
             uploadTask.on('state_changed',
@@ -60,25 +61,29 @@ class Form extends Component {
         }
     }
 
-
-
-
   handleChange(event) {
     this.setState({ [event.target.id]: event.target.value });
   }
   handleMulti (selectedOption) {
     this.setState({ purpose: selectedOption });
-    console.log(this.state)
-
   }
-
   handleMulti_2 (selectedOption) {
     this.setState({ area: selectedOption });
   }
+    handleMulti_2 (selectedOption) {
+        this.setState({ area: selectedOption });
+    }
+    handleMulti_3 (selectedOption) {
+        this.setState({ initiatives: selectedOption });
+    }
 
   handleSubmission(event) {
     let data = this.props.data;
     data.geometry.type = 'Point';
+    var relatedd=[];
+    this.state.initiatives.forEach(function (item) {
+        relatedd.push(item.value);
+    });
     data.properties = {
       name: this.state.name,
       url: this.state.web == '' ? this.state.web : (this.state.web.startsWith('http') ? this.state.web : 'https://' + this.state.web),
@@ -94,9 +99,9 @@ class Form extends Component {
       group: this.state.group,
       twitter:this.state.twitter,
       facebook: this.state.facebook,
-      phone: this.state.phone
+      phone: this.state.phone,
+        related:relatedd
     }
-
     firebase.firestore().collection(this.props.collection).doc(data.properties.name + '_' + data.geometry.coordinates[0].toFixed(2) + '_' + data.geometry.coordinates[1].toFixed(2)).set(data)
       .then(() => {
         this.props.handler(false, 'Iniciativa añadida con éxito. ¡Gracias por colaborar!', this.props.data.id);
@@ -156,6 +161,11 @@ class Form extends Component {
       { value: 'Salud', label: 'Salud: bienestar, vida saludable..' }
     ]
 
+      const pnamess= [];
+      this.props.points.forEach(function(item){
+          pnamess.push({ value: item.properties.id, label: item.properties.name })
+      })
+
     const area = [
       {value: 'Espacios culturales', label: 'Espacios culturales: Centro cultural, bibliotecas, museos, universidad..' },
       {value: 'Sedes ciudadanas', label: 'Sedes ciudadanas: Sede de asociaciones, coworking(espacios de trabajo colaborativo), talleres...' },
@@ -214,8 +224,19 @@ class Form extends Component {
         options={area}
       />
       </div>
-
         </div>
+          <div className='form-row'>
+              <div className='form-group col-md-12'>
+                  <label htmlFor='area'>Initiatives</label>
+                  <Select
+                      value={this.state.initiatives}
+                      onChange={this.handleMulti_3}
+                      isMulti={true}
+                      isSearchable={true}
+                      options={pnamess}
+                  />
+              </div>
+          </div>
         <div className='form-row'>
         <div className='form-group col-md-6'>
           <label htmlFor='description'>Descripción</label>

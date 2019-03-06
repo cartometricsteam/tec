@@ -32,7 +32,7 @@ class Modal extends Component {
                 {modalHeader}
                 <div className='modal-body'>
                   <h6>Rellena todos los campos para añadir tu iniciativa.</h6>
-                  <Form collection={this.props.collection} handler={this.props.handler} data={this.props.data} email={this.props.email} />
+                  <Form collection={this.props.collection} handler={this.props.handler} data={this.props.data} email={this.props.email} points={this.props.points}/>
                 </div>
               </div>
             </div>
