@@ -68,8 +68,6 @@ class Form extends Component {
   }
   handleMulti (selectedOption) {
     this.setState({ purpose: selectedOption });
-    console.log(this.state)
-
   }
 
   handleMulti_2 (selectedOption) {
@@ -83,9 +81,9 @@ class Form extends Component {
       name: this.state.name,
       url: this.state.web == '' ? this.state.web : (this.state.web.startsWith('http') ? this.state.web : 'https://' + this.state.web),
       address: this.state.address,
-      purpose:  this.state.purpose === '' ? '' : this.state.purpose,
+      purpose:  this.state.purpose === '' ? '' : this.state.purpose.map(item => item.value),
       action: this.state.action,
-      area: this.state.area === '' ? '' : this.state.area,
+      area: this.state.area === '' ? '' : this.state.area.map(item => item.value),
       enabler: this.state.enabler,
       description: this.state.description,
       image: this.state.image,
@@ -108,6 +106,36 @@ class Form extends Component {
   }
 
   componentDidMount () {
+    const purpose = [
+      { value: 'Accesibilidad', label: 'Accesibilidad: eliminación de barreras, diseño universal..' },
+      { value: 'Arte urbano', label: 'Arte urbano: educación artística, graffiti..' },
+      { value: 'Arquitectura', label: 'Arquitectura: patrimonio industrial, bien de interés cultural..' },
+      { value: 'Autogestión', label: 'Autogestión: gobernanza urbana, participación urbana..' },
+      { value: 'Cuidado', label: 'Cuidado: salud, alimentación, calidad de vida..' },
+      { value: 'Culto', label: 'Culto: religión, creencias, rito..' },
+      { value: 'Cultura', label: 'Cultura: educación libre, aprendizaje colaborativo..' },
+      { value: 'Deporte', label: 'Deporte: actividad física y/o lúdica, gamificación..' },
+      { value: 'Derechos sociales', label: 'Derechos sociales: derechos Humanos, igualdad de derechos y deberes..' },
+      { value: 'Diversidad', label: 'Diversidad: apoyo a la integración, atención a la diversidad..' },
+      { value: 'Educación', label: 'Educación: aprendizaje basado en proyectos, comunidades de aprendizaje, AMPA..' },
+      { value: 'Integración', label: 'Integración: interculturalidad, inmersión cultural..' },
+      { value: 'Igualdad', label: 'Igualdad: perspectiva de género, feminismo..' },
+      { value: 'Mediación', label: 'Mediación: intermediación, facilitación..' },
+      { value: 'Medio ambiente', label: 'Medio ambiente: ecología, permacultura, huertos urbanos..' },
+      { value: 'Movilidad sostenible', label: 'Movilidad sostenible: transporte público, espacios tranquilos y saludables..' },
+      { value: 'Patrimonio material', label: 'Patrimonio material: arqueología, preexistencias, vestigios..' },
+      { value: 'Patrimonio cultural inmaterial', label: 'Patrimonio cultural inmaterial:  tradiciones, costumbres, oficios..' },
+      { value: 'Política social', label: 'Política social: banco de tiempo, crowfunding (economía colaborativa), cooperativas vecinales..' },
+      { value: 'Urbanismo', label: 'Urbanismo: regeneración urbana, rutas urbanas, estrategias urbanas..' },
+      { value: 'Salud', label: 'Salud: bienestar, vida saludable..' }
+    ]
+
+    const area = [
+      {value: 'Espacios culturales', label: 'Espacios culturales: Centro cultural, bibliotecas, museos, universidad..' },
+      {value: 'Sedes ciudadanas', label: 'Sedes ciudadanas: Sede de asociaciones, coworking(espacios de trabajo colaborativo), talleres...' },
+      {value: 'Espacio público', label: 'Espacio público: Plazas, parques, calles, vacíos urbanos...' },
+      {value: 'Espacios virtuales', label: 'Espacios virtuales: Redes sociales, plataformas, blogs..' },
+    ]
     if (this.props.data.properties.featureLocation !== undefined){
     if (this.props.data.properties.featureLocation.length > 0) {
       this.setState({
@@ -116,9 +144,9 @@ class Form extends Component {
         name: this.props.data.properties.featureProperties.name,
         web: this.props.data.properties.featureProperties.url,
         phone: this.props.data.properties.featureProperties.phone,
-        purpose: this.props.data.properties.featureProperties.purpose === '' ? this.props.data.properties.featureProperties.purpose : JSON.parse(this.props.data.properties.featureProperties.purpose),
+        purpose: this.props.data.properties.featureProperties.purpose === '' ? this.props.data.properties.featureProperties.purpose : [].concat.apply([], JSON.parse(this.props.data.properties.featureProperties.purpose).map(el => purpose.filter(x => x.value === el))),
         action: '',
-        area: this.props.data.properties.featureProperties.purpose === '' ? this.props.data.properties.featureProperties.purpose : JSON.parse(this.props.data.properties.featureProperties.purpose),
+        area: this.props.data.properties.featureProperties.area === '' ? this.props.data.properties.featureProperties.area : [].concat.apply([], JSON.parse(this.props.data.properties.featureProperties.area).map(el => area.filter(x => x.value === el))),
         enabler: '',
         description: this.props.data.properties.featureProperties.description,
         image: this.props.data.properties.featureProperties.image,

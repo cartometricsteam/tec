@@ -25,8 +25,7 @@ class Sidebar extends Component {
   
   render() {
     if (this.props.show) {
-      let additionalInfo = [this.props.featureData.featureProperties.area,this.props.featureData.featureProperties.purpose].filter(info => (info !== undefined && info.length > 1 ));      
-      console.log(additionalInfo.map(text => JSON.parse(text)))
+      let additionalInfo = [this.props.featureData.featureProperties.area,this.props.featureData.featureProperties.purpose].filter(info => (info !== undefined && info.length > 1 )).map(el => JSON.parse(el));
       const url = (this.props.featureData.featureProperties.url == null || this.props.featureData.featureProperties.url == '' ) ? null :<div><a href={this.props.featureData.featureProperties.url} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>link</i>Website</a></div>,
         twitter = (this.props.featureData.featureProperties.twitter == null || this.props.featureData.featureProperties.twitter == '') ? null : <div><a href={this.props.featureData.featureProperties.twitter} target='_blank' rel="noopener noreferrer" className='card-link'><i class='fa fa-twitter'></i> Twitter</a></div>,
         email = (this.props.featureData.featureProperties.mail == null || this.props.featureData.featureProperties.mail == '') ? null : <div><a href={'mailto:' + this.props.featureData.featureProperties.mail} target='_blank' rel="noopener noreferrer" className='card-link'><i className='material-icons'>email</i> {this.props.featureData.featureProperties.mail} </a></div>,
@@ -35,7 +34,7 @@ class Sidebar extends Component {
         deletePoint = (this.props.featureData.featureProperties.creator === this.props.userEmail || this.props.userEmail === 'info.teciudadania@uma.es') ? <button className='btn btn-primary-filters btn-sm' style={{ backgroundColor: '#AF2828' }} onClick={() => this.deleteFeature(this.props.featureData.featureProperties.name, this.props.featureData.featureLocation)} >Eliminar </button> : null,
         editPoint = (this.props.featureData.featureProperties.creator === this.props.userEmail || this.props.userEmail === 'info.teciudadania@uma.es' ) ? <button className='btn btn-primary-filters btn-sm' style={{ backgroundColor: '#FF8326' }} onClick={() => this.editFeature()} >Editar </button> : null,
         img = this.props.featureData.featureProperties.image == null ? null : <img className='card-img-top' src={this.props.featureData.featureProperties.image} />,
-        tags = additionalInfo.length > 0 ? '#' + additionalInfo.map(text => text.replace(/\s/g,'')).join(' #') : <a href="mailto:info@teciudadania.uma.es">Ningún tag. ¡Contacta con nosotros y ayúdanos a mejorarla!</a>;
+        tags = additionalInfo.length > 0 ? '#' + additionalInfo.map(el => {return el.toString()}).toString().replace(/\s/g, '').split(',').join(' #') : <a href="mailto:info@teciudadania.uma.es">Ningún tag. ¡Contacta con nosotros y ayúdanos a mejorarla!</a>;
 
       return (
         <div className='card card-sidebar' style={{ overflow: 'auto' }}>
@@ -57,8 +56,8 @@ class Sidebar extends Component {
             {phone}
 
             <h6 class="text-muted" >Compartir iniciativa en:</h6>
-            <a  target='_blank' href={"https://twitter.com/home?status=" + encodeURIComponent('localhost.com/#15/' + this.props.featureData.featureLocation[1] + '/' + this.props.featureData.featureLocation[0] ) } className='card-link'><i class='fa fa-twitter'></i> </a>
-            <a target='_blank' href={"https://facebook.com/sharer/sharer.php?u=" + encodeURIComponent('localhost.com/#15/' + this.props.featureData.featureLocation[1] + '/' + this.props.featureData.featureLocation[0] ) } className='card-link'><i class='fa fa-facebook-square'> </i></a>
+            <a  target='_blank' href={"https://twitter.com/home?status=" + encodeURIComponent(window. location. hostname + '/#15/' + this.props.featureData.featureLocation[1] + '/' + this.props.featureData.featureLocation[0] ) } className='card-link'><i class='fa fa-twitter'></i> </a>
+            <a target='_blank' href={"https://facebook.com/sharer/sharer.php?u=" + encodeURIComponent(window. location. hostname + '/#15/' + this.props.featureData.featureLocation[1] + '/' + this.props.featureData.featureLocation[0] ) } className='card-link'><i class='fa fa-facebook-square'> </i></a>
 
              <div>
                <span>Esta iniciativa contiene los tags: {tags}</span>
