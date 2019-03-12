@@ -27,7 +27,7 @@ class Header extends Component {
   }
 
   printCSV() {
-    this.setState({ data: [["Name","Description","Twitter", "Facebook", "Website", "Email","Phone", "Lat", "Long"],...this.props.printData(['userActivities']).map(point => {
+    this.setState({headers: ["Name","Description","Twitter", "Facebook", "Website", "Email","Phone", "Lat", "Long"],data: [...this.props.printData(['userActivities']).map(point => {
       return [point.properties.name, point.properties.description, point.properties.twitter, point.properties.facebook, point.properties.url, point.properties.mail, point.properties.phone, point.geometry.coordinates[0], point.geometry.coordinates[1]]
     })]
   })
@@ -72,7 +72,7 @@ class Header extends Component {
           {/*<div className='container' style={{ backgroundColor: '#Ff8326' }}>*/}
           <div className='navbar-translate'>
             <a className='navbar-brand' href='/'>
-              <img class='logoImg' src={process.env.PUBLIC_URL + 'assets/img/logo2.png'} />
+              <img class='logoImg' src={process.env.PUBLIC_URL + 'assets/img/logo1.png'} />
 
             </a>
             <button onClick={this.handleClick} className='navbar-toggler' type='button' aria-expanded='false' aria-label='Toggle navigation'>
@@ -105,9 +105,9 @@ class Header extends Component {
 
               <li className='nav-item'>
 
-                  <CSVLink data={this.state.data} onClick={this.printCSV} className='nav-link'  title='Guardar como .CSV'>
+                  <CSVLink headers={this.state.headers} data={this.state.data} filename={"pic.csv"} onClick={this.printCSV} className='nav-link'  title='Guardar como .CSV'>
                         <i className='material-icons' >save</i>
-                    </CSVLink>
+                  </CSVLink>
 
               </li>
 

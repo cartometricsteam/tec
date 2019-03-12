@@ -8,43 +8,69 @@ class FilterPanel extends Component {
         }
         else {
             this.state = {
-                // active: [],
-                filters: []
+                filters: [],
+                f_zonas:[],
+                f_tematica:[]
             };
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmission = this.handleSubmission.bind(this);
     }
+
     componentWillUnmount(){
-        // console.log("will unmount");
-        // console.log(this.state);
         localStorage.setItem('checks',JSON.stringify(this.state));
     }
     restoreFilters() {
-       for(var i=0; i<this.state.filters.length; i++){
-           this.state[this.state.filters[i]] = false;
-           delete this.state[this.state.filters[i]];
-       }
-           this.state.filters.splice(0,this.state.filters.length);
-       this.props.handler(false);
-       this.props.removeFilters();
-   }
-
-
+        if(this.props.title == 'Temática') {
+            for (var i = 0; i < this.state.f_tematica.length; i++) {
+                this.state[this.state.f_tematica[i]] = false;
+                delete this.state[this.state.f_tematica[i]];
+            }
+            this.props.handler(false);
+            this.props.removeFilters(this.state.f_zonas,true);
+            this.state.f_tematica.splice(0,this.state.f_tematica.length);
+        }
+        else {
+            for (var i = 0; i < this.state.f_zonas.length; i++) {
+                this.state[this.state.f_zonas[i]] = false;
+                delete this.state[this.state.f_zonas[i]];
+            }
+            this.props.handler(false);
+            this.props.removeFilters(this.state.f_tematica,false);
+            this.state.f_zonas.splice(0,this.state.f_zonas.length);
+        }
+    }
     handleChange(event) {
         this.setState({[event.target.id]: (this.state[event.target.id] === null || this.state[event.target.id] === undefined) ? true : !this.state[event.target.id] });
-        if (this.state.filters.includes(event.target.id)){
-            var toremove = this.state.filters.indexOf(event.target.id);
-            this.state.filters.splice(toremove, 1);
+
+        if(this.props.title == 'Temática') {
+            if (this.state.f_tematica.includes(event.target.id)) {
+                var toremove = this.state.f_tematica.indexOf(event.target.id);
+                this.state.f_tematica.splice(toremove, 1);
+            }
+            else {
+                this.state.f_tematica.push(event.target.id);
+            }
         }
-        else
-        {
-            this.state.filters.push(event.target.id);
+        else {
+            if (this.state.f_zonas.includes(event.target.id)) {
+                var toremove = this.state.f_zonas.indexOf(event.target.id);
+                this.state.f_zonas.splice(toremove, 1);
+            }
+            else {
+                this.state.f_zonas.push(event.target.id);
+            }
         }
     }
     handleSubmission(event) {
-        this.props.handleFilters({[this.props.id]:this.state.filters});
-        this.props.handler(false);
+        if(this.props.title == 'Temática') {
+            this.props.handleFilters({[this.props.id]: this.state.f_tematica});
+            this.props.handler(false);
+        }
+        else {
+            this.props.handleFilters({[this.props.id]: this.state.f_zonas});
+            this.props.handler(false);
+        }
         event.preventDefault();
     }
     render() {
