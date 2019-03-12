@@ -401,8 +401,8 @@ class App extends Component {
                 this.map.on('touchend', activityType, e => {
                     let featureProperties = e.features[0].properties,
                         featureLocation = e.features[0].geometry.coordinates
-                    this.setState({ featureData: { title: featureProperties.name, location: featureLocation, show: true, img: featureProperties.image, description: featureProperties.description, purpose: featureProperties.purpose, action: featureProperties.action, area: featureProperties.area, enabler: featureProperties.enabler, url: featureProperties.url, twitter: featureProperties.twitter, facebook: featureProperties.facebook, phone: featureProperties.phone, address: featureProperties.address, creator: featureProperties.creator } })
-                });
+                        this.setState({ featureData: {featureProperties, featureLocation, show: true}})
+                    });
             })
 
             this.map.on('click', 'userActivities', e => {
