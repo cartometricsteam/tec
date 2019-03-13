@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import {NotificationManager} from 'react-notifications';
 
+const style = {
+  sidebarHeader: {
+    display: 'grid',
+    gridTemplateColumns: 'auto auto'
+  }
+}
+
 class Sidebar extends Component {
   
   constructor(props) {
@@ -38,13 +45,13 @@ class Sidebar extends Component {
 
       return (
         <div className='card card-sidebar' style={{ overflow: 'auto' }}>
-        <div className='modal-header'> <h5 className='modal-title'>{this.props.featureData.featureProperties.name}</h5><button type='button' className='close' aria-label='Close' onClick={this.props.closeSidebar}><span aria-hidden='true'>&times;</span></button></div>
+        <div className='modal-header' style={style.sidebarHeader}> <h5 className='modal-title'>{this.props.featureData.featureProperties.name}</h5><button type='button' className='close' aria-label='Close' onClick={this.props.closeSidebar}><span aria-hidden='true'>&times;</span></button></div>
           {img}
           <div className='card-body'>
 
             <h6 class="text-muted">{this.props.featureData.featureProperties.address}</h6>
 
-          <div class="blockquote undefined">  <p className=' text-justify'>{this.props.featureData.featureProperties.description}</p></div>
+          <p className='blockquote undefined text-justify'>{this.props.featureData.featureProperties.description}</p>
           <div className='backtittleTwo'>
             <div className='backtittleThree'>
             <h6 class="text-muted" style={{padding:'5px' }}>Contacto:</h6></div>

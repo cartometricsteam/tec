@@ -20,7 +20,7 @@
     "react-share": "^2.4.0",
     "react-simple-popover": "^0.2.4",
     "react-tiny-popover": "^3.4.2",
-    "vue-paypal-checkout": "^3.2.0"
+    "zipcelx": "^1.6.0"
   },
   "scripts": {
     "start": "react-scripts start",
