@@ -140,6 +140,10 @@ class Form extends Component {
       {value: 'Espacio público', label: 'Espacio público: Plazas, parques, calles, vacíos urbanos...' },
       {value: 'Espacios virtuales', label: 'Espacios virtuales: Redes sociales, plataformas, blogs..' },
     ]
+    const allNames = this.props.points.map(item => {
+      return { value: item.properties.id, label: item.properties.name }
+    });
+
     if (this.props.data.properties.featureLocation !== undefined){
     if (this.props.data.properties.featureLocation.length > 0) {
       this.setState({
@@ -159,6 +163,7 @@ class Form extends Component {
         twitter: this.props.data.properties.featureProperties.twitter,
         facebook: this.props.data.properties.featureProperties.facebook,
         group: '',
+        initiatives: this.props.data.properties.featureProperties.related === '' ? this.props.data.properties.featureProperties.related : [].concat.apply([], JSON.parse(this.props.data.properties.featureProperties.related).map(el => allNames.filter(x => x.value === el))),
         file: null
       })
     }}
@@ -189,10 +194,9 @@ class Form extends Component {
       { value: 'Salud', label: 'Salud: bienestar, vida saludable..' }
     ]
 
-      const pnamess= [];
-      this.props.points.forEach(function(item){
-          pnamess.push({ value: item.properties.id, label: item.properties.name })
-      })
+    const pnamess = this.props.points.map(item => {
+      return { value: item.properties.id, label: item.properties.name }
+    });
 
     const area = [
       {value: 'Espacios culturales', label: 'Espacios culturales: Centro cultural, bibliotecas, museos, universidad..' },
