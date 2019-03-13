@@ -8,6 +8,7 @@ class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: '',
       email: '',
       password: '',
       name: '',
@@ -80,6 +81,7 @@ class Form extends Component {
     let data = this.props.data;
     data.geometry.type = 'Point';
     data.properties = {
+      id: this.state.id == '' ? Math.max(...this.props.points.map(item => item.properties.id)) + Math.floor(Math.random() * 10000) + 1 : this.state.id,
       name: this.state.name,
       url: this.state.web == '' ? this.state.web : (this.state.web.startsWith('http') ? this.state.web : 'https://' + this.state.web),
       address: this.state.address,
@@ -95,7 +97,7 @@ class Form extends Component {
       twitter:this.state.twitter,
       facebook: this.state.facebook,
       phone: this.state.phone,
-      related: this.state.area === '' ? '' : this.state.initiatives.map(item => item.value)
+      related: this.state.initiatives === '' ? '' : this.state.initiatives.map(item => item.value)
     }
     firebase.firestore().collection(this.props.collection).doc(data.properties.name + '_' + data.geometry.coordinates[0].toFixed(2) + '_' + data.geometry.coordinates[1].toFixed(2)).set(data)
       .then(() => {
@@ -141,6 +143,7 @@ class Form extends Component {
     if (this.props.data.properties.featureLocation !== undefined){
     if (this.props.data.properties.featureLocation.length > 0) {
       this.setState({
+        id: this.props.data.properties.featureProperties.id,
         email: this.props.data.properties.featureProperties.mail,
         address: this.props.data.properties.featureProperties.address,
         name: this.props.data.properties.featureProperties.name,
