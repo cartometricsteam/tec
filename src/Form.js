@@ -27,7 +27,6 @@ class Form extends Component {
       file: null,
         initiatives:'',
     };
-console.log(this.props.points);
     this.handleChange = this.handleChange.bind(this);
     this.handleMulti = this.handleMulti.bind(this);
     this.handleMulti_2 = this.handleMulti_2.bind(this);
@@ -80,10 +79,6 @@ console.log(this.props.points);
   handleSubmission(event) {
     let data = this.props.data;
     data.geometry.type = 'Point';
-    var relatedd=[];
-    this.state.initiatives.forEach(function (item) {
-        relatedd.push(item.value);
-    });
     data.properties = {
       name: this.state.name,
       url: this.state.web == '' ? this.state.web : (this.state.web.startsWith('http') ? this.state.web : 'https://' + this.state.web),
@@ -100,7 +95,7 @@ console.log(this.props.points);
       twitter:this.state.twitter,
       facebook: this.state.facebook,
       phone: this.state.phone,
-        related:relatedd
+      related: this.state.area === '' ? '' : this.state.initiatives.map(item => item.value)
     }
     firebase.firestore().collection(this.props.collection).doc(data.properties.name + '_' + data.geometry.coordinates[0].toFixed(2) + '_' + data.geometry.coordinates[1].toFixed(2)).set(data)
       .then(() => {
@@ -257,7 +252,7 @@ console.log(this.props.points);
         </div>
           <div className='form-row'>
               <div className='form-group col-md-12'>
-                  <label htmlFor='area'>Initiatives</label>
+                  <label htmlFor='area'>Iniciativas</label>
                   <Select
                       value={this.state.initiatives}
                       onChange={this.handleMulti_3}

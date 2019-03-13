@@ -52,8 +52,6 @@ cleanData(data) {
     }
   };
 
-  console.log(config)
-
   zipcelx(config)
   }
 
