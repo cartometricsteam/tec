@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
 // import { fromJS } from 'immutable';
-import { CSVLink} from "react-csv";
-
+import zipcelx from 'zipcelx';
 
 class Header extends Component {
 
@@ -10,14 +9,15 @@ class Header extends Component {
     super(props);
     this.printCSV = this.printCSV.bind(this);
     this.state = {
-      isToggleOn: false,
-      data: []
+      isToggleOn: false
      };
 
     // This binding is necessary to make `this` work in the callback
     this.handleClick = this.handleClick.bind(this);
     this.handlechange = this.handlechange.bind(this);
     this.noSubmit = this.noSubmit.bind(this);
+    this.printCSV = this.printCSV.bind(this);
+    this.cleanData = this.cleanData.bind(this);
 
   }
   handleClick() {
@@ -26,11 +26,33 @@ class Header extends Component {
     }));
   }
 
+cleanData(data) {
+  let cleanedData = {}
+  if (data === undefined) {
+    cleanedData.value = ''
+    cleanedData.type = 'string'
+  }
+  else {
+    cleanedData.value = data
+    cleanedData.type = typeof data
+  }
+  return cleanedData
+}
+  
   printCSV() {
-    this.setState({headers: ["Name","Description","Twitter", "Facebook", "Website", "Email","Phone", "Lat", "Long"],data: [...this.props.printData(['userActivities']).map(point => {
-      return [point.properties.name, point.properties.description, point.properties.twitter, point.properties.facebook, point.properties.url, point.properties.mail, point.properties.phone, point.geometry.coordinates[0], point.geometry.coordinates[1]]
-    })]
+  const headers = ['Nombre', 'Descripción', 'Twitter', 'Facebook', 'URL', 'email', 'Teléfono', 'Latitud','Longitud'].map(header => {
+    return {value: header, type: 'string'}
   })
+  const config = {
+    filename: 'test',
+    sheet: {
+      data: [headers,...this.props.printData(['userActivities']).map(point => {
+        return [this.cleanData(point.properties.name), this.cleanData(point.properties.description), this.cleanData(point.properties.twitter), this.cleanData(point.properties.facebook), this.cleanData(point.properties.url), this.cleanData(point.properties.mail), this.cleanData(point.properties.phone), this.cleanData(point.geometry.coordinates[0]), this.cleanData(point.geometry.coordinates[1])]
+      })]
+    }
+  };
+
+  zipcelx(config)
   }
 
   handlechange(event){
@@ -72,7 +94,7 @@ class Header extends Component {
           {/*<div className='container' style={{ backgroundColor: '#Ff8326' }}>*/}
           <div className='navbar-translate'>
             <a className='navbar-brand' href='/'>
-              <img class='logoImg' src={process.env.PUBLIC_URL + 'assets/img/logo1.png'} />
+              <img class='logoImg' src={process.env.PUBLIC_URL + 'assets/img/logo2.png'} />
 
             </a>
             <button onClick={this.handleClick} className='navbar-toggler' type='button' aria-expanded='false' aria-label='Toggle navigation'>
@@ -104,11 +126,12 @@ class Header extends Component {
               </li>
 
               <li className='nav-item'>
-
-                  <CSVLink headers={this.state.headers} data={this.state.data} filename={"pic.csv"} onClick={this.printCSV} className='nav-link'  title='Guardar como .CSV'>
+              <a className='nav-link' title='Ddescargar' onClick={() => this.printCSV()}>
+                  <i className='material-icons'>save</i>
+                </a>
+                  {/* <CSVLink headers={this.state.headers} data={this.state.data} filename={"pic.csv"} onClick={this.printCSV} className='nav-link'  title='Guardar como .CSV'>
                         <i className='material-icons' >save</i>
-                  </CSVLink>
-
+                  </CSVLink> */}
               </li>
 
               <li className='nav-item' ><a className='nav-link' onClick={() => this.props.handler({ type: 'login', title: 'Panel de usuario' })}><i className='material-icons'>person</i>{logged}</a></li>
