@@ -34,7 +34,6 @@ class Sidebar extends Component {
     if (this.props.show) {
       let additionalInfo = [this.props.featureData.featureProperties.area,this.props.featureData.featureProperties.purpose].filter(info => (info !== undefined && info.length > 1 )).map(el => JSON.parse(el)),
       tagged; 
-      console.log(additionalInfo)
       if (additionalInfo.filter( el => el !== '')) {
         let temp = additionalInfo.map(el => {return el.toString()}).toString().replace(/\s/g, '').split(',').filter( el => el !== '').join(' #');
          tagged = temp === '' ? temp : '#' + temp;
@@ -47,8 +46,8 @@ class Sidebar extends Component {
         email = (this.props.featureData.featureProperties.mail == null || this.props.featureData.featureProperties.mail == '') ? null : <div><a href={'mailto:' + this.props.featureData.featureProperties.mail} target='_blank' rel="noopener noreferrer" className='card-link'><i className='fa fa-envelope' style={{marginLeft: '8px' }}></i> {this.props.featureData.featureProperties.mail} </a></div>,
         phone = (this.props.featureData.featureProperties.phone == null || this.props.featureData.featureProperties.phone == '') ? null : <div><a href={'tel:' + this.props.featureData.featureProperties.phone} target='_blank' rel="noopener noreferrer" className='card-link'><i className='fa fa-phone' style={{marginLeft: '8px' }}></i> {this.props.featureData.featureProperties.phone}</a></div>,
         facebook = (this.props.featureData.featureProperties.facebook == null || this.props.featureData.featureProperties.facebook == '') ? null : <div><a href={this.props.featureData.featureProperties.facebook} target='_blank' rel="noopener noreferrer" className='card-link'><i class='fa fa-facebook-square' style={{marginLeft: '8px' }}></i> Facebook</a></div>,
-        deletePoint = (this.props.featureData.featureProperties.creator === this.props.userEmail || this.props.userEmail === 'info@teciudadania.uma.es') ? <button className='btn btn-primary-filters btn-sm' style={{ backgroundColor: '#AF2828' }} onClick={() => this.deleteFeature(this.props.featureData.featureProperties.name, this.props.featureData.featureLocation)} >Eliminar </button> : null,
-        editPoint = (this.props.featureData.featureProperties.creator === this.props.userEmail || this.props.userEmail === 'info@teciudadania.uma.es' ) ? <button className='btn btn-primary-filters btn-sm' style={{ backgroundColor: '#FF8326' }} onClick={() => this.editFeature()} >Editar </button> : null,
+        deletePoint = (this.props.featureData.featureProperties.creator === this.props.userEmail || this.props.userEmail === 'info.teciudadania@uma.es') ? <button className='btn btn-primary-filters btn-sm' style={{ backgroundColor: '#AF2828' }} onClick={() => this.deleteFeature(this.props.featureData.featureProperties.name, this.props.featureData.featureLocation)} >Eliminar </button> : null,
+        editPoint = (this.props.featureData.featureProperties.creator === this.props.userEmail || this.props.userEmail === 'info.teciudadania@uma.es' ) ? <button className='btn btn-primary-filters btn-sm' style={{ backgroundColor: '#FF8326' }} onClick={() => this.editFeature()} >Editar </button> : null,
         img = this.props.featureData.featureProperties.image == null ? null : <img className='card-img-top' src={this.props.featureData.featureProperties.image} />,
         tags = tagged;
 
