@@ -259,7 +259,7 @@ class Form extends Component {
         </div>
           <div className='form-row'>
               <div className='form-group col-md-12'>
-                  <label htmlFor='area'>Iniciativas</label>
+                  <label htmlFor='area'>Iniciativas relacionadas</label>
                   <Select
                       value={this.state.initiatives}
                       onChange={this.handleMulti_3}
