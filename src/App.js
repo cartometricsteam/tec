@@ -512,6 +512,113 @@ class App extends Component {
 
             })
 
+            this.map.on('touchend', 'userActivities', e => {
+                if (this.map.getSource('userSelected') !== undefined) {
+                    this.map.removeLayer('userSelected');
+                    this.map.removeSource('userSelected');
+                    this.map.removeLayer('selectedFeature');
+                    this.map.removeSource('selectedFeature');
+                }
+
+                let clickedFeature = e.features[0];
+
+                let lines;
+                let relatedPoints;
+
+                if (clickedFeature.properties.related !== undefined) {
+                    let related = clickedFeature.properties.related.slice(1, -1).split(',').map(str => parseInt(str));
+                    relatedPoints = this.state.data.features.filter(feature => {
+                        return (related.includes(feature.properties.id))
+                    })
+
+
+                    lines = {
+                        "type": "FeatureCollection",
+                        "features": relatedPoints.map(feature => {
+                            let featureObject = {
+                                "type": "Feature",
+                                "properties": feature.properties,
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [clickedFeature.geometry.coordinates, feature.geometry.coordinates]
+                                }
+                            }
+                            return (featureObject)
+                        })
+                    }
+                }
+
+                else {
+                    lines = {
+                        "type": "FeatureCollection",
+                        "features": []
+                    };
+                    relatedPoints = [];
+                }
+
+                this.map.addLayer({
+                    id: 'userSelected',
+                    source: {
+                        'type': 'geojson',
+                        'data': lines,
+                        lineMetrics: true,
+                    },
+                    type: 'line',
+                    'layout': {
+                        'line-join': 'round',
+                        'line-cap': 'round'
+                    },
+                    'paint': {
+
+                        'line-width': 2,
+                        'line-gradient': [
+                            'interpolate',
+                            ['linear'],
+                            ['line-progress'],
+                            0, "#d75d00",
+                            0.1, "#ea6400",
+                            0.3, "#ff8326",
+                            0.5, "#ff9b51",
+                            0.7, "#ffa867",
+                            1, "#ffbb88"
+                        ]
+                    }
+                });
+
+
+
+                this.map.addLayer({
+                    id: 'selectedFeature',
+                    source: {
+                        type: 'geojson',
+                        data: turf.featureCollection([...relatedPoints, clickedFeature])
+                    },
+                    type: 'circle',
+                    paint: {
+
+                        'circle-radius': [
+                            "interpolate", ["linear"], ["zoom"],
+                            // zoom is 5 (or less) -> circle radius will be 1px
+                            5, 1,
+                            // zoom is 10 (or greater) -> circle radius will be 5px
+                            12, 4
+                        ],
+                        'circle-stroke-width': [
+                            "interpolate", ["linear"], ["zoom"],
+                            // zoom is 5 (or less) -> circle radius will be 1px
+                            5, 1,
+                            // zoom is 10 (or greater) -> circle radius will be 5px
+                            12, 6
+                        ],
+
+                        'circle-color': '#d75d00',
+                        'circle-stroke-color': '#d75d00'
+
+                    }
+                });
+
+            })
+
             this.map.on('draw.create', e => {
                 let newPoint = e.features[0];
                 this.toggleModal({ type: 'edit', title: 'Añade una iniciativa', data: newPoint });

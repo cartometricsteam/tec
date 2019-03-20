@@ -8,6 +8,7 @@ class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: '',
       email: '',
       password: '',
       name: '',
@@ -27,7 +28,6 @@ class Form extends Component {
       file: null,
         initiatives:'',
     };
-console.log(this.props.points);
     this.handleChange = this.handleChange.bind(this);
     this.handleMulti = this.handleMulti.bind(this);
     this.handleMulti_2 = this.handleMulti_2.bind(this);
@@ -80,11 +80,8 @@ console.log(this.props.points);
   handleSubmission(event) {
     let data = this.props.data;
     data.geometry.type = 'Point';
-    var relatedd=[];
-    this.state.initiatives.forEach(function (item) {
-        relatedd.push(item.value);
-    });
     data.properties = {
+      id: this.state.id == '' ? Math.max(...this.props.points.map(item => item.properties.id)) + Math.floor(Math.random() * 10000) + 1 : this.state.id,
       name: this.state.name,
       url: this.state.web == '' ? this.state.web : (this.state.web.startsWith('http') ? this.state.web : 'https://' + this.state.web),
       address: this.state.address,
@@ -100,7 +97,7 @@ console.log(this.props.points);
       twitter:this.state.twitter,
       facebook: this.state.facebook,
       phone: this.state.phone,
-        related:relatedd
+      related: this.state.initiatives === '' ? '' : this.state.initiatives.map(item => item.value)
     }
     firebase.firestore().collection(this.props.collection).doc(data.properties.name + '_' + data.geometry.coordinates[0].toFixed(2) + '_' + data.geometry.coordinates[1].toFixed(2)).set(data)
       .then(() => {
@@ -143,9 +140,14 @@ console.log(this.props.points);
       {value: 'Espacio público', label: 'Espacio público: Plazas, parques, calles, vacíos urbanos...' },
       {value: 'Espacios virtuales', label: 'Espacios virtuales: Redes sociales, plataformas, blogs..' },
     ]
+    const allNames = this.props.points.map(item => {
+      return { value: item.properties.id, label: item.properties.name }
+    });
+
     if (this.props.data.properties.featureLocation !== undefined){
     if (this.props.data.properties.featureLocation.length > 0) {
       this.setState({
+        id: this.props.data.properties.featureProperties.id,
         email: this.props.data.properties.featureProperties.mail,
         address: this.props.data.properties.featureProperties.address,
         name: this.props.data.properties.featureProperties.name,
@@ -161,6 +163,7 @@ console.log(this.props.points);
         twitter: this.props.data.properties.featureProperties.twitter,
         facebook: this.props.data.properties.featureProperties.facebook,
         group: '',
+        initiatives: this.props.data.properties.featureProperties.related === '' ? this.props.data.properties.featureProperties.related : [].concat.apply([], JSON.parse(this.props.data.properties.featureProperties.related).map(el => allNames.filter(x => x.value === el))),
         file: null
       })
     }}
@@ -191,10 +194,9 @@ console.log(this.props.points);
       { value: 'Salud', label: 'Salud: bienestar, vida saludable..' }
     ]
 
-      const pnamess= [];
-      this.props.points.forEach(function(item){
-          pnamess.push({ value: item.properties.id, label: item.properties.name })
-      })
+    const pnamess = this.props.points.map(item => {
+      return { value: item.properties.id, label: item.properties.name }
+    });
 
     const area = [
       {value: 'Espacios culturales', label: 'Espacios culturales: Centro cultural, bibliotecas, museos, universidad..' },
@@ -257,7 +259,7 @@ console.log(this.props.points);
         </div>
           <div className='form-row'>
               <div className='form-group col-md-12'>
-                  <label htmlFor='area'>Iniciativas relacionadas</label>
+                  <label htmlFor='area'>Iniciativas</label>
                   <Select
                       value={this.state.initiatives}
                       onChange={this.handleMulti_3}
