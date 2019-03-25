@@ -38,7 +38,7 @@ cleanData(data) {
   }
   return cleanedData
 }
-  
+
   printCSV() {
   const headers = ['Nombre', 'Descripción', 'Twitter', 'Facebook', 'URL', 'email', 'Teléfono', 'Latitud','Longitud'].map(header => {
     return {value: header, type: 'string'}
@@ -94,7 +94,7 @@ cleanData(data) {
           {/*<div className='container' style={{ backgroundColor: '#Ff8326' }}>*/}
           <div className='navbar-translate'>
             <a className='navbar-brand' href='/'>
-              <img class='logoImg' src={process.env.PUBLIC_URL + 'assets/img/logo2.png'} />
+              <img class='logoImg' src={process.env.PUBLIC_URL + 'assets/img/logo.svg'} />
 
             </a>
             <button onClick={this.handleClick} className='navbar-toggler' type='button' aria-expanded='false' aria-label='Toggle navigation'>

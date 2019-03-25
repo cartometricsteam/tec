@@ -4702,12 +4702,14 @@ tbody.collapse.show {
 }
 
 .card-img-top {
-      max-width: 500px;
+      width: 96%;
+      height: auto;
+
       border-top-left-radius: calc(0.25rem - 1px);
       border-top-right-radius: calc(0.25rem - 1px);
-      padding-top: 2rem;
-      margin-left: 1rem;
-      margin-right: 1rem;
+      padding-top: 0.1rem;
+      margin-left: 0.3rem;
+      margin-right: 4rem;
 }
 
 .card-img-bottom {
@@ -18119,6 +18121,9 @@ footer .pull-center {
   border-style: none;
   padding-bottom:0.2rem;
   padding-right: 0.2rem;
+  width:250px;
+
+  display:block;
 }
 
 

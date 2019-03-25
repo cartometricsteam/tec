@@ -359,13 +359,13 @@ class App extends Component {
                             5, ['match',
                                 ['get', 'nexus'],
                                 'true', 2,
-                                1
+                                3
                             ],
                             // zoom is 10 (or greater) -> circle radius will be 5px
                             12, ['match',
                                 ['get', 'nexus'],
                                 'true', 10,
-                                5
+                                7
                             ]
                         ],
 
@@ -383,7 +383,8 @@ class App extends Component {
 
             });
 
-            ['userActivities'].forEach(activityType => {
+
+            ['userActivities', 'selectedFeature'].forEach(activityType => {
                 this.map.on('mouseenter', activityType, () => {
                     this.map.getCanvas().style.cursor = 'pointer';
                 });
@@ -406,6 +407,113 @@ class App extends Component {
             })
 
             this.map.on('click', 'userActivities', e => {
+                if (this.map.getSource('userSelected') !== undefined) {
+                    this.map.removeLayer('userSelected');
+                    this.map.removeSource('userSelected');
+                    this.map.removeLayer('selectedFeature');
+                    this.map.removeSource('selectedFeature');
+                }
+
+                let clickedFeature = e.features[0];
+
+                let lines;
+                let relatedPoints;
+
+                if (clickedFeature.properties.related !== undefined) {
+                    let related = clickedFeature.properties.related.slice(1, -1).split(',').map(str => parseInt(str));
+                    relatedPoints = this.state.data.features.filter(feature => {
+                        return (related.includes(feature.properties.id))
+                    })
+
+
+                    lines = {
+                        "type": "FeatureCollection",
+                        "features": relatedPoints.map(feature => {
+                            let featureObject = {
+                                "type": "Feature",
+                                "properties": feature.properties,
+                                "geometry": {
+                                    "type": "LineString",
+                                    "coordinates": [clickedFeature.geometry.coordinates, feature.geometry.coordinates]
+                                }
+                            }
+                            return (featureObject)
+                        })
+                    }
+                }
+
+                else {
+                    lines = {
+                        "type": "FeatureCollection",
+                        "features": []
+                    };
+                    relatedPoints = [];
+                }
+
+                this.map.addLayer({
+                    id: 'userSelected',
+                    source: {
+                        'type': 'geojson',
+                        'data': lines,
+                        lineMetrics: true,
+                    },
+                    type: 'line',
+                    'layout': {
+                        'line-join': 'round',
+                        'line-cap': 'round'
+                    },
+                    'paint': {
+
+                        'line-width': 2,
+                        'line-gradient': [
+                            'interpolate',
+                            ['linear'],
+                            ['line-progress'],
+                            0, "#d75d00",
+                            0.1, "#ea6400",
+                            0.3, "#ff8326",
+                            0.5, "#ff9b51",
+                            0.7, "#ffa867",
+                            1, "#ffbb88"
+                        ]
+                    }
+                });
+
+
+
+                this.map.addLayer({
+                    id: 'selectedFeature',
+                    source: {
+                        type: 'geojson',
+                        data: turf.featureCollection([...relatedPoints, clickedFeature])
+                    },
+                    type: 'circle',
+                    paint: {
+
+                        'circle-radius': [
+                            "interpolate", ["linear"], ["zoom"],
+                            // zoom is 5 (or less) -> circle radius will be 1px
+                            5, 1,
+                            // zoom is 10 (or greater) -> circle radius will be 5px
+                            12, 4
+                        ],
+                        'circle-stroke-width': [
+                            "interpolate", ["linear"], ["zoom"],
+                            // zoom is 5 (or less) -> circle radius will be 1px
+                            5, 3,
+                            // zoom is 10 (or greater) -> circle radius will be 5px
+                            12, 8
+                        ],
+
+                        'circle-color': '#d75d00',
+                        'circle-stroke-color': '#d75d00'
+
+                    }
+                });
+
+            })
+
+            this.map.on('click', 'selectedFeature', e => {
                 if (this.map.getSource('userSelected') !== undefined) {
                     this.map.removeLayer('userSelected');
                     this.map.removeSource('userSelected');
@@ -611,7 +719,7 @@ class App extends Component {
                             12, 6
                         ],
 
-                        'circle-color': '#d75d00',
+                        'circle-color': '#000',
                         'circle-stroke-color': '#d75d00'
 
                     }
@@ -667,8 +775,6 @@ class App extends Component {
         );
     }
 }
-// IMPORTANTE, SON LOS FILTROS DE LOS BOTONES
-// [{ name: 'Iniciativas', filters: ['Accesibilidad', 'Arte urbano', 'Autogestión', 'Cuidado', 'Culto', 'Cultura', 'Deporte', 'Derechos sociales', 'Diversidad', 'Educación', 'Integración', 'Igualdad', 'Mediación', 'Medio ambiente', 'Migración', 'Movilidad sostenible', 'Patrimonio sociocultural', 'Política social', 'Regeneración urbana', 'Salud'] }, { name: 'Acción', filters: ["Taller", "Digital", "Reunión", "Acción", "Exposición", "Difusión"] }, { name: 'Área de actuación', filters: ["Casa de la cultura", "Espacios virtuales", "Huerto urbano", "Solares vacíos", "Itinerarios urbanos", "Banco de recursos", "Escuela ciudadana", "Lugares de encuentro", "Coworking"] }, { name: 'Facilitador', filters: ["Administración pública", "Asociación de vecinos/as", "Asamblea local", "Movimiento ciudadano", "Colectivo tradicional", "Obra social"] }, { name: 'Distritos', filters: ['foo', 'bar'] }]
 
 // const data_sport = {
 //   "type": "FeatureCollection",
@@ -690,7 +796,6 @@ class App extends Component {
 //   ]
 //   }
 
-// export default App;
 export {
     App as default, storage
 }
