@@ -99,6 +99,8 @@ class Form extends Component {
       phone: this.state.phone,
       related: this.state.initiatives === '' ? '' : this.state.initiatives.map(item => item.value)
     }
+    console.log(this.props.collection)
+    console.log(data)
     firebase.firestore().collection(this.props.collection).doc(data.properties.name + '_' + data.geometry.coordinates[0].toFixed(2) + '_' + data.geometry.coordinates[1].toFixed(2)).set(data)
       .then(() => {
         this.props.handler(false, 'Iniciativa añadida con éxito. ¡Gracias por colaborar!', this.props.data.id);
@@ -147,21 +149,21 @@ class Form extends Component {
     if (this.props.data.properties.featureLocation !== undefined){
     if (this.props.data.properties.featureLocation.length > 0) {
       this.setState({
-        id: this.props.data.properties.featureProperties.id,
-        email: this.props.data.properties.featureProperties.mail,
-        address: this.props.data.properties.featureProperties.address,
-        name: this.props.data.properties.featureProperties.name,
-        web: this.props.data.properties.featureProperties.url,
-        phone: this.props.data.properties.featureProperties.phone,
+        id: this.props.data.properties.featureProperties.id === undefined ? '' : this.props.data.properties.featureProperties.id,
+        email: this.props.data.properties.featureProperties.mail === undefined ? '' : this.props.data.properties.featureProperties.mail,
+        address: this.props.data.properties.featureProperties.address === undefined ? '' : this.props.data.properties.featureProperties.address,
+        name: this.props.data.properties.featureProperties.name === undefined ? '' : this.props.data.properties.featureProperties.name,
+        web: this.props.data.properties.featureProperties.url === undefined ? '' : this.props.data.properties.featureProperties.url,
+        phone: this.props.data.properties.featureProperties.phone === undefined ? '' : this.props.data.properties.featureProperties.phone,
         purpose: this.props.data.properties.featureProperties.purpose === '' ? this.props.data.properties.featureProperties.purpose : [].concat.apply([], JSON.parse(this.props.data.properties.featureProperties.purpose).map(el => purpose.filter(x => x.value === el))),
         action: '',
         area: this.props.data.properties.featureProperties.area === '' ? this.props.data.properties.featureProperties.area : [].concat.apply([], JSON.parse(this.props.data.properties.featureProperties.area).map(el => area.filter(x => x.value === el))),
         enabler: '',
-        description: this.props.data.properties.featureProperties.description,
-        image: this.props.data.properties.featureProperties.image,
-        creator: this.props.data.properties.featureProperties.creator,
-        twitter: this.props.data.properties.featureProperties.twitter,
-        facebook: this.props.data.properties.featureProperties.facebook,
+        description: this.props.data.properties.featureProperties.description === undefined ? '' : this.props.data.properties.featureProperties.description,
+        image: this.props.data.properties.featureProperties.image === undefined ? '' : this.props.data.properties.featureProperties.image,
+        creator: this.props.data.properties.featureProperties.creator === undefined ? '' : this.props.data.properties.featureProperties.creator,
+        twitter: this.props.data.properties.featureProperties.twitter === undefined ? '' : this.props.data.properties.featureProperties.twitter,
+        facebook: this.props.data.properties.featureProperties.facebook === undefined ? '' : this.props.data.properties.featureProperties.facebook,
         group: '',
         initiatives: this.props.data.properties.featureProperties.related === '' ? this.props.data.properties.featureProperties.related : [].concat.apply([], JSON.parse(this.props.data.properties.featureProperties.related).map(el => allNames.filter(x => x.value === el))),
         file: null
