@@ -4707,7 +4707,7 @@ tbody.collapse.show {
 
       border-top-left-radius: calc(0.25rem - 1px);
       border-top-right-radius: calc(0.25rem - 1px);
-      padding-top: 0.1rem;
+      padding-top: 0.9rem;
       margin-left: 0.3rem;
       margin-right: 4rem;
 }
@@ -18122,7 +18122,6 @@ footer .pull-center {
   padding-bottom:0.2rem;
   padding-right: 0.2rem;
   width:250px;
-
   display:block;
 }
 

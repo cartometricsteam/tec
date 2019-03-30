@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 // import { fromJS } from 'immutable';
 import zipcelx from 'zipcelx';
 
@@ -94,7 +95,8 @@ cleanData(data) {
           {/*<div className='container' style={{ backgroundColor: '#Ff8326' }}>*/}
           <div className='navbar-translate'>
             <a className='navbar-brand' href='/'>
-              <img class='logoImg' src={process.env.PUBLIC_URL + 'assets/img/logo.svg'} />
+
+              <img className='logoImg' src={process.env.PUBLIC_URL + 'assets/img/logo2.png'} />
 
             </a>
             <button onClick={this.handleClick} className='navbar-toggler' type='button' aria-expanded='false' aria-label='Toggle navigation'>
