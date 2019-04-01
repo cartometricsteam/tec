@@ -96,9 +96,18 @@ cleanData(data) {
           <div className='navbar-translate'>
             <a className='navbar-brand' href='/'>
 
-              <img className='logoImg' src={process.env.PUBLIC_URL + 'assets/img/logo2.png'} />
 
+            <figure className="figure">
+
+              <img className='logoImg' src={'assets/img/logo2.svg'}/>
+              <figcaption className="figure-caption">
+              <h2 className='h2logo'>PIC Málaga</h2>
+              <h7 className='h7logo'>PLATAFORMA DE INICIATIVAS CIUDADANAS</h7>
+              </figcaption>
+              </figure>
             </a>
+
+
             <button onClick={this.handleClick} className='navbar-toggler' type='button' aria-expanded='false' aria-label='Toggle navigation'>
               <span className='sr-only'>Toggle navigation</span>
               <span className='navbar-toggler-icon'></span>

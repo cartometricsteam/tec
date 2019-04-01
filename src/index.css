@@ -18121,8 +18121,35 @@ footer .pull-center {
   border-style: none;
   padding-bottom:0.2rem;
   padding-right: 0.2rem;
-  width:250px;
-  display:block;
+  max-width: 4rem;
+
+}
+
+.figure{
+  
+  display: -webkit-flex;
+}
+
+.h2logo{
+  color: #fff;
+  font-weight: bold;
+  padding-bottom: 0.1rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  margin-top:0px!important;
+  margin-bottom:0px!important;
+    line-height: 2rem!important;
+}
+
+
+.h7logo{
+  color: #002E5D;
+  font-size: 9px;
+  font-weight: bold;
+  padding-top: 0.1rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  margin-top:0px!important;
+  margin-bottom:0px!important;
+  line-height: 0px!important;
 }
 
 
