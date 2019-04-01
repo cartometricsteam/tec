@@ -170,7 +170,7 @@ class App extends Component {
             "features": []
         }
         let selected = Object.entries(filterObject).filter((entry) => entry[0] === 'district')
-        selected = selected[0] == undefined ? [] : (selected[0][1].length > 1 ? selected : [])
+        selected = selected[0] == undefined ? [] : (selected[0][1].length > 0 ? selected : [])
         if (selected.length > 0) {
             let template = {
                 "type": "FeatureCollection",
