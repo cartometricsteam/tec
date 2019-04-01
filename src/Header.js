@@ -94,8 +94,7 @@ cleanData(data) {
           {/*<div className='container' style={{ backgroundColor: '#Ff8326' }}>*/}
           <div className='navbar-translate'>
             <a className='navbar-brand' href='/'>
-              <img class='logoImg' src={process.env.PUBLIC_URL + 'assets/img/logo.svg'} />
-
+              <img class='logoImg' src={process.env.PUBLIC_URL + 'assets/img/logo.png'} />
             </a>
             <button onClick={this.handleClick} className='navbar-toggler' type='button' aria-expanded='false' aria-label='Toggle navigation'>
               <span className='sr-only'>Toggle navigation</span>
@@ -129,9 +128,6 @@ cleanData(data) {
               <a className='nav-link' title='Ddescargar' onClick={() => this.printCSV()}>
                   <i className='material-icons'>save</i>
                 </a>
-                  {/* <CSVLink headers={this.state.headers} data={this.state.data} filename={"pic.csv"} onClick={this.printCSV} className='nav-link'  title='Guardar como .CSV'>
-                        <i className='material-icons' >save</i>
-                  </CSVLink> */}
               </li>
 
               <li className='nav-item' ><a className='nav-link' onClick={() => this.props.handler({ type: 'login', title: 'Panel de usuario' })}><i className='material-icons'>person</i>{logged}</a></li>

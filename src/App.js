@@ -84,7 +84,7 @@ class App extends Component {
         for (var i = 0; i < this.state.data.features.length; i++) {
             if (this.state.data.features[i].properties.name === name) {
                 this.map.setCenter(this.state.data.features[i].geometry.coordinates);
-                this.map.setZoom(15);
+                this.map.setZoom(20);
             }
         }
     }
@@ -170,6 +170,7 @@ class App extends Component {
             "features": []
         }
         let selected = Object.entries(filterObject).filter((entry) => entry[0] === 'district')
+        selected = selected[0] == undefined ? [] : (selected[0][1].length > 1 ? selected : [])
         if (selected.length > 0) {
             let template = {
                 "type": "FeatureCollection",
@@ -358,14 +359,14 @@ class App extends Component {
                             // zoom is 5 (or less) -> circle radius will be 1px
                             5, ['match',
                                 ['get', 'nexus'],
-                                'true', 2,
+                                'true', 5,
                                 3
                             ],
                             // zoom is 10 (or greater) -> circle radius will be 5px
                             12, ['match',
                                 ['get', 'nexus'],
-                                'true', 10,
-                                7
+                                'true', 12,
+                                10
                             ]
                         ],
 

@@ -24,6 +24,7 @@ class Form extends Component {
       creator: this.props.email,
       twitter: '',
       facebook: '',
+      youtube: '',
       group: '',
       file: null,
         initiatives:'',
@@ -89,13 +90,14 @@ class Form extends Component {
       action: this.state.action,
       area: this.state.area === '' ? '' : this.state.area.map(item => item.value),
       enabler: this.state.enabler,
-      description: this.state.description,
+      description: this.state.description.replace(/\r?\n/g, '<br/>'),
       image: this.state.image,
       mail: this.state.email,
       creator: this.state.creator,
       group: this.state.group,
-      twitter:this.state.twitter,
-      facebook: this.state.facebook,
+      twitter: this.state.twitter == '' ? this.state.twitter : (this.state.twitter.startsWith('http') ? this.state.twitter : 'https://' + this.state.twitter),
+      facebook: this.state.facebook == '' ? this.state.facebook : (this.state.facebook.startsWith('http') ? this.state.facebook : 'https://' + this.state.facebook),
+      youtube: this.state.youtube == '' ? this.state.youtube : (this.state.youtube.startsWith('http') ? this.state.youtube : 'https://' + this.state.youtube),
       phone: this.state.phone,
       related: this.state.initiatives === '' ? '' : this.state.initiatives.map(item => item.value)
     }
@@ -164,6 +166,7 @@ class Form extends Component {
         creator: this.props.data.properties.featureProperties.creator === undefined ? '' : this.props.data.properties.featureProperties.creator,
         twitter: this.props.data.properties.featureProperties.twitter === undefined ? '' : this.props.data.properties.featureProperties.twitter,
         facebook: this.props.data.properties.featureProperties.facebook === undefined ? '' : this.props.data.properties.featureProperties.facebook,
+        youtube: this.props.data.properties.featureProperties.youtube === undefined ? '' : this.props.data.properties.featureProperties.youtube,
         group: '',
         initiatives: this.props.data.properties.featureProperties.related === '' ? this.props.data.properties.featureProperties.related : [].concat.apply([], JSON.parse(this.props.data.properties.featureProperties.related).map(el => allNames.filter(x => x.value === el))),
         file: null
@@ -274,12 +277,16 @@ class Form extends Component {
         <div className='form-row'>
         <div className='form-group col-md-6'>
           <label htmlFor='description'>Descripción</label>
-          <textarea className='form-control' placeholder='Describe aqui la iniciativa' id='description' rows='3' value={this.state.description} onChange={this.handleChange} />
+          <textarea className='form-control' placeholder='Describe aqui la iniciativa' id='description' rows='7' value={this.state.description} onChange={this.handleChange} />
         </div>
         <div className='form-group col-md-6'>
           <div className='form-row'>
             <label htmlFor='twitter' style={{marginBottom: '5px'}}>Twitter</label>
             <input type='text' className='form-control' id='twitter' placeholder='https://twitter.com/devtwitter' value={this.state.twitter} onChange={this.handleChange} />
+          </div>
+          <div className='form-row'>
+            <label htmlFor='youtube' style={{marginBottom: '5px'}}>Youtube</label>
+            <input type='text' className='form-control' id='youtube' placeholder='https://youtube.com' value={this.state.youtube} onChange={this.handleChange} />
           </div>
           <div className='form-row'>
             <label htmlFor='facebook' style={{marginTop: '5px', marginBottom: '3px'}}>Facebook</label>
