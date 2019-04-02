@@ -11,6 +11,11 @@ const style = {
     display: 'grid',
     gridTemplateColumns: 'auto',
     overflow: 'auto'
+  },
+  image : {
+    // heigth: '100%',
+    // padding: 0,
+    // margin: 0
   }
 }
 
@@ -40,8 +45,17 @@ class Sidebar extends Component {
       let additionalInfo = [this.props.featureData.featureProperties.area,this.props.featureData.featureProperties.purpose].filter(info => (info !== undefined && info.length > 1 )).map(el => JSON.parse(el)),
       tagged;
       if (additionalInfo.length > 0) {
-        let temp = additionalInfo.map(el => {return el.toString()}).toString().replace(/\s/g, '').split(',').filter( el => el !== '').join(' #');
-         tagged = temp === '' ? temp : '#' + temp;
+        additionalInfo[0].unshift('ámbito')
+        if (additionalInfo[0].length > 0 && additionalInfo[1].length > 0) {
+          additionalInfo[1].unshift('y temática')
+        }
+        else if (additionalInfo[1].length > 0) {
+          additionalInfo[1].unshift('temática')
+        }
+          
+        
+        let temp = additionalInfo.map(el => {return el.toString()}).toString().replace(/\s/g, '').split(',').filter( el => el !== '').join(' #').replace('#temática',' temática ').replace('#ytemática', 'y temática ');
+         tagged = temp === '' ? temp : 'Esta iniciativa contiene tags de ' + temp;
       }
       else {
         tagged = <a href="mailto:info@teciudadania.uma.es">Esta iniciativa no contiene ningún tag. ¡Contacta con nosotros y ayúdanos a mejorarla!</a>
@@ -60,7 +74,7 @@ class Sidebar extends Component {
       return (
         <div className='card card-sidebar' style={style.card}>
         <div className='modal-header' style={style.sidebarHeader}> <h5 className='modal-title'>{this.props.featureData.featureProperties.name}</h5><button type='button' className='close' aria-label='Close' onClick={this.props.closeSidebar}><span aria-hidden='true'>&times;</span></button></div>
-        <div className="card-img-top">
+        <div className="card-img-top" style={style.image}>
           {img}
           </div>
           <div className='card-body'>

@@ -18,8 +18,24 @@ class Header extends Component {
     this.noSubmit = this.noSubmit.bind(this);
     this.printCSV = this.printCSV.bind(this);
     this.cleanData = this.cleanData.bind(this);
+    this.handleOutside = this.handleOutside.bind(this)
 
   }
+
+  componentDidMount() {
+  document.addEventListener('mousedown', this.handleOutside, false)
+  document.addEventListener('touchend', this.handleOutside, false)
+
+  }
+
+  handleOutside (e) {
+    if(!this.node.contains(e.target)) {
+      this.setState(state => ({
+        isToggleOn: false
+      }))
+    }
+  }
+
   handleClick() {
     this.setState(state => ({
       isToggleOn: !state.isToggleOn
@@ -89,7 +105,7 @@ cleanData(data) {
     })
 
     return (
-      <header>
+      <header ref={node => this.node = node}>
         <nav className='navbar navbar-color-on-scroll fixed-top navbar-expand-lg'  style={{ backgroundColor: '#Ff8326' }}>
           {/*<div className='container' style={{ backgroundColor: '#Ff8326' }}>*/}
           <div className='navbar-translate'>
