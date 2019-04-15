@@ -37,6 +37,7 @@ class Header extends Component {
   }
 
   handleClick() {
+    this.props.close()
     this.setState(state => ({
       isToggleOn: !state.isToggleOn
     }));

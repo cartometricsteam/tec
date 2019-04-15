@@ -94,7 +94,6 @@ class App extends Component {
     }
 
     toggleModal(options, notification, id, help) {
-        // console.log(this.state);
         this.setState({ modal: options, featureData: { show: false } })
         if (notification) {
             NotificationManager.info(notification)
@@ -229,11 +228,6 @@ class App extends Component {
     // }
 
     componentDidUpdate() {
-        //   this.toggle(this.state.satelliteImage);
-        //   this.map.on('style.load', () => {
-        //     this.map.addLayer(data);
-        //     this.map.setFilter('route', this.state.filter);
-        //   });
         let unfilteredFilters = this.composeFilters(this.state.map.filter),
             filters;
         if (unfilteredFilters[1] === null) {
@@ -870,7 +864,7 @@ class App extends Component {
 
         return (
             <div style={style} ref={el => this.mapContainer = el} >
-              <Header title={this.state.site.title} nameList={this.state.data.features.map((feature) => feature.properties.name)} buttons={this.state.site.buttons} handler={this.toggleModal} email={this.state.user.email} printData={this.printData} gotoselected={this.gotoselected} mapData={[["Name", "Description", "Website", "Lat", "Long"]]} />
+              <Header title={this.state.site.title} nameList={this.state.data.features.map((feature) => feature.properties.name)} buttons={this.state.site.buttons} handler={this.toggleModal} email={this.state.user.email} printData={this.printData} gotoselected={this.gotoselected} mapData={[["Name", "Description", "Website", "Lat", "Long"]]} close={this.closeSidebar} />
               <Modal type={this.state.modal.type} removeFilters={this.removeFilters} title={this.state.modal.title} id={this.state.modal.id} subtitle={this.state.modal.subtitle} description={this.state.modal.description} email={this.state.user.email} handler={this.toggleModal} handleFilters={this.handleFilters} userLog={this.userLog} options={this.state.modal.options} data={this.state.modal.data} collection={this.state.site.collection} points={this.state.data.features}/>
               <Sidebar handler={this.toggleModal} featureData={this.state.featureData} collection={this.state.site.collection} userEmail={this.state.user.email} show={this.state.featureData.show} closeSidebar={this.closeSidebar} />
               <NotificationContainer />

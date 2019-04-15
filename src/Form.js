@@ -3,6 +3,7 @@ import {NotificationManager} from 'react-notifications';
 import * as firebase from 'firebase';
 import {storage} from './App';
 import Select from 'react-select';
+import Loader from 'react-loader-spinner';
 
 class Form extends Component {
   constructor(props) {
@@ -15,9 +16,9 @@ class Form extends Component {
       web: '',
       phone: '',
       address: '',
-      purpose: '',
+      purpose: [],
       action: '',
-      area: '',
+      area: [],
       enabler: '',
       description: '',
       image: '',
@@ -86,9 +87,9 @@ class Form extends Component {
       name: this.state.name,
       url: this.state.web == '' ? this.state.web : (this.state.web.startsWith('http') ? this.state.web : 'https://' + this.state.web),
       address: this.state.address,
-      purpose:  this.state.purpose === '' ? '' : this.state.purpose.map(item => item.value),
+      purpose:  this.state.purpose === '' ? [] : this.state.purpose.map(item => item.value),
       action: this.state.action,
-      area: this.state.area === '' ? '' : this.state.area.map(item => item.value),
+      area: this.state.area === '' ? [] : this.state.area.map(item => item.value),
       enabler: this.state.enabler,
       description: this.state.description.replace(/\r?\n/g, '<br/>'),
       image: this.state.image,
@@ -101,8 +102,6 @@ class Form extends Component {
       phone: this.state.phone,
       related: this.state.initiatives === '' ? '' : this.state.initiatives.map(item => item.value)
     }
-    console.log(this.props.collection)
-    console.log(data)
     firebase.firestore().collection(this.props.collection).doc(data.properties.name + '_' + data.geometry.coordinates[0].toFixed(2) + '_' + data.geometry.coordinates[1].toFixed(2)).set(data)
       .then(() => {
         this.props.handler(false, 'Iniciativa añadida con éxito. ¡Gracias por colaborar!', this.props.data.id);
@@ -210,7 +209,12 @@ class Form extends Component {
       {value: 'Espacios virtuales', label: 'Espacios virtuales: Redes sociales, plataformas, blogs..' },
     ]
 
-    let imageOk = this.state.image.length > 0 ? <span>¡Imagen subida con éxito!</span> : null
+    let imageOk = this.state.image.length > 0 ? <span>¡Imagen subida con éxito!</span> : (this.state.progress < 100 ? <Loader 
+    type="Oval"
+    color="#FF994F"
+    height="1rem"	
+    width="1rem"
+    /> : null);
     return (
       <form className='form' onSubmit={this.handleSubmission}>
         <div className='form-row'>
