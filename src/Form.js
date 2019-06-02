@@ -114,34 +114,34 @@ class Form extends Component {
 
   componentDidMount () {
     const purpose = [
-      { value: 'Accesibilidad', label: 'Accesibilidad: eliminación de barreras, diseño universal..' },
-      { value: 'Arte urbano', label: 'Arte urbano: educación artística, graffiti..' },
-      { value: 'Arquitectura', label: 'Arquitectura: patrimonio industrial, bien de interés cultural..' },
-      { value: 'Autogestión', label: 'Autogestión: gobernanza urbana, participación urbana..' },
-      { value: 'Cuidado', label: 'Cuidado: salud, alimentación, calidad de vida..' },
-      { value: 'Culto', label: 'Culto: religión, creencias, rito..' },
-      { value: 'Cultura', label: 'Cultura: educación libre, aprendizaje colaborativo..' },
-      { value: 'Deporte', label: 'Deporte: actividad física y/o lúdica, gamificación..' },
-      { value: 'Derechos sociales', label: 'Derechos sociales: derechos Humanos, igualdad de derechos y deberes..' },
-      { value: 'Diversidad', label: 'Diversidad: apoyo a la integración, atención a la diversidad..' },
-      { value: 'Educación', label: 'Educación: aprendizaje basado en proyectos, comunidades de aprendizaje, AMPA..' },
-      { value: 'Integración', label: 'Integración: interculturalidad, inmersión cultural..' },
-      { value: 'Igualdad', label: 'Igualdad: perspectiva de género, feminismo..' },
-      { value: 'Mediación', label: 'Mediación: intermediación, facilitación..' },
-      { value: 'Medio ambiente', label: 'Medio ambiente: ecología, permacultura, huertos urbanos..' },
-      { value: 'Movilidad sostenible', label: 'Movilidad sostenible: transporte público, espacios tranquilos y saludables..' },
-      { value: 'Patrimonio material', label: 'Patrimonio material: arqueología, preexistencias, vestigios..' },
-      { value: 'Patrimonio cultural inmaterial', label: 'Patrimonio cultural inmaterial:  tradiciones, costumbres, oficios..' },
-      { value: 'Política social', label: 'Política social: banco de tiempo, crowfunding (economía colaborativa), cooperativas vecinales..' },
-      { value: 'Urbanismo', label: 'Urbanismo: regeneración urbana, rutas urbanas, estrategias urbanas..' },
-      { value: 'Salud', label: 'Salud: bienestar, vida saludable..' }
+      { value: 'Accesibilidad', label: 'Accesibilidad: eliminación de barreras, diseño universal...' },
+      { value: 'Arte urbano', label: 'Arte urbano: educación artística, graffiti...' },
+      { value: 'Arquitectura', label: 'Arquitectura: patrimonio industrial, bien de interés cultural...' },
+      { value: 'Autogestión', label: 'Autogestión: gobernanza urbana, participación urbana...' },
+      { value: 'Cuidado', label: 'Cuidado: salud, alimentación, calidad de vida...' },
+      { value: 'Culto', label: 'Culto: religión, creencias, rito...' },
+      { value: 'Cultura', label: 'Cultura: educación libre, aprendizaje colaborativo...' },
+      { value: 'Deporte', label: 'Deporte: actividad física y/o lúdica, gamificación...' },
+      { value: 'Derechos sociales', label: 'Derechos sociales: derechos Humanos, igualdad de derechos y deberes...' },
+      { value: 'Diversidad', label: 'Diversidad: apoyo a la integración, atención a la diversidad...' },
+      { value: 'Educación', label: 'Educación: aprendizaje basado en proyectos, comunidades de aprendizaje, AMPA...' },
+      { value: 'Integración', label: 'Integración: interculturalidad, inmersión cultural...' },
+      { value: 'Igualdad', label: 'Igualdad: perspectiva de género, feminismo...' },
+      { value: 'Mediación', label: 'Mediación: intermediación, facilitación...' },
+      { value: 'Medio ambiente', label: 'Medio ambiente: ecología, permacultura, huertos urbanos...' },
+      { value: 'Movilidad sostenible', label: 'Movilidad sostenible: transporte público, espacios tranquilos y saludables...' },
+      { value: 'Patrimonio material', label: 'Patrimonio material: arqueología, preexistencias, vestigios...' },
+      { value: 'Patrimonio cultural inmaterial', label: 'Patrimonio cultural inmaterial:  tradiciones, costumbres, oficios...' },
+      { value: 'Política social', label: 'Política social: banco de tiempo, crowfunding (economía colaborativa), cooperativas vecinales...' },
+      { value: 'Urbanismo', label: 'Urbanismo: regeneración urbana, rutas urbanas, estrategias urbanas...' },
+      { value: 'Salud', label: 'Salud: bienestar, vida saludable...' }
     ]
 
     const area = [
-      {value: 'Espacios culturales', label: 'Espacios culturales: Centro cultural, bibliotecas, museos, universidad..' },
+      {value: 'Espacios culturales', label: 'Espacios culturales: Centro cultural, bibliotecas, museos, universidad...' },
       {value: 'Sedes ciudadanas', label: 'Sedes ciudadanas: Sede de asociaciones, coworking(espacios de trabajo colaborativo), talleres...' },
       {value: 'Espacio público', label: 'Espacio público: Plazas, parques, calles, vacíos urbanos...' },
-      {value: 'Espacios virtuales', label: 'Espacios virtuales: Redes sociales, plataformas, blogs..' },
+      {value: 'Espacios virtuales', label: 'Espacios virtuales: Redes sociales, plataformas, blogs...' },
     ]
     const allNames = this.props.points.map(item => {
       return { value: item.properties.id, label: item.properties.name }
@@ -175,27 +175,27 @@ class Form extends Component {
 
   render() {
     const purpose = [
-      { value: 'Accesibilidad', label: 'Accesibilidad: eliminación de barreras, diseño universal..' },
-      { value: 'Arte urbano', label: 'Arte urbano: educación artística, graffiti..' },
-      { value: 'Arquitectura', label: 'Arquitectura: patrimonio industrial, bien de interés cultural..' },
-      { value: 'Autogestión', label: 'Autogestión: gobernanza urbana, participación urbana..' },
-      { value: 'Cuidado', label: 'Cuidado: salud, alimentación, calidad de vida..' },
-      { value: 'Culto', label: 'Culto: religión, creencias, rito..' },
-      { value: 'Cultura', label: 'Cultura: educación libre, aprendizaje colaborativo..' },
-      { value: 'Deporte', label: 'Deporte: actividad física y/o lúdica, gamificación..' },
-      { value: 'Derechos sociales', label: 'Derechos sociales: derechos Humanos, igualdad de derechos y deberes..' },
-      { value: 'Diversidad', label: 'Diversidad: apoyo a la integración, atención a la diversidad..' },
-      { value: 'Educación', label: 'Educación: aprendizaje basado en proyectos, comunidades de aprendizaje, AMPA..' },
-      { value: 'Integración', label: 'Integración: interculturalidad, inmersión cultural..' },
-      { value: 'Igualdad', label: 'Igualdad: perspectiva de género, feminismo..' },
-      { value: 'Mediación', label: 'Mediación: intermediación, facilitación..' },
-      { value: 'Medio ambiente', label: 'Medio ambiente: ecología, permacultura, huertos urbanos..' },
-      { value: 'Movilidad sostenible', label: 'Movilidad sostenible: transporte público, espacios tranquilos y saludables..' },
-      { value: 'Patrimonio material', label: 'Patrimonio material: arqueología, preexistencias, vestigios..' },
-      { value: 'Patrimonio cultural inmaterial', label: 'Patrimonio cultural inmaterial:  tradiciones, costumbres, oficios..' },
-      { value: 'Política social', label: 'Política social: banco de tiempo, crowfunding (economía colaborativa), cooperativas vecinales..' },
-      { value: 'Urbanismo', label: 'Urbanismo: regeneración urbana, rutas urbanas, estrategias urbanas..' },
-      { value: 'Salud', label: 'Salud: bienestar, vida saludable..' }
+      { value: 'Accesibilidad', label: 'Accesibilidad: eliminación de barreras, diseño universal...' },
+      { value: 'Arte urbano', label: 'Arte urbano: educación artística, graffiti...' },
+      { value: 'Arquitectura', label: 'Arquitectura: patrimonio industrial, bien de interés cultural...' },
+      { value: 'Autogestión', label: 'Autogestión: gobernanza urbana, participación urbana...' },
+      { value: 'Cuidado', label: 'Cuidado: salud, alimentación, calidad de vida...' },
+      { value: 'Culto', label: 'Culto: religión, creencias, rito...' },
+      { value: 'Cultura', label: 'Cultura: educación libre, aprendizaje colaborativo...' },
+      { value: 'Deporte', label: 'Deporte: actividad física y/o lúdica, gamificación...' },
+      { value: 'Derechos sociales', label: 'Derechos sociales: derechos Humanos, igualdad de derechos y deberes...' },
+      { value: 'Diversidad', label: 'Diversidad: apoyo a la integración, atención a la diversidad...' },
+      { value: 'Educación', label: 'Educación: aprendizaje basado en proyectos, comunidades de aprendizaje, AMPA...' },
+      { value: 'Integración', label: 'Integración: interculturalidad, inmersión cultural...' },
+      { value: 'Igualdad', label: 'Igualdad: perspectiva de género, feminismo...' },
+      { value: 'Mediación', label: 'Mediación: intermediación, facilitación...' },
+      { value: 'Medio ambiente', label: 'Medio ambiente: ecología, permacultura, huertos urbanos...' },
+      { value: 'Movilidad sostenible', label: 'Movilidad sostenible: transporte público, espacios tranquilos y saludables...' },
+      { value: 'Patrimonio material', label: 'Patrimonio material: arqueología, preexistencias, vestigios...' },
+      { value: 'Patrimonio cultural inmaterial', label: 'Patrimonio cultural inmaterial:  tradiciones, costumbres, oficios...' },
+      { value: 'Política social', label: 'Política social: banco de tiempo, crowfunding (economía colaborativa), cooperativas vecinales...' },
+      { value: 'Urbanismo', label: 'Urbanismo: regeneración urbana, rutas urbanas, estrategias urbanas...' },
+      { value: 'Salud', label: 'Salud: bienestar, vida saludable...' }
     ]
 
     const pnamess = this.props.points.map(item => {
@@ -203,10 +203,10 @@ class Form extends Component {
     });
 
     const area = [
-      {value: 'Espacios culturales', label: 'Espacios culturales: Centro cultural, bibliotecas, museos, universidad..' },
+      {value: 'Espacios culturales', label: 'Espacios culturales: Centro cultural, bibliotecas, museos, universidad...' },
       {value: 'Sedes ciudadanas', label: 'Sedes ciudadanas: Sede de asociaciones, coworking(espacios de trabajo colaborativo), talleres...' },
       {value: 'Espacio público', label: 'Espacio público: Plazas, parques, calles, vacíos urbanos...' },
-      {value: 'Espacios virtuales', label: 'Espacios virtuales: Redes sociales, plataformas, blogs..' },
+      {value: 'Espacios virtuales', label: 'Espacios virtuales: Redes sociales, plataformas, blogs...' },
     ]
 
     let imageOk = this.state.image.length > 0 ? <span>¡Imagen subida con éxito!</span> : (this.state.progress < 100 ? <Loader 

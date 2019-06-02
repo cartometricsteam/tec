@@ -142,7 +142,7 @@ cleanData(data) {
               </li>
 
               <li className='nav-item'>
-              <a className='nav-link' title='Ddescargar' onClick={() => this.printCSV()}>
+              <a className='nav-link' title='Descargar' onClick={() => this.printCSV()}>
                   <i className='material-icons'>save</i>
                 </a>
               </li>
