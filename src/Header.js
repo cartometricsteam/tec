@@ -135,7 +135,11 @@ cleanData(data) {
                 </form>
               </li>
 
-            <li className='nav-item'>
+              <li className='nav-item'>
+                <button type='button' className='btn btn-primary' style={{ backgroundColor: '#Ff8326', textTransform: 'none' }} onClick={() => this.props.handler({ type: 'faqs', title: 'FAQs' })}>FAQs</button>
+              </li>
+
+              <li className='nav-item'>
                 <a className='nav-link' title='Ayuda' onClick={() => this.props.handler({ type: 'help', title: 'Plataforma de Iniciativas Ciudadanas', subtitle: '¿QUÉ INICIATIVAS CIUDADANAS HAY EN TU BARRIO?, ¿PARTICIPAS EN ALGUNA?, ¿QUIERES DARLA A CONOCER?', description: 'El objetivo de este proyecto es mostrar la ciudad de Málaga desde una perspectiva social de movimientos emergentes,iniciativas vecinales, nuevas tendencias urbanas dentro de sus barrios, dar a conocer esa realidad social -con poca visibilidad en la ciudad- además de crear una red de colectivos y asociaciones,y establecer posibles sinergias.' })}>
                   <i className='material-icons'>help</i>
                 </a>

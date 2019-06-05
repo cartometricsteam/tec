@@ -10,6 +10,7 @@
 
 # production
 #/build UNIGNORED FILE SO PM COULD SEE THE DAMN CHANGES REALTIME.
+build/
 
 # misc
 .DS_Store

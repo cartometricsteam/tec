@@ -3,6 +3,7 @@ import Dashboard from './Dashboard';
 import Help from './Help';
 import FilterPanel from './FilterPanel';
 import Form from './Form';
+import Faqs from './Faqs';
 
 class Modal extends Component {
   render() {
@@ -20,6 +21,11 @@ class Modal extends Component {
     else if (this.props.type === 'filter') {
       return (
         <FilterPanel title={this.props.title} description={this.props.description} removeFilters={this.props.removeFilters} id={this.props.id} handleFilters={this.props.handleFilters} handler={this.props.handler} options={this.props.options} />
+      )
+    }
+    if (this.props.type === 'faqs') {
+      return (
+        <Faqs title={this.props.title} handler={this.props.handler} />
       )
     }
 
