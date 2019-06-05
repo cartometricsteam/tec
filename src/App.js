@@ -7,7 +7,6 @@ import * as firebase from 'firebase';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import Modal from './Modal';
-import Legend from './Legend';
 import district from './districts.json';
 import introJs from 'intro.js';
 
