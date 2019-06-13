@@ -250,8 +250,11 @@ class App extends Component {
             style: 'mapbox://styles/mapbox/light-v9',
             center: [-4.4214, 36.7213],
             zoom: 12,
-            hash: true
+            hash: true,
+            attributionControl: false
         });
+
+        this.map.addControl(new mapboxgl.AttributionControl({ customAttribution: ['Developed by <a href="https://cartometrics.com" target="_blank"><strong>Cartometrics</strong></a>'] }), 'bottom-right');
 
         this.map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 

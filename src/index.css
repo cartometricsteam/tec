@@ -18085,6 +18085,10 @@ footer .pull-center {
 
  }
 
+.mapboxgl-ctrl.mapboxgl-ctrl-attrib p {
+  display: inline;
+}
+
 
 .portada{
   max-width:100%;
