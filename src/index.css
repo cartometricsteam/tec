@@ -18107,6 +18107,10 @@ footer .pull-center {
   padding-top:14px;
 }
 
+.sponsorVice {
+  padding-top: 21px;
+}
+
 .sponsorGeo{
   max-width:90%;
   height:auto;
@@ -18117,6 +18121,10 @@ footer .pull-center {
   max-width:100%;
   height:auto;
   padding-top:27px;
+}
+
+.cartometrics {
+  padding-top: 22px;
 }
 
 

@@ -27,68 +27,56 @@ class Help extends Component {
 
               <div className='container'>
 
-              <div className='row'>
-                <div className='col-md-12 col-lg-12 col-sm-12 text-center'>
-                  <p className='text'>Contáctanos:</p>
+                <div className='row'>
+                  <div className='col-md-12 col-lg-12 col-sm-12 text-center'>
+                    <p className='text'>Contáctanos:</p>
 
-                <a href='mailto:info@teciudadania.uma.es' style={{paddingRight:'20px'}}><img class='' src='/assets/img/mail.png'></img></a>
-                <a href='https://twitter.com/teciudadania?lang=es' style={{paddingRight:'20px'}}><img class='' src='/assets/img/twitter.png'></img></a>
-                <a href='https://www.facebook.com/teciudadania.ciudadania.1' style={{paddingRight:'20px'}}><img class='' src='/assets/img/facebook.png'></img></a>
-                <a href='https://www.instagram.com/teciudadania/?hl=es' ><img class='' src='/assets/img/instagram.png'></img></a>
+                  <a href='mailto:info@teciudadania.uma.es' style={{paddingRight:'20px'}}><img class='' src='/assets/img/mail.png'></img></a>
+                  <a href='https://twitter.com/teciudadania?lang=es' target='_blank' rel='noopener noreferrer' style={{paddingRight:'20px'}}><img class='' src='/assets/img/twitter.png'></img></a>
+                  <a href='https://www.facebook.com/teciudadania.ciudadania.1' target='_blank' rel='noopener noreferrer' style={{paddingRight:'20px'}}><img class='' src='/assets/img/facebook.png'></img></a>
+                  <a href='https://www.instagram.com/teciudadania/?hl=es' target='_blank' rel='noopener noreferrer'><img class='' src='/assets/img/instagram.png'></img></a>
+                  </div>
                 </div>
-              </div>
 
+                <div className='row' style={{ marginTop: '5px', justifyContent: 'center' }}>
+                  <div className='col-md-4 col-lg-4 col-sm-12 text-center'>
+                    <a href='https://www.uma.es/rce/' target='_blank' rel='noopener noreferrer'><img className='sponsor' src='/assets/img/rce.png' /></a>
+                  </div>
+                  <div className='col-md-6 col-lg-6 col-sm-12 text-center'>
+                    <a href='https://www.uma.es/vicerrectorado-de-proyectos-estrategicos/' target='_blank' rel='noopener noreferrer'><img className='sponsorVice' src='/assets/img/vice.png' /></a>
+                  </div>
+                </div>
                 <div className='row'>
                   <div className='col-md-4 col-lg-4 col-sm-12 text-center'>
-
-                    <a href='https://www.uma.es/rce/'><img className='sponsor' src='/assets/img/rce.png' /></a>
-
+                    <a href='https://www.uma.es/rce/' target='_blank' rel='noopener noreferrer'><img className='sponsorGeo' src='/assets/img/tec.png'/></a>
                   </div>
-
                   <div className='col-md-4 col-lg-4 col-sm-12 text-center'>
-
-                      <a href='https://www.uma.es/rce/'><img className='sponsorTec' src='/assets/img/tec.png'/></a>
-
+                    <a href='http://geotecnologias.uma.es/' target='_blank' rel='noopener noreferrer'><img className='sponsorGeo' src='/assets/img/rges.png' /></a>
                   </div>
-
                   <div className='col-md-4 col-lg-4 col-sm-12 text-center'>
-
-                    <a href='http://geotecnologias.uma.es/'><img className='sponsorGeo' src='/assets/img/rges.png' /></a>
-
+                    <a href='https://www.uma.es/rce/' target='_blank' rel='noopener noreferrer'><img className='sponsorGeo' src='/assets/img/interactividad.png' /></a>
                   </div>
-
+                </div>
+                <div className='row' style={{ justifyContent: 'center' }}>
+                  <div className='col-md-4 col-lg-4 col-sm-12 text-center'>
+                    <a href='http://www.andaluciatech.org/' target='_blank' rel='noopener noreferrer'><img className='sponsor' src='/assets/img/andtech.png' /></a>
+                  </div>
+                  <div className='col-md-5 col-lg-5 col-sm-12 text-center'>
+                    <a href='https://cartometrics.com/' target='_blank' rel='noopener noreferrer'><img className='cartometrics' src='/assets/img/cartometrics.png' /></a>
+                  </div>
+                </div>
                 <div className='row'>
-
-                <div className='col-md-3 col-lg-3 col-sm-12 text-center'>
-                  <a href='http://www.malaga.eu/'><img className='img-responsive' src='/assets/img/ayunt.png' /></a>
+                  <div className='col-md-4 col-lg-4 col-sm-12 text-center'>
+                    <a href='https://www.polodigital.eu/' target='_blank' rel='noopener noreferrer'><img className='img-responsivePolo' src='/assets/img/polo.png' /></a>
+                  </div>
+                  <div className='col-md-4 col-lg-4 col-sm-12 text-center'>
+                    <a href='http://www.malaga.eu/' target='_blank' rel='noopener noreferrer'><img className='img-responsive' src='/assets/img/ayunt.png' /></a>
+                  </div>
+                  <div className='col-md-4 col-lg-4 col-sm-12 text-center'>
+                    <a href='https://www.promalaga.es/' target='_blank' rel='noopener noreferrer'><img className='img-responsive' src='/assets/img/promalaga.png' /></a>
+                  </div>
                 </div>
 
-
-                    <div className='col-md-3 col-lg-3 col-sm-12 text-center'>
-                      <a href='http://www.andaluciatech.org/'><img className='img-responsive' src='/assets/img/andtech.png' /></a>
-                    </div>
-
-                    <div className='col-md-3 col-lg-3 col-sm-12 text-center'>
-                      <a href='https://www.promalaga.es/'><img className='img-responsive' src='/assets/img/promalaga.png' /></a>
-                    </div>
-
-                    <div className='col-md-3 col-lg-3 col-sm-12 text-center'>
-                      <a href='https://www.polodigital.eu/'><img className='img-responsivePolo' src='/assets/img/polo.png' /></a>
-                    </div>
-
-
-
-
-                    <div className='col-md-6 col-lg-6 col-sm-12 text-center'>
-                      <a href='https://www.uma.es/vicerrectorado-de-proyectos-estrategicos/'><img className='img-responsive' src='/assets/img/vice.png' /></a>
-                    </div>
-
-                    <div className='col-md-6 col-lg-6 col-sm-12 text-center'>
-                      <a href='https://cartometrics.com/'><img className='img-responsive' src='/assets/img/cartometrics.png' /></a>
-                    </div>
-
-                </div>
-                </div>
               </div>
             </div>
           </div>

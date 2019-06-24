@@ -11,7 +11,6 @@ const themes = [
   { name: 'DEPORTE:', description: 'Actividad física y/o lúdica, gamificación…' },
   { name: 'DERECHOS SOCIALES:', description: 'Derechos Humanos, igualdad de derechos y deberes,  atención a población inmigrante, acogida de refugiados…' },
   { name: 'DIVERSIDAD:', description: 'Apoyo a la integración, atención a la diversidad…' },
-  { name: 'DIVERSIDAD:', description: 'Apoyo a la integración, atención a la diversidad…' },
   { name: 'EDUCACIÓN:', description: 'Aprendizaje basado en proyectos, comunidades de aprendizaje, AMPAs…' },
   { name: 'INTEGRACIÓN:', description: 'Interculturalidad, inmersión cultural, atención a colectivos en riesgo de exclusión social, atención a la diversidad…' },
   { name: 'IGUALDAD:', description: 'Perspectiva de género, feminismo…' },
@@ -52,7 +51,7 @@ class Faqs extends Component {
               </div>
 
               <div className='backtittle' style={{ marginTop: '20px' }}><h6 style={{ padding:'5px' }}>
-                2. ¿QÚE PASA SI NO ME IDENTIFICO CON NINGUNA DE LAS TEMÁTICAS PROPUESTAS?
+                2. ¿QUÉ PASA SI NO ME IDENTIFICO CON NINGUNA DE LAS TEMÁTICAS PROPUESTAS?
               </h6></div>
               <p className='text-justify'>
                 Contacta con <a href='mailto:info@teciudadania.uma.es'>info.teciudadania@uma.es</a> para proponer nuevas temáticas y estudiaremos la propuesta para poder incorporarla al listado de temáticas.
@@ -72,7 +71,7 @@ class Faqs extends Component {
               </div>
 
               <div className='backtittle' style={{ marginTop: '20px' }}><h6 style={{ padding:'5px' }}>
-                4. ¿QÚE SIMBOLIZAN LAS LÍNEAS QUE APARECEN EN EL MAPA?
+                4. ¿QUÉ SIMBOLIZAN LAS LÍNEAS QUE APARECEN EN EL MAPA?
               </h6></div>
               <p className='text-justify'>
                 Las líneas que unen puntos con otros se corresponden con las relaciones que se establecen entre iniciativas. Éstos hilos se definen por afinidad ente iniciativas, por compartir proyectos en común, por ser colaboradoras unas con otras o por apoyarse mutuamente.
