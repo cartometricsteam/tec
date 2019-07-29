@@ -37,6 +37,12 @@ class Help extends Component {
                   <a href='https://www.instagram.com/teciudadania/?hl=es' target='_blank' rel='noopener noreferrer'><img class='' src='/assets/img/instagram.png'></img></a>
                   </div>
                 </div>
+                <div className='row'>
+                  <div className='col-md-12 col-lg-12 col-sm-12 text-center'>
+
+                  <a target="_blank" href="https://www.uma.es/secretariageneral/newsecgen/index.php?option=com_content&view=article&id=259:reglamento-de-proteccion-de-datos-de-caracter-personal-de-la-universidad-de-malaga&catid=13&Itemid=124" >Términos y condiciones</a>
+                  </div>
+                </div>
 
                 <div className='row' style={{ marginTop: '5px', justifyContent: 'center' }}>
                   <div className='col-md-4 col-lg-4 col-sm-12 text-center'>

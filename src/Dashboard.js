@@ -8,7 +8,8 @@ class Dashboard extends Component {
     this.state = {
       email: '',
       password: '',
-      forgot: false
+      forgot: false,
+      terms: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
@@ -123,6 +124,14 @@ class Dashboard extends Component {
                       <label className='form-check-label'>
                         <input className='form-check-input' type='checkbox' id='forgot' value={this.state.forgot} onChange={this.handleChange} /> Si has olvidado tu contraseña, introduce tu e-mail, marca esta casilla y pulsa "Acceder" para recuperarla
             <span className='form-check-sign'>
+                          <span className='check'></span>
+                        </span>
+                      </label>
+                    </div>
+                    <div className='form-check'>
+                      <label className='form-check-label'>
+                        <input className='form-check-input' type='checkbox' id='terms' value={this.state.terms} onChange={this.handleChange} />He leído y acepto los <a target="_blank" href="https://www.uma.es/secretariageneral/newsecgen/index.php?option=com_content&view=article&id=259:reglamento-de-proteccion-de-datos-de-caracter-personal-de-la-universidad-de-malaga&catid=13&Itemid=124">términos y condiciones</a>
+                        <span className='form-check-sign'>
                           <span className='check'></span>
                         </span>
                       </label>
