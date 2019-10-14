@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactGA from 'react-ga';
 import mapboxgl from 'mapbox-gl';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
@@ -15,6 +16,8 @@ import { Steps, Hints } from 'intro.js-react';
 import 'intro.js/introjs.css';
 require('dotenv').config();
 
+ReactGA.initialize('UA-149945198-1');
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA';
 
