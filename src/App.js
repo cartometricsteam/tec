@@ -67,7 +67,7 @@ class App extends Component {
             site: {
                 title: 'Iniciativas Ciudadanas',
                 collection: 'initiatives',
-                buttons: [{ name: 'Temática', description: 'Visualiza en el mapa el tipo de iniciativa por temática que ha sido llevada a cabo por l@s ciudadan@s.', id: 'purpose', filters: ['Accesibilidad', 'Arte urbano', 'Arquitectura', 'Autogestión', 'Cuidado', 'Culto', 'Cultura', 'Deporte', 'Derechos sociales', 'Diversidad', 'Educación', 'Integración', 'Igualdad', 'Mediación', 'Medio ambiente', 'Movilidad sostenible', 'Participación ciudadana', 'Patrimonio material', 'Patrimonio cultural inmaterial', 'Personas mayores', 'Política social',  'Urbanismo', 'Salud'] }, { name: 'Zonas', description: 'Si quieres enterarte de las iniciativas que han surgido en tu distrito o en cualquier otro, haz uso de este filtro y las verás en el mapa.', id: 'district', filters: district.features.map((feature) => feature.properties.name) }]
+                buttons: [{ name: 'Temática', description: 'Visualiza en el mapa el tipo de iniciativa por temática que ha sido llevada a cabo por l@s ciudadan@s.', id: 'purpose', filters: ['Accesibilidad', 'Arte urbano', 'Arquitectura', 'Autogestión', 'Cuidado', 'Culto', 'Cultura', 'Deporte', 'Derechos sociales', 'Diversidad', 'Educación', 'Integración', 'Igualdad', 'Mediación', 'Medio ambiente', 'Movilidad sostenible', 'Participación ciudadana', 'Patrimonio material', 'Patrimonio cultural inmaterial', 'Personas mayores', 'Política social', 'Urbanismo', 'Salud', "Gentrificación"] }, { name: 'Zonas', description: 'Si quieres enterarte de las iniciativas que han surgido en tu distrito o en cualquier otro, haz uso de este filtro y las verás en el mapa.', id: 'district', filters: district.features.map((feature) => feature.properties.name) }]
             },
             user: {
                 email: localStorage.getItem('email'),
@@ -121,8 +121,8 @@ class App extends Component {
             })
         }
 
-        if(this.state.again) {
-            this.setState(() => ({ stepsEnabled: true}));
+        if (this.state.again) {
+            this.setState(() => ({ stepsEnabled: true }));
         }
     }
     printData(selectedLayers) {
@@ -143,21 +143,20 @@ class App extends Component {
         this.setState({ user: userInfo })
     }
 
-    removeFilters(filterstoremove,t) {
-        if(this.state.map.filter.purpose != undefined)
-        {
-          if(t == true) {
-                  delete this.state.map.filter['purpose'];
-          }
-          else {
-            var purpose = filterstoremove;
-            if(filterstoremove.length>0)
-              this.setState({ map: { filter: {purpose} } });
-            else
-                this.setState({ map: { filter: {} } });
-          }
+    removeFilters(filterstoremove, t) {
+        if (this.state.map.filter.purpose != undefined) {
+            if (t == true) {
+                delete this.state.map.filter['purpose'];
+            }
+            else {
+                var purpose = filterstoremove;
+                if (filterstoremove.length > 0)
+                    this.setState({ map: { filter: { purpose } } });
+                else
+                    this.setState({ map: { filter: {} } });
+            }
         }
-        else if(t==false) {
+        else if (t == false) {
             this.setState({ map: { filter: {} } });
         }
     }
@@ -201,7 +200,7 @@ class App extends Component {
                         filterTargets = filterComponent[1];
                     let filterArray = [];
                     Array.from(Array(20).keys()).forEach(x => {
-                        filterArray.push(['match', ['at',x,['get', filterField]], filterTargets, true, false])
+                        filterArray.push(['match', ['at', x, ['get', filterField]], filterTargets, true, false])
                     })
                     return filterArray;
                     // return filterTargets.map(target => {
@@ -212,11 +211,11 @@ class App extends Component {
         // console.log(['all', ...matches.flat()])
         // return (['all', ...matches.flat()])
         let result;
-        if(['any',...matches.flat()][1] === null || ['any',...matches.flat()][1] === undefined) {
+        if (['any', ...matches.flat()][1] === null || ['any', ...matches.flat()][1] === undefined) {
             result = ['all', null]
         }
         else {
-            result = (['any',...matches.flat()])
+            result = (['any', ...matches.flat()])
         }
         return result
     }
@@ -398,14 +397,14 @@ class App extends Component {
                 this.map.on('click', activityType, e => {
                     let featureProperties = e.features[0].properties,
                         featureLocation = e.features[0].geometry.coordinates
-                    this.setState({ featureData: {featureProperties, featureLocation, show: true}})
+                    this.setState({ featureData: { featureProperties, featureLocation, show: true } })
                 });
 
                 this.map.on('touchend', activityType, e => {
                     let featureProperties = e.features[0].properties,
                         featureLocation = e.features[0].geometry.coordinates
-                        this.setState({ featureData: {featureProperties, featureLocation, show: true}})
-                    });
+                    this.setState({ featureData: { featureProperties, featureLocation, show: true } })
+                });
             })
 
             this.map.on('click', 'userActivities', e => {
@@ -870,22 +869,22 @@ class App extends Component {
 
         return (
             <div style={style} ref={el => this.mapContainer = el} >
-            <Header title={this.state.site.title} nameList={this.state.data.features.map((feature) => feature.properties.name)} buttons={this.state.site.buttons} handler={this.toggleModal} email={this.state.user.email} printData={this.printData} gotoselected={this.gotoselected} mapData={[["Name", "Description", "Website", "Lat", "Long"]]} close={this.closeSidebar} />
-            <Modal type={this.state.modal.type} removeFilters={this.removeFilters} title={this.state.modal.title} id={this.state.modal.id} subtitle={this.state.modal.subtitle} description={this.state.modal.description} email={this.state.user.email} handler={this.toggleModal} handleFilters={this.handleFilters} userLog={this.userLog} options={this.state.modal.options} data={this.state.modal.data} collection={this.state.site.collection} points={this.state.data.features}/>
-            <Sidebar handler={this.toggleModal} featureData={this.state.featureData} collection={this.state.site.collection} userEmail={this.state.user.email} show={this.state.featureData.show} closeSidebar={this.closeSidebar} />
-            <NotificationContainer />
-            <Steps
-                enabled={this.state.stepsEnabled}
-                steps={steps}
-                initialStep={initialStep}
-                onExit={this.onExit}
-                options={{
-                    nextLabel: 'Siguiente',
-                    prevLabel: 'Anterior',
-                    skipLabel: 'Saltar',
-                    doneLabel: 'Hecho'
-                }}
-            />
+                <Header title={this.state.site.title} nameList={this.state.data.features.map((feature) => feature.properties.name)} buttons={this.state.site.buttons} handler={this.toggleModal} email={this.state.user.email} printData={this.printData} gotoselected={this.gotoselected} mapData={[["Name", "Description", "Website", "Lat", "Long"]]} close={this.closeSidebar} />
+                <Modal type={this.state.modal.type} removeFilters={this.removeFilters} title={this.state.modal.title} id={this.state.modal.id} subtitle={this.state.modal.subtitle} description={this.state.modal.description} email={this.state.user.email} handler={this.toggleModal} handleFilters={this.handleFilters} userLog={this.userLog} options={this.state.modal.options} data={this.state.modal.data} collection={this.state.site.collection} points={this.state.data.features} />
+                <Sidebar handler={this.toggleModal} featureData={this.state.featureData} collection={this.state.site.collection} userEmail={this.state.user.email} show={this.state.featureData.show} closeSidebar={this.closeSidebar} />
+                <NotificationContainer />
+                <Steps
+                    enabled={this.state.stepsEnabled}
+                    steps={steps}
+                    initialStep={initialStep}
+                    onExit={this.onExit}
+                    options={{
+                        nextLabel: 'Siguiente',
+                        prevLabel: 'Anterior',
+                        skipLabel: 'Saltar',
+                        doneLabel: 'Hecho'
+                    }}
+                />
             </div>
         );
     }

@@ -3,33 +3,34 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@khanacademy/react-multi-select": "^0.3.2",
-    "@mapbox/mapbox-gl-draw": "^1.1.1",
+    "@khanacademy/react-multi-select": "^0.3.3",
+    "@mapbox/mapbox-gl-draw": "^1.1.2",
     "@turf/turf": "^5.1.6",
-    "create-react-app": "^2.1.5",
-    "firebase": "^5.8.3",
+    "create-react-app": "^2.1.8",
+    "firebase": "^7.9.1",
     "intro.js": "^2.9.3",
     "intro.js-react": "^0.2.0",
     "mapbox-gl": "^0.51.0",
-    "react": "^16.8.2",
-    "react-csv": "^1.1.1",
-    "react-dom": "^16.8.2",
+    "react": "^16.13.0",
+    "react-csv": "^1.1.2",
+    "react-dom": "^16.13.0",
     "react-ga": "^2.7.0",
     "react-loader-spinner": "^2.3.0",
     "react-notifications": "^1.4.3",
     "react-scripts": "2.1.1",
-    "react-select": "^2.4.1",
+    "react-select": "^2.4.4",
     "react-share": "^2.4.0",
     "react-simple-popover": "^0.2.4",
-    "react-tiny-popover": "^3.4.2",
-    "zipcelx": "^1.6.0"
+    "react-tiny-popover": "^3.4.5",
+    "zipcelx": "^1.6.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && firebase deploy"
+    "predeploy": "npm run build",
+    "deploy": "firebase deploy"
   },
   "eslintConfig": {
     "extends": "react-app"

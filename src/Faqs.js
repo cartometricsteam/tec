@@ -23,7 +23,9 @@ const themes = [
   { name: 'PERSONAS MAYORES:', description: 'Atención a la tercera edad, envejecimiento activo…' },
   { name: 'POLÍTICA SOCIAL:', description: 'Banco de tiempo, crowfunding (economía colaborativa), cooperativas vecinales…' },
   { name: 'URBANISMO:', description: 'Regeneración urbana, acupuntura urbana, estrategias urbanas, solares vacíos, espacio público, derivas, rutas urbana, mapping (cartografía de diagnóstico)…' },
-  { name: 'SALUD:', description: 'Bienestar, vida saludable… '}
+  { name: 'SALUD:', description: 'Bienestar, vida saludable… ' },
+  { value: 'GENTRIFICACIÓN', label: 'Turistificación, apartamentos turísticos...' }
+
 ];
 
 class Faqs extends Component {
@@ -36,7 +38,7 @@ class Faqs extends Component {
             {modalHeader}
 
             <div className='modal-body'>
-              <div className='backtittle'><h6 style={{ padding:'5px', marginTop: '0' }}>
+              <div className='backtittle'><h6 style={{ padding: '5px', marginTop: '0' }}>
                 1. ¿QUÉ DIFERENCIA HAY ENTRE UNA TEMÁTICA Y OTRA?
               </h6></div>
               <div>
@@ -50,14 +52,14 @@ class Faqs extends Component {
                 </ul>
               </div>
 
-              <div className='backtittle' style={{ marginTop: '20px' }}><h6 style={{ padding:'5px' }}>
+              <div className='backtittle' style={{ marginTop: '20px' }}><h6 style={{ padding: '5px' }}>
                 2. ¿QUÉ PASA SI NO ME IDENTIFICO CON NINGUNA DE LAS TEMÁTICAS PROPUESTAS?
               </h6></div>
               <p className='text-justify'>
                 Contacta con <a href='mailto:info@teciudadania.uma.es'>info.teciudadania@uma.es</a> para proponer nuevas temáticas y estudiaremos la propuesta para poder incorporarla al listado de temáticas.
               </p>
 
-              <div className='backtittle' style={{ marginTop: '20px' }}><h6 style={{ padding:'5px' }}>
+              <div className='backtittle' style={{ marginTop: '20px' }}><h6 style={{ padding: '5px' }}>
                 3. ¿DÓNDE SITUAR EL PUNTO DE MI INICIATIVA?
               </h6></div>
               <div>
@@ -70,7 +72,7 @@ class Faqs extends Component {
                 </ul>
               </div>
 
-              <div className='backtittle' style={{ marginTop: '20px' }}><h6 style={{ padding:'5px' }}>
+              <div className='backtittle' style={{ marginTop: '20px' }}><h6 style={{ padding: '5px' }}>
                 4. ¿QUÉ SIMBOLIZAN LAS LÍNEAS QUE APARECEN EN EL MAPA?
               </h6></div>
               <p className='text-justify'>
