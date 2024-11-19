@@ -7,7 +7,7 @@
     "@mapbox/mapbox-gl-draw": "^1.1.2",
     "@turf/turf": "^5.1.6",
     "create-react-app": "^2.1.8",
-    "firebase": "^7.9.1",
+    "firebase": "^10.9.0",
     "intro.js": "^2.9.3",
     "intro.js-react": "^0.2.0",
     "mapbox-gl": "^0.51.0",
